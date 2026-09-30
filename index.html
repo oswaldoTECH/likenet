@@ -19,6 +19,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -28,7 +29,12 @@
   * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: #0b0f19; min-height: 100vh; min-height: 100dvh; color: #f8fafc; position: relative; overscroll-behavior-y: none; -webkit-font-smoothing: antialiased; }
-  body::before { content:''; position:fixed; inset:0; background: radial-gradient(ellipse at top left, rgba(79,70,229,.18), transparent 50%), radial-gradient(ellipse at bottom right, rgba(6,182,212,.12), transparent 50%), radial-gradient(ellipse at center, rgba(139,92,246,.08), transparent 60%), linear-gradient(135deg,#0b0f19 0%,#111827 50%,#1e1b4b 100%); z-index:0; pointer-events:none; }
+  body::before { content:''; position:fixed; inset:0; background:
+    radial-gradient(ellipse at top left, rgba(79,70,229,.18), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(6,182,212,.12), transparent 50%),
+    radial-gradient(ellipse at center, rgba(139,92,246,.08), transparent 60%),
+    linear-gradient(135deg,#0b0f19 0%,#111827 50%,#1e1b4b 100%);
+    z-index:0; pointer-events:none; }
   body::after { content:''; position:fixed; inset:0; background-image:url('likenet.jpg'); background-size:480px auto; background-position:center; background-repeat:no-repeat; opacity:.02; pointer-events:none; z-index:0; }
   body > * { position:relative; z-index:1; }
 
@@ -49,6 +55,7 @@
   .sector-select { background-color: rgba(30,41,59,.95); color: #e2e8f0; cursor: pointer; }
   .sector-select option { background-color: #0f172a; color: #f8fafc; }
 
+  /* VISIBILIDAD POR ROL */
   .admin-only,.soporte-only,.tecnico-only,.auth-only,.recorridos-only { display:none !important; }
   body.r-admin .admin-only,body.r-admin .soporte-only,body.r-admin .tecnico-only,body.r-admin .auth-only,body.r-admin .recorridos-only { display:revert !important; }
   body.r-soporte .soporte-only,body.r-soporte .tecnico-only,body.r-soporte .auth-only,body.r-soporte .recorridos-only { display:revert !important; }
@@ -56,8 +63,10 @@
   body.r-recorridos .recorridos-only,body.r-recorridos .auth-only { display:revert !important; }
   body.r-viewer .auth-only { display:revert !important; }
 
+  /* OCULTAR PARA TÉCNICOS */
   body.r-tecnico .hide-tecnico { display: none !important; }
 
+  /* TAP FEEDBACK */
   .tapable { position: relative; overflow: hidden; }
   .tapable::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at center, rgba(255,255,255,.25), transparent 60%); opacity:0; transition: opacity .5s, transform .5s; transform: scale(0); pointer-events: none; }
   .tapable:active::after { opacity: 1; transform: scale(2.5); transition: 0s; }
@@ -101,12 +110,6 @@
   .shift-toggle.on .dot { background:#10b981; box-shadow:0 0 0 3px rgba(16,185,129,.25),0 0 12px rgba(16,185,129,.7); animation:pulseDot 2s ease-in-out infinite; }
   @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 3px rgba(16,185,129,.25),0 0 12px rgba(16,185,129,.7);} 50%{box-shadow:0 0 0 6px rgba(16,185,129,.12),0 0 20px rgba(16,185,129,1);} }
 
-  .bell-btn { position: relative; width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,.05); color: #fcd34d; border: 1px solid rgba(245,158,11,.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; flex-shrink: 0; }
-  .bell-btn.has-alerts { background: linear-gradient(135deg, rgba(245,158,11,.25), rgba(217,119,6,.15)); border-color: rgba(245,158,11,.6); box-shadow: 0 0 16px rgba(245,158,11,.35); }
-  .bell-btn .bell-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: #ef4444; color: white; font-size: .68rem; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #0f172a; box-shadow: 0 0 10px rgba(239,68,68,.8); animation: badgePop .4s cubic-bezier(.2,1.4,.5,1), pulseBell 2s ease-in-out infinite; }
-  @keyframes pulseBell { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-  @keyframes badgePop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-
   .phone-btn { width:34px; height:34px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background:rgba(16,185,129,.15); color:#6ee7b7; border:1px solid rgba(16,185,129,.35); cursor:pointer; font-size:.78rem; transition:all .2s; flex-shrink:0; }
   .phone-btn:active { transform:scale(.88); }
   .phone-btn.disabled { background:rgba(100,116,139,.1); border-color:rgba(100,116,139,.2); color:#64748b; cursor:not-allowed; }
@@ -128,19 +131,14 @@
   .search-bar .search-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#818cf8; font-size:1rem; pointer-events:none; }
   .search-bar .search-actions { position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:4px; }
   .search-bar .search-clear { width:32px; height:32px; border-radius:9px; display:none; align-items:center; justify-content:center; background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); cursor:pointer; font-size:.8rem; transition:all .2s; }
+  .search-bar .search-clear:active { transform:scale(.9); }
   .search-bar.has-value .search-clear { display:flex; }
 
   .search-chips { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; padding:4px 2px; }
   .search-chips::-webkit-scrollbar { display:none; }
   .search-chip { flex:0 0 auto; padding:7px 12px; border-radius:20px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); color:#94a3b8; font-size:.7rem; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap; display:inline-flex; align-items:center; gap:5px; min-height:32px; }
+  .search-chip:active { transform:scale(.95); }
   .search-chip.active { background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(139,92,246,.3)); border-color:#818cf8; color:#c7d2fe; box-shadow:0 4px 12px rgba(99,102,241,.3); }
-
-  .urgency-btn { padding:12px 8px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); color:#94a3b8; font-size:.75rem; font-weight:800; cursor:pointer; transition:all .2s; text-align:center; }
-  .urgency-btn.active { transform:scale(1.02); }
-  .urgency-btn[data-urgency="baja"].active { background:rgba(16,185,129,.2); border-color:#10b981; color:#6ee7b7; box-shadow:0 0 16px rgba(16,185,129,.3); }
-  .urgency-btn[data-urgency="media"].active { background:rgba(245,158,11,.2); border-color:#f59e0b; color:#fcd34d; box-shadow:0 0 16px rgba(245,158,11,.3); }
-  .urgency-btn[data-urgency="alta"].active { background:rgba(239,68,68,.2); border-color:#ef4444; color:#fca5a5; box-shadow:0 0 16px rgba(239,68,68,.35); animation: urgentPulse 1.5s ease-in-out infinite; }
-  @keyframes urgentPulse { 0%,100% { box-shadow: 0 0 16px rgba(239,68,68,.35); } 50% { box-shadow: 0 0 24px rgba(239,68,68,.7); } }
 
   .highlight { background:rgba(251,191,36,.45); color:#fef3c7; padding:1px 4px; border-radius:4px; font-weight:800; }
 
@@ -162,7 +160,8 @@
   .nav-item .nav-label { font-size:.58rem; letter-spacing:.2px; }
   .nav-item.active { color:#c7d2fe; background:linear-gradient(135deg, rgba(99,102,241,.2), rgba(139,92,246,.2)); }
   .nav-item.active i { transform:scale(1.15) translateY(-1px); filter:drop-shadow(0 0 8px rgba(165,180,252,.9)); }
-  .nav-item .nav-badge { position:absolute; top:2px; right:calc(50% - 22px); min-width:18px; height:18px; border-radius:9px; background:#ef4444; color:white; font-size:.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px; box-shadow:0 0 10px rgba(239,68,68,.8); }
+  .nav-item .nav-badge { position:absolute; top:2px; right:calc(50% - 22px); min-width:18px; height:18px; border-radius:9px; background:#ef4444; color:white; font-size:.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px; box-shadow:0 0 10px rgba(239,68,68,.8); animation: badgePop .4s cubic-bezier(.2,1.4,.5,1); }
+  @keyframes badgePop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
   .toast-mobile { position:fixed; left:50%; transform:translateX(-50%); bottom:calc(96px + var(--safe-bottom)); z-index:9999; padding:14px 22px; border-radius:16px; font-size:.85rem; font-weight:700; box-shadow:0 16px 40px rgba(0,0,0,.55); animation:toastSlideUp .4s cubic-bezier(.2,.9,.3,1.1); max-width:calc(100vw - 32px); text-align:center; overflow:hidden; }
   .toast-mobile::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:currentColor; opacity:.4; animation: toastBar 2.8s linear forwards; transform-origin: left; }
@@ -257,7 +256,6 @@
   .sol-type-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:8px; font-size:.6rem; font-weight:800; background:rgba(99,102,241,.18); color:#a5b4fc; border:1px solid rgba(99,102,241,.35); text-transform:uppercase; letter-spacing:.3px; }
   .sol-type-badge.amber { background:rgba(245,158,11,.18); color:#fcd34d; border-color:rgba(245,158,11,.4); }
   .sol-type-badge.violet { background:rgba(139,92,246,.18); color:#c4b5fd; border-color:rgba(139,92,246,.4); }
-  .sol-type-badge.rose { background:rgba(239,68,68,.18); color:#fca5a5; border-color:rgba(239,68,68,.4); }
 
   .log-row { display:grid; grid-template-columns:auto 1fr auto; gap:10px; padding:10px 12px; border-radius:10px; background:rgba(15,23,42,.5); border:1px solid rgba(255,255,255,.05); font-size:.78rem; margin-bottom:6px; align-items:start; }
   .log-row .log-icon { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.75rem; flex-shrink:0; }
@@ -343,13 +341,22 @@
   function bail(){
     try {
       var s = document.getElementById('appSplash');
-      if (s && !s.classList.contains('hide')) { s.classList.add('hide'); setTimeout(function(){ try{ s.remove(); }catch(e){} }, 500); }
-      var login = document.getElementById('loginScreen'); var app = document.getElementById('appContainer');
-      if (login && app && app.className.indexOf('hidden') !== -1 && login.style.display !== 'flex') { login.style.display = 'flex'; }
+      if (s && !s.classList.contains('hide')) {
+        s.classList.add('hide');
+        setTimeout(function(){ try{ s.remove(); }catch(e){} }, 500);
+      }
+      var login = document.getElementById('loginScreen');
+      var app   = document.getElementById('appContainer');
+      if (login && app && app.className.indexOf('hidden') !== -1 && login.style.display !== 'flex') {
+        login.style.display = 'flex';
+      }
     } catch(e) {}
   }
-  if (document.readyState === 'complete' || document.readyState === 'interactive') { setTimeout(bail, 2500); }
-  else { document.addEventListener('DOMContentLoaded', function(){ setTimeout(bail, 2500); }); }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(bail, 2500);
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(bail, 2500); });
+  }
   setTimeout(bail, 5000);
 })();
 window.addEventListener('error', function(e){
@@ -364,7 +371,9 @@ window.addEventListener('error', function(e){
 
 <div id="loginScreen">
   <div class="login-card">
-    <div class="brand-logo-login"><img src="likenet.jpg" alt="Likenet" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;fallback&quot;>LK</span>';"></div>
+    <div class="brand-logo-login">
+      <img src="likenet.jpg" alt="Likenet" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;fallback&quot;>LK</span>';">
+    </div>
     <h1 class="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-200">LIKENET</h1>
     <p class="text-center text-xs text-slate-400 mt-1 mb-6">Te Conecta al Mundo · Control de Personal</p>
     <form id="loginForm">
@@ -390,11 +399,6 @@ window.addEventListener('error', function(e){
     </div>
     <div class="flex items-center gap-1.5 flex-shrink-0">
       <button onclick="openGlobalSearch()" class="w-10 h-10 rounded-xl bg-white/5 text-indigo-300 border border-indigo-500/25 flex items-center justify-center active:scale-95"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <button onclick="forceRefresh()" class="w-10 h-10 rounded-xl bg-white/5 text-cyan-300 border border-cyan-500/25 flex items-center justify-center active:scale-95" title="Recargar"><i class="fa-solid fa-rotate" id="refreshIcon"></i></button>
-      <button id="bellBtn" class="bell-btn admin-only soporte-only" onclick="openSolicitudesFromBell()" title="Notificaciones">
-        <i class="fa-solid fa-bell"></i>
-        <span id="bellBadge" class="bell-badge" style="display:none">0</span>
-      </button>
       <button id="shiftToggle" class="shift-toggle" onclick="toggleMyShift()"><span class="dot"></span><span id="shiftToggleText">Fuera</span></button>
       <div class="dropdown-wrap" id="exportWrap">
         <button onclick="toggleExportMenu(event)" class="w-10 h-10 rounded-xl bg-white/5 text-indigo-300 border border-indigo-500/25 flex items-center justify-center active:scale-95"><i class="fa-solid fa-ellipsis-vertical"></i></button>
@@ -448,7 +452,9 @@ window.addEventListener('error', function(e){
     <div class="search-bar" id="squadsSearchBox">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
       <input type="search" id="squadsSearch" placeholder="Buscar cuadrilla, sector, técnico, teléfono..." autocomplete="off" oninput="onSquadsSearch()">
-      <div class="search-actions"><button type="button" class="search-clear" onclick="clearSquadsSearch()"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="search-actions">
+        <button type="button" class="search-clear" onclick="clearSquadsSearch()" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
     </div>
     <div class="search-chips">
       <button class="search-chip" data-quick="OPERATIVE" onclick="applyQuickFilter('OPERATIVE')"><span class="text-emerald-400">●</span> Operativas</button>
@@ -479,12 +485,7 @@ window.addEventListener('error', function(e){
         <option value="ALL">📋 Todos</option><option value="pendiente" selected>⏳ Pendientes</option><option value="aprobada">✅ Aprobadas</option><option value="rechazada">❌ Rechazadas</option>
       </select>
       <select id="solFilterTipo" onchange="renderSolicitudes()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
-        <option value="ALL">🎯 Todos</option>
-        <option value="solicito_ayuda">🆘 Piden ayuda</option>
-        <option value="cambio_sector">📍 Sector</option>
-        <option value="cambio_companero">👥 Compañero</option>
-        <option value="solicitud_ayuda">🤝 Ayuda a otro</option>
-        <option value="cambio_nodo_self">🛣️ Nodo</option>
+        <option value="ALL">🎯 Todos</option><option value="cambio_sector">📍 Sector</option><option value="cambio_companero">👥 Compañero</option><option value="solicitud_ayuda">🤝 Ayuda</option><option value="cambio_nodo_self">🛣️ Nodo</option>
       </select>
     </div>
     <div id="solicitudesContainer" class="space-y-3"></div>
@@ -575,7 +576,7 @@ window.addEventListener('error', function(e){
     <div class="search-bar mb-3" id="usersSearchBox">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
       <input type="search" id="usersSearch" placeholder="Buscar por nombre, usuario, rol, teléfono..." autocomplete="off" oninput="onUsersSearch()">
-      <div class="search-actions"><button type="button" class="search-clear" onclick="clearUsersSearch()"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="search-actions"><button type="button" class="search-clear" onclick="clearUsersSearch()" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button></div>
     </div>
     <div class="search-chips mb-3">
       <button class="search-chip" onclick="applyUserQuickFilter('ON')"><span class="text-emerald-400">🟢</span> En turno</button>
@@ -643,24 +644,15 @@ window.addEventListener('error', function(e){
   <div id="globalSearchResults"></div>
 </div></div>
 
-<!-- NUEVO: Modal Solicitar Ayuda (Técnico pide → Admin recibe) -->
 <div id="helpModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-hand-holding-heart text-amber-400"></i> Solicitar Ayuda</h3>
-  <p class="text-xs text-slate-400 mb-4">Envía una alerta al administrador o soporte técnico.</p>
-  <div class="confirm-check-item mb-3"><div class="ico info"><i class="fa-solid fa-user"></i></div><div class="flex-1"><p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Solicitante</p><p class="text-sm font-semibold text-slate-100" id="helpWho">—</p></div></div>
+  <p class="text-xs text-slate-400 mb-4">Elige la cuadrilla a la que quieres apoyar.</p>
   <div class="mb-3">
-    <label class="block text-xs font-medium text-slate-300 mb-1">Motivo *</label>
-    <textarea id="helpMotivo" required maxlength="200" rows="3" class="glass-input text-sm rounded-xl px-3 py-2 w-full" placeholder="Describe brevemente qué necesitas..."></textarea>
+    <div class="flex items-center justify-between mb-2"><label class="text-xs font-medium text-slate-300">Cuadrillas disponibles</label><span id="helpCountBadge" class="text-[10px] font-bold text-amber-300"></span></div>
+    <div id="helpSquadList" style="max-height:280px; overflow-y:auto;"></div>
   </div>
-  <div class="mb-3">
-    <label class="block text-xs font-medium text-slate-300 mb-1.5">Urgencia</label>
-    <div class="grid grid-cols-3 gap-2">
-      <button type="button" class="urgency-btn" data-urgency="baja" onclick="setHelpUrgency('baja')">🟢 Baja</button>
-      <button type="button" class="urgency-btn active" data-urgency="media" onclick="setHelpUrgency('media')">🟡 Media</button>
-      <button type="button" class="urgency-btn" data-urgency="alta" onclick="setHelpUrgency('alta')">🔴 Alta</button>
-    </div>
-  </div>
+  <div><label class="block text-xs font-medium text-slate-300 mb-1">Motivo *</label><textarea id="helpMotivo" required maxlength="200" rows="3" class="glass-input text-sm rounded-xl px-3 py-2 w-full" placeholder="Ej. Requieren apoyo..."></textarea></div>
   <div class="flex gap-3 mt-5 pt-3 border-t border-white/10">
     <button type="button" onclick="closeModal('helpModal')" class="flex-1 py-3 rounded-xl text-sm font-medium text-slate-300 bg-white/5">Cancelar</button>
     <button type="button" onclick="saveSolicitudAyuda()" class="flex-1 py-3 rounded-xl text-sm font-bold bg-amber-600 text-white shadow-lg active:scale-95"><i class="fa-solid fa-paper-plane mr-1"></i> Enviar</button>
@@ -891,7 +883,9 @@ window.addEventListener('error', function(e){
 </div></div>
 
 <script>
-/* FIREBASE */
+/* ============================================================
+   FIREBASE
+   ============================================================ */
 var firebaseConfig = {
   apiKey: "AIzaSyBVT9jiJa2yvJfPYKPsDSBF4vojAbEuCP4",
   authDomain: "likenet-9db06.firebaseapp.com",
@@ -916,17 +910,26 @@ function fbRef(k) { return fdb ? fdb.ref('likenet/' + k) : null; }
 
 function cleanForFirebase(obj) {
   if (obj === null || obj === undefined) return null;
-  if (Array.isArray(obj)) { var arr = []; for (var i = 0; i < obj.length; i++) arr.push(cleanForFirebase(obj[i])); return arr; }
+  if (Array.isArray(obj)) {
+    var arr = [];
+    for (var i = 0; i < obj.length; i++) arr.push(cleanForFirebase(obj[i]));
+    return arr;
+  }
   if (typeof obj === 'object') {
     var clean = {};
-    for (var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) { var v = obj[k]; if (v !== undefined) clean[k] = cleanForFirebase(v); } }
+    for (var k in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, k)) {
+        var v = obj[k];
+        if (v !== undefined) clean[k] = cleanForFirebase(v);
+      }
+    }
     return clean;
   }
   return obj;
 }
 
 function fbSave(k, d) {
-  if (!fdb) { console.warn('fbSave: sin Firebase'); return; }
+  if (!fdb) { console.warn('fbSave: Firebase no disponible'); return; }
   try {
     var cleaned = cleanForFirebase(d);
     fbRef(k).set(cleaned).then(function(){
@@ -935,26 +938,45 @@ function fbSave(k, d) {
     }).catch(function(err){
       console.error('❌ Firebase ERROR [' + k + ']:', err);
       setCloudStatus(false);
-      try { showToast('Error al guardar: ' + (err && err.message ? err.message : ''), 'error'); } catch(e) {}
+      try { showToast('Error al guardar: ' + (err && err.message ? err.message : 'desconocido'), 'error'); } catch(e) {}
     });
-  } catch(e) { console.error('❌ Firebase EXCEPTION [' + k + ']:', e); setCloudStatus(false); }
+  } catch(e) {
+    console.error('❌ Firebase EXCEPTION [' + k + ']:', e);
+    setCloudStatus(false);
+  }
 }
 function fbLoad(k) {
   if (!fdb) return Promise.resolve(null);
   return fbRef(k).get().then(function(s){ setCloudStatus(true); return s.exists() ? s.val() : null; }).catch(function(){ setCloudStatus(false); return null; });
 }
+
+/* 🔥 FUNCIÓN CLAVE: Convierte objetos de Firebase a arreglos y viceversa */
+function fbToArray(data) {
+  if (!data) return [];
+  if (Array.isArray(data)) return data;
+  var arr = [];
+  for (var key in data) {
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
+      if (!isNaN(key)) {
+        arr[parseInt(key)] = data[key];
+      } else {
+        arr.push(data[key]);
+      }
+    }
+  }
+  return arr.filter(function(x) { return x !== undefined; });
+}
+
 function fbListen(k, cb) {
   if (!fdb) return;
-  var lastStr = null;
   try {
     fbRef(k).on('value', function(s){
-      var d = s.exists() ? s.val() : null;
-      var str = JSON.stringify(d);
-      if (str === lastStr) return;
-      lastStr = str;
-      cb(d);
+      var val = s.exists() ? s.val() : null;
+      cb(val);
     });
-  } catch(e) { console.warn('fbListen error', k, e); }
+  } catch(e) {
+    console.error('❌ Listen error [' + k + ']:', e);
+  }
 }
 function setCloudStatus(ok) {
   var el = document.getElementById('cloudStatus'); if (!el) return;
@@ -967,9 +989,10 @@ function fbLoadHistory() {
   return fdb.ref('likenet/history').orderByChild('ts').limitToLast(2000).get().then(function(s){
     if (!s.exists()) return [];
     var a = []; s.forEach(function(c){ a.push(c.val()); }); return a;
-  }).catch(function(){ return null; });
+  }).catch(function(){ setCloudStatus(false); return null; });
 }
 
+/* CONFIG */
 var OFFICES = ["OFICINA CAÑAR","OFICINA BIBLIAN","OFICINA AZOGUES"];
 var SOPORTE_AREA = "SOPORTE TÉCNICO";
 var RECORRIDOS_AREA = "RECORRIDOS";
@@ -1047,7 +1070,6 @@ var mapPreviewCtx = { id:'', fileName:'', sector:'' };
 var revisarSolCtx = { id:'' };
 var logRange = '1d';
 var helpSelectedSquadId = null;
-var helpUrgency = 'media';
 var squadsSearchTerm = '';
 var usersSearchTerm = '';
 var globalSearchTerm = '';
@@ -1067,10 +1089,12 @@ function normalizeText(s) { return String(s == null ? '' : s).toLowerCase().norm
 function matchSearch(haystack, needle) { if (!needle) return true; return normalizeText(haystack).indexOf(needle) !== -1; }
 function highlightMatch(text, needle) {
   if (!needle) return escapeHTML(text);
-  var n = normalizeText(text); var idx = n.indexOf(needle);
+  var normText = normalizeText(text);
+  var idx = normText.indexOf(needle);
   if (idx === -1) return escapeHTML(text);
   return escapeHTML(text.substring(0, idx)) + '<span class="highlight">' + escapeHTML(text.substring(idx, idx + needle.length)) + '</span>' + escapeHTML(text.substring(idx + needle.length));
 }
+
 function formatBytes(b) { if (!b || b === 0) return '0 B'; var k = 1024, s = ['B','KB','MB','GB']; var i = Math.floor(Math.log(b)/Math.log(k)); return (b/Math.pow(k,i)).toFixed(i === 0 ? 0 : 1) + ' ' + s[i]; }
 function vibrate(ms) { ms = ms || 20; if (navigator.vibrate) navigator.vibrate(ms); }
 function showToast(msg, tipo) {
@@ -1083,6 +1107,7 @@ function showToast(msg, tipo) {
   vibrate(15);
   setTimeout(function(){ t.style.opacity = '0'; t.style.transform = 'translate(-50%,20px)'; setTimeout(function(){ t.remove(); }, 300); }, 2800);
 }
+
 function normalizePhone(raw) {
   if (!raw) return '';
   var p = String(raw).replace(/[^\d+]/g,'');
@@ -1130,7 +1155,8 @@ function fallbackCopy(text) {
 }
 function getHistory() {
   try {
-    var raw = localStorage.getItem(LS_HISTORY); var list = raw ? JSON.parse(raw) : [];
+    var raw = localStorage.getItem(LS_HISTORY);
+    var list = raw ? JSON.parse(raw) : [];
     var cutoff = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000;
     return list.filter(function(h){ return h.ts >= cutoff; });
   } catch (err) { return []; }
@@ -1139,7 +1165,8 @@ function logHistory(action, details, type) {
   details = details || ''; type = type || 'info';
   if (!currentUser) return;
   var entry = { id:'h'+Date.now()+Math.random().toString(36).slice(2,6), ts:Date.now(), user:currentUser.username, userFull:currentUser.fullName||currentUser.username, userRole:currentUser.role, area:currentUser.area||'', action:action, details:details, type:type };
-  var history = getHistory(); history.push(entry);
+  var history = getHistory();
+  history.push(entry);
   var cutoff = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000;
   var trimmed = history.filter(function(h){ return h.ts >= cutoff; }).slice(-2000);
   try { localStorage.setItem(LS_HISTORY, JSON.stringify(trimmed)); } catch (e) {}
@@ -1148,9 +1175,11 @@ function logHistory(action, details, type) {
 function loadRecentSearches() { try { var r = localStorage.getItem(LS_RECENT_SEARCHES); recentSearches = r ? JSON.parse(r) : []; } catch(e) { recentSearches = []; } }
 function saveRecentSearches() { try { localStorage.setItem(LS_RECENT_SEARCHES, JSON.stringify(recentSearches.slice(0, 8))); } catch(e) {} }
 function addRecentSearch(term) {
-  if (!term) return; term = term.trim(); if (!term || term.length < 2) return;
+  if (!term) return;
+  term = term.trim(); if (!term || term.length < 2) return;
   recentSearches = recentSearches.filter(function(x){ return x !== term; });
-  recentSearches.unshift(term); recentSearches = recentSearches.slice(0, 8); saveRecentSearches();
+  recentSearches.unshift(term); recentSearches = recentSearches.slice(0, 8);
+  saveRecentSearches();
 }
 function clearRecentSearches() { recentSearches = []; saveRecentSearches(); renderRecentSearches(); }
 
@@ -1235,16 +1264,22 @@ function entrarApp() {
   document.body.classList.add('r-' + currentUser.role);
 
   var nodosLen = (currentUser.nodosAsignados && currentUser.nodosAsignados.length) ? currentUser.nodosAsignados.length : 0;
-  if (currentUser.role === 'soporte' && nodosLen) $('headerSubtitle').innerHTML = '<i class="fa-solid fa-diagram-project mr-1"></i>Soporte · ' + nodosLen + ' nodos';
-  else if (currentUser.role === 'recorridos') $('headerSubtitle').innerHTML = '<i class="fa-solid fa-route mr-1"></i>Recorridos';
-  else $('headerSubtitle').innerHTML = '<i class="fa-solid fa-location-dot mr-1"></i>' + escapeHTML(currentUser.area);
+  if (currentUser.role === 'soporte' && nodosLen) {
+    $('headerSubtitle').innerHTML = '<i class="fa-solid fa-diagram-project mr-1"></i>Soporte · ' + nodosLen + ' nodos';
+  } else if (currentUser.role === 'recorridos') {
+    $('headerSubtitle').innerHTML = '<i class="fa-solid fa-route mr-1"></i>Recorridos';
+  } else {
+    $('headerSubtitle').innerHTML = '<i class="fa-solid fa-location-dot mr-1"></i>' + escapeHTML(currentUser.area);
+  }
 
   initData(); renderSquads(); refreshAllSectorSelects(); refreshAreaSelects();
   renderInlineReport(); updateShiftUI(); renderMaps(); refreshMapSelects();
   renderSolicitudes(); renderUsersList(); renderSectorsList(); renderRolesList();
-  loadRecentSearches(); updateBellBadge();
+  loadRecentSearches();
 
-  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') switchView('view-tecnico-home');
+  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') {
+    switchView('view-tecnico-home');
+  }
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
 }
 
@@ -1268,7 +1303,8 @@ function toggleMyShift() {
   updateShiftUI(); renderSquads();
   if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList();
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome();
-  vibrate(40); showToast(on ? '🟢 Estás en turno' : '🔴 Saliste de turno', on ? 'ok' : 'info');
+  vibrate(40);
+  showToast(on ? '🟢 Estás en turno' : '🔴 Saliste de turno', on ? 'ok' : 'info');
 }
 function toggleUserShift(username) {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) return;
@@ -1294,32 +1330,6 @@ function updateShiftUI() {
 }
 function getOnShiftUsers() { return usersData.filter(function(u){ return u.onShift; }); }
 
-/* NOTIFICACIONES: badge de campana */
-function updateBellBadge() {
-  if (!currentUser) return;
-  var canSee = (currentUser.role === 'admin' || currentUser.role === 'soporte');
-  var btn = $('bellBtn'); var badge = $('bellBadge');
-  if (!btn || !badge) return;
-  if (!canSee) { btn.style.display = 'none'; return; }
-  btn.style.display = 'flex';
-  var count = solicitudesData.filter(function(s){ return s.estado === 'pendiente'; }).length;
-  if (count > 0) {
-    badge.style.display = 'flex';
-    badge.textContent = count > 9 ? '9+' : String(count);
-    btn.classList.add('has-alerts');
-  } else {
-    badge.style.display = 'none';
-    btn.classList.remove('has-alerts');
-  }
-  // Actualizar también el badge de la nav inferior
-  var navBadge = $('navSolBadge');
-  if (navBadge) { if (count > 0 && canSee) { navBadge.style.display = 'flex'; navBadge.textContent = count; } else navBadge.style.display = 'none'; }
-}
-function openSolicitudesFromBell() {
-  switchView('view-solicitudes');
-  vibrate(20);
-}
-
 function initData() {
   var s = localStorage.getItem(LS_KEY);
   if (s) { try { squadsData = JSON.parse(s); squadsData.forEach(function(sq){ if (!Array.isArray(sq.members)) sq.members = []; sq.members.forEach(function(m){ if (m.phone === undefined) m.phone = ''; if (m.status === undefined) m.status = 'Presente'; }); }); return; } catch(e) {} }
@@ -1330,25 +1340,6 @@ function initData() {
 function saveData() { localStorage.setItem(LS_KEY, JSON.stringify(squadsData)); fbSave('squads', squadsData); }
 function generateSquadId() { return squadsData.length === 0 ? 1 : Math.max.apply(null, squadsData.map(function(s){ return s.id; })) + 1; }
 
-/* Actualiza el teléfono de un miembro de cuadrilla basado en el usuario vinculado */
-function syncMemberPhonesFromUsers() {
-  var changed = false;
-  squadsData.forEach(function(sq){
-    sq.members.forEach(function(m){
-      // Buscar usuario por fullName
-      for (var i = 0; i < usersData.length; i++) {
-        var u = usersData[i];
-        if (u.fullName === m.name && u.phone && u.phone !== m.phone) {
-          m.phone = u.phone;
-          changed = true;
-          break;
-        }
-      }
-    });
-  });
-  if (changed) saveData();
-}
-
 function refreshAllSectorSelects() {
   var f = $('filterSector'); var v = f.value;
   var areas = AREAS_ESPECIALES.map(function(x){
@@ -1358,7 +1349,7 @@ function refreshAllSectorSelects() {
     return '<option value="' + escapeHTML(x) + '">' + icon + ' ' + escapeHTML(label) + '</option>';
   }).join('');
   var s = sectorsData.map(function(x){ return '<option value="' + escapeHTML(x) + '">📍 ' + escapeHTML(x) + '</option>'; }).join('');
-  f.innerHTML = '<option value="ALL">📍 Todos</option><optgroup label="🏢 Áreas">' + areas + '</optgroup><optgroup label="📍 Sectores">' + s + '</optgroup>';
+  f.innerHTML = '<option value="ALL">📍 Todos</option>' + '<optgroup label="🏢 Áreas">' + areas + '</optgroup>' + '<optgroup label="📍 Sectores">' + s + '</optgroup>';
   var found = false;
   for (var i = 0; i < f.options.length; i++) { if (f.options[i].value === v) { found = true; break; } }
   f.value = found ? v : 'ALL';
@@ -1366,7 +1357,9 @@ function refreshAllSectorSelects() {
   if (ns) ns.innerHTML = sectorsData.length ? sectorsData.map(function(x){ return '<option value="' + escapeHTML(x) + '">📍 ' + escapeHTML(x) + '</option>'; }).join('') : '<option value="">Sin sectores</option>';
 }
 function refreshAreaSelects() {
-  var html = '<optgroup label="🏢 Oficinas">' + OFFICES.map(function(a){ return '<option value="' + escapeHTML(a) + '">' + escapeHTML(a) + '</option>'; }).join('') + '</optgroup><optgroup label="📍 Sectores">' + sectorsData.map(function(a){ return '<option value="' + escapeHTML(a) + '">' + escapeHTML(a) + '</option>'; }).join('') + '</optgroup><optgroup label="🚐 Deptos"><option value="' + escapeHTML(SOPORTE_AREA) + '">' + escapeHTML(SOPORTE_AREA) + '</option><option value="' + escapeHTML(RECORRIDOS_AREA) + '">' + escapeHTML(RECORRIDOS_AREA) + '</option></optgroup>';
+  var html = '<optgroup label="🏢 Oficinas">' + OFFICES.map(function(a){ return '<option value="' + escapeHTML(a) + '">' + escapeHTML(a) + '</option>'; }).join('') + '</optgroup>' +
+    '<optgroup label="📍 Sectores">' + sectorsData.map(function(a){ return '<option value="' + escapeHTML(a) + '">' + escapeHTML(a) + '</option>'; }).join('') + '</optgroup>' +
+    '<optgroup label="🚐 Deptos">' + '<option value="' + escapeHTML(SOPORTE_AREA) + '">' + escapeHTML(SOPORTE_AREA) + '</option>' + '<option value="' + escapeHTML(RECORRIDOS_AREA) + '">' + escapeHTML(RECORRIDOS_AREA) + '</option></optgroup>';
   var na = $('newUserArea'); if (na) na.innerHTML = html;
   var ea = $('editUserArea'); if (ea) ea.innerHTML = html;
 }
@@ -1375,7 +1368,8 @@ function refreshMapSelects() {
   var ms = $('mapSector'); if (ms) ms.innerHTML = opts || '<option value="">Sin sectores</option>';
   var mf = $('mapFilterSector');
   if (mf) {
-    var v = mf.value; mf.innerHTML = '<option value="ALL">📍 Todos</option>' + opts;
+    var v = mf.value;
+    mf.innerHTML = '<option value="ALL">📍 Todos</option>' + opts;
     var found = false;
     for (var i = 0; i < mf.options.length; i++) { if (mf.options[i].value === v) { found = true; break; } }
     if (found) mf.value = v;
@@ -1387,13 +1381,17 @@ function buildNodosPicker(containerId, selected, ctx) {
   if (!sectorsData.length) { c.innerHTML = '<p class="text-slate-500 text-xs text-center py-3 col-span-full">Sin sectores.</p>'; return; }
   c.innerHTML = sectorsData.map(function(sec){
     var checked = selected.indexOf(sec) !== -1;
-    return '<label class="nodo-check ' + (checked ? 'checked' : '') + '" onclick="toggleNodoCheck(event, \'' + escapeHTML(sec) + '\', \'' + ctx + '\')"><input type="checkbox" value="' + escapeHTML(sec) + '" ' + (checked ? 'checked' : '') + '><span class="box"><i class="fa-solid fa-check"></i></span><span class="truncate">' + escapeHTML(sec) + '</span></label>';
+    return '<label class="nodo-check ' + (checked ? 'checked' : '') + '" onclick="toggleNodoCheck(event, \'' + escapeHTML(sec) + '\', \'' + ctx + '\')">' +
+      '<input type="checkbox" value="' + escapeHTML(sec) + '" ' + (checked ? 'checked' : '') + '>' +
+      '<span class="box"><i class="fa-solid fa-check"></i></span>' +
+      '<span class="truncate">' + escapeHTML(sec) + '</span></label>';
   }).join('');
   updateNodosCount(ctx);
 }
 function toggleNodoCheck(ev, nodo, ctx) {
   ev.preventDefault();
-  var label = ev.currentTarget; var cb = label.querySelector('input[type="checkbox"]');
+  var label = ev.currentTarget;
+  var cb = label.querySelector('input[type="checkbox"]');
   cb.checked = !cb.checked;
   if (cb.checked) label.classList.add('checked'); else label.classList.remove('checked');
   updateNodosCount(ctx); vibrate(10);
@@ -1457,7 +1455,8 @@ function squadMatchesSearch(sq, term) {
   return false;
 }
 function onUsersSearch() {
-  var el = $('usersSearch'); usersSearchTerm = normalizeText(el.value.trim());
+  var el = $('usersSearch');
+  usersSearchTerm = normalizeText(el.value.trim());
   var box = $('usersSearchBox');
   if (el.value) box.classList.add('has-value'); else box.classList.remove('has-value');
   renderUsersList();
@@ -1484,8 +1483,11 @@ function applyQuickFilter(key) {
   var isActive = false;
   for (var i = 0; i < chips.length; i++) { if (chips[i].dataset.quick === key && chips[i].classList.contains('active')) isActive = true; }
   for (var j = 0; j < chips.length; j++) chips[j].classList.remove('active');
-  if (isActive) $('filterStatus').value = 'ALL';
-  else { $('filterStatus').value = key; for (var l = 0; l < chips.length; l++) { if (chips[l].dataset.quick === key) chips[l].classList.add('active'); } }
+  if (isActive) { $('filterStatus').value = 'ALL'; }
+  else {
+    $('filterStatus').value = key;
+    for (var l = 0; l < chips.length; l++) { if (chips[l].dataset.quick === key) chips[l].classList.add('active'); }
+  }
   renderSquads(); vibrate(15);
 }
 function applyUserQuickFilter(role) {
@@ -1496,7 +1498,8 @@ function applyUserQuickFilter(role) {
 
 function openGlobalSearch() {
   $('globalSearchInput').value = ''; globalSearchTerm = '';
-  $('globalSearchResults').innerHTML = ''; renderRecentSearches();
+  $('globalSearchResults').innerHTML = '';
+  renderRecentSearches();
   openModal('globalSearchModal');
   setTimeout(function(){ $('globalSearchInput').focus(); }, 300);
 }
@@ -1511,23 +1514,31 @@ function onGlobalSearch() {
 function clearGlobalSearch() {
   $('globalSearchInput').value = ''; globalSearchTerm = '';
   $('globalSearchBox').classList.remove('has-value');
-  $('globalSearchResults').innerHTML = ''; renderRecentSearches();
+  $('globalSearchResults').innerHTML = '';
+  renderRecentSearches();
   $('globalSearchInput').focus();
 }
 function renderRecentSearches() {
   var c = $('globalRecentSearches'); if (!c) return;
   if (!recentSearches.length) { c.innerHTML = ''; return; }
-  c.innerHTML = '<div class="flex items-center justify-between mb-2"><p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Recientes</p><button onclick="clearRecentSearches()" class="text-[10px] text-rose-300 font-bold px-2 py-1 rounded bg-rose-500/10 border border-rose-500/20">Limpiar</button></div><div class="space-y-1">' + recentSearches.map(function(r){ return '<div class="recent-search-item" onclick="applyRecentSearch(\'' + escapeHTML(r).replace(/'/g, "\\'") + '\')"><i class="fa-solid fa-clock-rotate-left"></i><span class="text-xs text-slate-300 flex-1 truncate">' + escapeHTML(r) + '</span><i class="fa-solid fa-arrow-right text-slate-500 text-xs"></i></div>'; }).join('') + '</div>';
+  c.innerHTML = '<div class="flex items-center justify-between mb-2"><p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Recientes</p><button onclick="clearRecentSearches()" class="text-[10px] text-rose-300 font-bold px-2 py-1 rounded bg-rose-500/10 border border-rose-500/20">Limpiar</button></div>' +
+    '<div class="space-y-1">' + recentSearches.map(function(r){ return '<div class="recent-search-item" onclick="applyRecentSearch(\'' + escapeHTML(r).replace(/'/g, "\\'") + '\')"><i class="fa-solid fa-clock-rotate-left"></i><span class="text-xs text-slate-300 flex-1 truncate">' + escapeHTML(r) + '</span><i class="fa-solid fa-arrow-right text-slate-500 text-xs"></i></div>'; }).join('') + '</div>';
 }
-function applyRecentSearch(term) { $('globalSearchInput').value = term; onGlobalSearch(); $('globalSearchInput').focus(); }
+function applyRecentSearch(term) {
+  $('globalSearchInput').value = term;
+  onGlobalSearch();
+  $('globalSearchInput').focus();
+}
 function renderGlobalResults() {
-  var term = globalSearchTerm; if (!term) return;
+  var term = globalSearchTerm;
+  if (!term) return;
   addRecentSearch($('globalSearchInput').value.trim());
   var squadsMatches = squadsData.filter(function(sq){ return squadMatchesSearch(sq, term); }).slice(0, 5);
   var usersMatches = usersData.filter(function(u){ return userMatchesSearch(u, term); }).slice(0, 8);
   var c = $('globalSearchResults');
   if (!squadsMatches.length && !usersMatches.length) {
-    c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-magnifying-glass"></i><p>Sin resultados para "' + escapeHTML($('globalSearchInput').value) + '"</p></div>'; return;
+    c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-magnifying-glass"></i><p>Sin resultados para "' + escapeHTML($('globalSearchInput').value) + '"</p><p class="hint">Prueba con otro término</p></div>';
+    return;
   }
   var html = '';
   if (squadsMatches.length) {
@@ -1535,7 +1546,7 @@ function renderGlobalResults() {
     squadsMatches.forEach(function(sq){
       var total = sq.members.length;
       var pc = sq.members.filter(function(m){ return m.status === 'Presente' || m.status === 'Reemplazo'; }).length;
-      html += '<div class="user-card" onclick="closeModal(\'globalSearchModal\'); switchView(\'view-squads\'); setTimeout(function(){ $(\'squadsSearch\').value=\'' + sq.name.replace(/'/g, "\\'") + '\'; onSquadsSearch(); }, 100);"><div class="user-avatar" style="background:rgba(99,102,241,.2);color:#a5b4fc;border-color:rgba(99,102,241,.4)">' + sq.id + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm">' + highlightMatch(sq.name, term) + '</p><p class="text-xs text-slate-400">' + highlightMatch(sq.sector, term) + ' · ' + pc + '/' + total + '</p></div><i class="fa-solid fa-arrow-right text-slate-500"></i></div>';
+      html += '<div class="user-card" onclick="closeModal(\'globalSearchModal\'); switchView(\'view-squads\'); setTimeout(function(){ $(\'squadsSearch\').value=\'' + sq.name.replace(/'/g, "\\'") + '\'; onSquadsSearch(); }, 100);"><div class="user-avatar" style="background:rgba(99,102,241,.2);color:#a5b4fc;border-color:rgba(99,102,241,.4)">' + sq.id + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm">' + highlightMatch(sq.name, term) + '</p><p class="text-xs text-slate-400">' + highlightMatch(sq.sector, term) + ' · ' + pc + '/' + total + ' presentes</p></div><i class="fa-solid fa-arrow-right text-slate-500"></i></div>';
     });
     html += '</div>';
   }
@@ -1632,11 +1643,12 @@ function renderSquads() {
   if (info) {
     if (term || fSt !== 'ALL' || fs !== 'ALL') {
       info.classList.remove('hidden');
-      info.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>' + totalRenderizadas + ' resultado' + (totalRenderizadas === 1 ? '' : 's');
+      var label = term ? '"' + escapeHTML($('squadsSearch').value) + '"' : (fSt !== 'ALL' ? fSt.toLowerCase() : fs);
+      info.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>' + totalRenderizadas + ' resultado' + (totalRenderizadas === 1 ? '' : 's') + (term ? ' para ' + label : '');
     } else info.classList.add('hidden');
   }
   if (!c.children.length) {
-    if (term) c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-magnifying-glass"></i><p>Sin resultados para "' + escapeHTML($('squadsSearch').value) + '"</p></div>';
+    if (term) c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-magnifying-glass"></i><p>Sin resultados para "' + escapeHTML($('squadsSearch').value) + '"</p><p class="hint">Prueba con otro nombre, sector, técnico o teléfono</p></div>';
     else c.innerHTML = '<div class="glass-panel rounded-2xl p-10 text-center text-slate-400" style="grid-column:1/-1"><i class="fa-solid fa-filter-circle-xmark text-3xl text-indigo-400/50 mb-2"></i><p>Sin resultados.</p></div>';
   }
 }
@@ -1703,19 +1715,14 @@ function buildSquadCard(squad, isAdmin, presentCount, key, searchTerm) {
   var sectorBlock = isAdmin ? '<select onchange="updateSquadSector(' + squad.id + ', this.value)" class="glass-input w-full rounded-xl text-xs px-3 py-2.5 sector-select">' + sectorOpts + '</select>'
     : '<div class="glass-input w-full rounded-xl text-xs px-3 py-2.5 flex items-center gap-2"><i class="fa-solid fa-location-dot text-indigo-400"></i>' + highlightMatch(squad.sector || 'Sin asignar', term) + '</div>';
   var membersHTML = squad.members.length ? squad.members.map(function(m, idx){
-    // BUSCAR TELÉFONO ACTUALIZADO EN usersData
-    var livePhone = m.phone || '';
-    for (var li = 0; li < usersData.length; li++) {
-      if (usersData[li].fullName === m.name && usersData[li].phone) { livePhone = usersData[li].phone; break; }
-    }
     var statusColors = {'Presente':'bg-emerald-500/20 text-emerald-400 border-emerald-500/30','Ausente':'bg-rose-500/20 text-rose-400 border-rose-500/30','Permiso':'bg-amber-500/20 text-amber-400 border-amber-500/30','Reemplazo':'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'};
     var sc = statusColors[m.status] || 'bg-slate-500/20 text-slate-300 border-slate-500/30';
-    var phoneOk = hasPhone(livePhone);
-    var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + escapeHTML(livePhone) + '\',\'' + escapeHTML(m.name) + '\',\'' + escapeHTML(m.role) + '\',\'' + escapeHTML(squad.name) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '<button class="phone-btn disabled" disabled><i class="fa-solid fa-phone-slash"></i></button>';
+    var phoneOk = hasPhone(m.phone);
+    var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + escapeHTML(m.phone) + '\',\'' + escapeHTML(m.name) + '\',\'' + escapeHTML(m.role) + '\',\'' + escapeHTML(squad.name) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '<button class="phone-btn disabled" disabled><i class="fa-solid fa-phone-slash"></i></button>';
     var statusControl = isAdmin ? '<select onchange="updateMemberStatus(' + squad.id + ', ' + idx + ', this.value)" class="glass-input rounded-lg text-xs px-3 py-2 w-full sector-select"><option value="Presente" ' + (m.status === 'Presente' ? 'selected' : '') + '>🟢 Presente</option><option value="Ausente" ' + (m.status === 'Ausente' ? 'selected' : '') + '>🔴 Ausente</option><option value="Permiso" ' + (m.status === 'Permiso' ? 'selected' : '') + '>🟡 Permiso</option><option value="Reemplazo" ' + (m.status === 'Reemplazo' ? 'selected' : '') + '>🔵 Reemplazo</option></select>'
       : '<span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-md ' + sc + '">' + escapeHTML(m.status) + '</span>';
     var adminBtns = isAdmin ? '<div class="flex items-center gap-1 flex-shrink-0"><button onclick="openEditModal(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-indigo-500/15 text-indigo-300 flex items-center justify-center active:scale-90"><i class="fa-solid fa-pen text-xs"></i></button><button onclick="openMoveModal(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-300 flex items-center justify-center active:scale-90"><i class="fa-solid fa-right-left text-xs"></i></button><button onclick="removeMember(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-300 flex items-center justify-center active:scale-90"><i class="fa-solid fa-trash text-xs"></i></button></div>' : '';
-    return '<div class="p-3 rounded-xl bg-slate-900/50 border border-white/5 flex flex-col gap-2"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0 flex-1"><div class="w-8 h-8 rounded-md ' + sc + ' border flex items-center justify-center text-xs font-bold flex-shrink-0">' + (idx+1) + '</div><div class="min-w-0"><p class="text-xs font-semibold text-slate-200 truncate">' + highlightMatch(m.name, term) + '</p><p class="text-[10px] text-slate-400 truncate">' + highlightMatch(m.role, term) + (phoneOk ? ' · ' + highlightMatch(formatPhoneDisplay(livePhone), term) : '') + '</p></div></div><div class="flex items-center gap-1 flex-shrink-0">' + phoneBtn + adminBtns + '</div></div>' + statusControl + '</div>';
+    return '<div class="p-3 rounded-xl bg-slate-900/50 border border-white/5 flex flex-col gap-2"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0 flex-1"><div class="w-8 h-8 rounded-md ' + sc + ' border flex items-center justify-center text-xs font-bold flex-shrink-0">' + (idx+1) + '</div><div class="min-w-0"><p class="text-xs font-semibold text-slate-200 truncate">' + highlightMatch(m.name, term) + '</p><p class="text-[10px] text-slate-400 truncate">' + highlightMatch(m.role, term) + '</p></div></div><div class="flex items-center gap-1 flex-shrink-0">' + phoneBtn + adminBtns + '</div></div>' + statusControl + '</div>';
   }).join('') : '<p class="text-[11px] text-slate-500 italic text-center py-3">Sin integrantes</p>';
   var addBtn = (isAdmin && squad.members.length < 6) ? '<button onclick="openAddModal(' + squad.id + ')" class="w-full mt-2 py-2.5 rounded-lg text-xs font-bold text-emerald-300 border border-emerald-500/30 bg-emerald-500/5 active:bg-emerald-500/15 flex items-center justify-center gap-1.5"><i class="fa-solid fa-plus"></i> Agregar técnico</button>' : '';
   var delSquad = isAdmin ? '<button onclick="removeSquad(' + squad.id + ')" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center active:scale-90 flex-shrink-0"><i class="fa-solid fa-trash text-xs"></i></button>' : '';
@@ -1763,7 +1770,11 @@ function renderTecnicoHome() {
           '<button type="submit" class="w-full py-3.5 rounded-xl text-sm font-bold text-white shadow-lg active:scale-95" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fa-solid fa-check-circle mr-1"></i> Activar turno</button></form>'
       ) +
     '</div>' +
-    (mySquad ? '<div class="glass-panel rounded-2xl p-4 mb-4"><h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-users text-indigo-400"></i> Mi cuadrilla: ' + escapeHTML(mySquad.name) + '</h3><div class="space-y-2">' + mySquad.members.map(function(m, i){ return '<div class="flex items-center gap-3 p-2.5 rounded-xl ' + (i === myMemberIdx ? 'bg-emerald-500/10 border border-emerald-500/25' : 'bg-slate-900/50 border border-white/5') + '"><div class="w-8 h-8 rounded-lg ' + (i === myMemberIdx ? 'bg-emerald-500/25 text-emerald-300' : 'bg-slate-700 text-slate-300') + ' flex items-center justify-center text-xs font-bold">' + (i+1) + '</div><div class="min-w-0 flex-1"><p class="text-xs font-semibold text-slate-200 truncate">' + escapeHTML(m.name) + (i === myMemberIdx ? ' <span class="text-[9px] text-emerald-400 font-bold">(TÚ)</span>' : '') + '</p></div></div>'; }).join('') + '</div></div>' : '');
+    (mySquad ? '<div class="glass-panel rounded-2xl p-4 mb-4"><h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-users text-indigo-400"></i> Mi cuadrilla: ' + escapeHTML(mySquad.name) + '</h3><div class="space-y-2">' + mySquad.members.map(function(m, i){ 
+      var phoneOk = hasPhone(m.phone);
+      var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + escapeHTML(m.phone) + '\',\'' + escapeHTML(m.name) + '\',\'' + escapeHTML(m.role) + '\',\'' + escapeHTML(mySquad.name) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '';
+      return '<div class="flex items-center gap-3 p-2.5 rounded-xl ' + (i === myMemberIdx ? 'bg-emerald-500/10 border border-emerald-500/25' : 'bg-slate-900/50 border border-white/5') + '"><div class="w-8 h-8 rounded-lg ' + (i === myMemberIdx ? 'bg-emerald-500/25 text-emerald-300' : 'bg-slate-700 text-slate-300') + ' flex items-center justify-center text-xs font-bold">' + (i+1) + '</div><div class="min-w-0 flex-1"><p class="text-xs font-semibold text-slate-200 truncate">' + escapeHTML(m.name) + (i === myMemberIdx ? ' <span class="text-[9px] text-emerald-400 font-bold">(TÚ)</span>' : '') + '</p></div>' + phoneBtn + '</div>'; 
+    }).join('') + '</div></div>' : '');
 }
 
 function confirmarTurno(e) {
@@ -1801,52 +1812,45 @@ function finalizarTurno() {
     showToast('Turno finalizado', 'info');
   });
 }
-
-/* SOLICITAR AYUDA — AHORA ES PARA PEDIR AYUDA AL ADMIN */
 function openSolicitarAyudaModal() {
   if (['tecnico','recorridos','soporte'].indexOf(currentUser.role) === -1) return showToast('Sin permiso.', 'error');
-  $('helpMotivo').value = '';
-  setHelpUrgency('media');
-  $('helpWho').textContent = currentUser.fullName || currentUser.username;
-  openModal('helpModal');
-}
-function setHelpUrgency(u) {
-  helpUrgency = u;
-  var btns = document.querySelectorAll('.urgency-btn');
-  for (var i = 0; i < btns.length; i++) {
-    if (btns[i].dataset.urgency === u) btns[i].classList.add('active');
-    else btns[i].classList.remove('active');
-  }
-  vibrate(10);
-}
-function saveSolicitudAyuda() {
-  if (['tecnico','recorridos','soporte'].indexOf(currentUser.role) === -1) return showToast('Sin permiso.', 'error');
-  var motivo = $('helpMotivo').value.trim();
-  if (!motivo) return showToast('Escribe el motivo.', 'error');
+  helpSelectedSquadId = null; $('helpMotivo').value = '';
   var me = null;
   for (var i = 0; i < usersData.length; i++) { if (usersData[i].username === currentUser.username) { me = usersData[i]; break; } }
-  var sol = {
-    id: 'sol_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    tipo: 'solicito_ayuda',
-    motivo: motivo,
-    urgencia: helpUrgency,
-    solicitanteUser: currentUser.username,
-    solicitanteNombre: currentUser.fullName || currentUser.username,
-    solicitanteArea: currentUser.area,
-    sectorActual: me ? (me.sectorActual || '') : '',
-    estado: 'pendiente',
-    ts: Date.now(),
-    revisadoPor: '', revisadoTs: null, comentarioAdmin: ''
-  };
-  solicitudesData.push(sol); saveSolicitudes();
-  logHistory('Pide ayuda', '[' + helpUrgency.toUpperCase() + '] ' + motivo.slice(0,80), 'solicitud');
-  closeModal('helpModal');
-  renderSolicitudes(); updateBellBadge();
-  vibrate(60);
-  var msgs = { baja: '✅ Alerta enviada al admin', media: '🟡 Alerta enviada al admin', alta: '🔴 URGENTE · Admin notificado' };
-  showToast(msgs[helpUrgency] || '✅ Solicitud enviada', helpUrgency === 'alta' ? 'error' : (helpUrgency === 'media' ? 'info' : 'ok'));
+  var mySquad = null;
+  for (var s = 0; s < squadsData.length; s++) { if (squadsData[s].members.some(function(m){ return m.name === me.fullName; })) { mySquad = squadsData[s]; break; } }
+  var available = squadsData.filter(function(sq){ return !mySquad || sq.id !== mySquad.id; }).map(function(sq){
+    var present = sq.members.filter(function(m){ return m.status === 'Presente' || m.status === 'Reemplazo'; }).length;
+    var total = sq.members.length; var need = 0;
+    if (total >= 2) need = Math.max(0, 2 - present); else if (total === 1) need = present === 1 ? 1 : 2;
+    return { sq:sq, present:present, total:total, need:need };
+  }).filter(function(x){ return x.need > 0; }).sort(function(a,b){ return b.need - a.need; });
+  $('helpCountBadge').textContent = available.length + ' disponible' + (available.length === 1 ? '' : 's');
+  if (!available.length) { $('helpSquadList').innerHTML = '<div class="text-center py-6 text-slate-400"><i class="fa-solid fa-circle-check text-3xl text-emerald-400/50 mb-2"></i><p class="text-sm">Todas completas.</p></div>'; openModal('helpModal'); return; }
+  $('helpSquadList').innerHTML = available.map(function(x){ var sq = x.sq; return '<div class="squad-pick" data-id="' + sq.id + '" onclick="selectHelpSquad(' + sq.id + ')"><div class="squad-id-badge">' + escapeHTML(sq.name) + '</div><div class="min-w-0 flex-1"><p class="text-xs font-bold text-slate-100 truncate">' + escapeHTML(sq.name) + ' · ' + escapeHTML(sq.sector) + '</p><p class="text-[10px] text-slate-400">' + x.present + '/' + x.total + ' presentes · necesita ' + x.need + '</p></div><i class="fa-solid fa-circle-check text-emerald-400 opacity-0" style="font-size:1.1rem;"></i></div>'; }).join('');
+  openModal('helpModal');
 }
-
+function selectHelpSquad(id) {
+  helpSelectedSquadId = id;
+  var items = document.querySelectorAll('#helpSquadList .squad-pick');
+  for (var i = 0; i < items.length; i++) {
+    var el = items[i]; var isSel = parseInt(el.dataset.id) === id;
+    if (isSel) el.classList.add('selected'); else el.classList.remove('selected');
+    var icon = el.querySelector('.fa-circle-check'); if (icon) icon.style.opacity = isSel ? '1' : '0';
+  }
+  vibrate(15);
+}
+function saveSolicitudAyuda() {
+  if (!helpSelectedSquadId) return showToast('Selecciona cuadrilla.', 'error');
+  var motivo = $('helpMotivo').value.trim(); if (!motivo) return showToast('Escribe el motivo.', 'error');
+  var sq = null;
+  for (var i = 0; i < squadsData.length; i++) { if (squadsData[i].id === helpSelectedSquadId) { sq = squadsData[i]; break; } }
+  if (!sq) return;
+  var sol = { id:'sol_'+Date.now()+'_'+Math.random().toString(36).slice(2,6), tipo:'solicitud_ayuda', motivo:motivo, solicitanteUser:currentUser.username, solicitanteNombre:currentUser.fullName||currentUser.username, solicitanteArea:currentUser.area, cuadrillaDestinoId:sq.id, cuadrillaDestinoNombre:sq.name, cuadrillaDestinoSector:sq.sector, estado:'pendiente', ts:Date.now(), revisadoPor:'', revisadoTs:null, comentarioAdmin:'' };
+  solicitudesData.push(sol); saveSolicitudes();
+  logHistory('Solicitud de ayuda', currentUser.fullName + ' → ' + sq.name, 'solicitud');
+  closeModal('helpModal'); renderSolicitudes(); vibrate(40); showToast('✅ Solicitud enviada', 'ok');
+}
 function openCambiarNodoModal() {
   if (['tecnico','recorridos','soporte'].indexOf(currentUser.role) === -1) return showToast('Sin permiso.', 'error');
   var me = null;
@@ -1871,9 +1875,8 @@ function saveCambiarNodo() {
   var sol = { id:'sol_'+Date.now()+'_'+Math.random().toString(36).slice(2,6), tipo:'cambio_nodo_self', motivo:motivo, solicitanteUser:currentUser.username, solicitanteNombre:currentUser.fullName||currentUser.username, solicitanteArea:currentUser.area, sectorActual:actual, sectorNuevo:nuevo, cuadrillaOrigenId: mySquad ? mySquad.id : null, cuadrillaOrigenNombre: mySquad ? mySquad.name : '—', estado:'pendiente', ts:Date.now(), revisadoPor:'', revisadoTs:null, comentarioAdmin:'' };
   solicitudesData.push(sol); saveSolicitudes();
   logHistory('Cambio de nodo', currentUser.fullName + ': "' + actual + '" → "' + nuevo + '"', 'solicitud');
-  closeModal('changeNodoModal'); renderSolicitudes(); updateBellBadge(); vibrate(40); showToast('✅ Solicitud enviada', 'ok');
+  closeModal('changeNodoModal'); renderSolicitudes(); vibrate(40); showToast('✅ Solicitud enviada', 'ok');
 }
-
 function renderSolicitudes() {
   var c = $('solicitudesContainer'); if (!c) return;
   var fEst = $('solFilterEstado').value, fTip = $('solFilterTipo').value;
@@ -1885,31 +1888,19 @@ function renderSolicitudes() {
   var pending = solicitudesData.filter(function(s){ return s.estado === 'pendiente'; }).length;
   var badgeEl = $('solBadgePending');
   if (badgeEl) { if (pending > 0) { badgeEl.className = 'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/25 text-amber-300 border border-amber-500/40'; badgeEl.textContent = pending + ' pendiente' + (pending===1?'':'s'); } else badgeEl.className = 'hidden'; }
-  updateBellBadge();
+  var navBadge = $('navSolBadge');
+  if (navBadge) { if (pending > 0 && (currentUser.role === 'admin' || currentUser.role === 'soporte')) { navBadge.style.display = 'flex'; navBadge.textContent = pending; } else navBadge.style.display = 'none'; }
   if (!list.length) { c.innerHTML = '<div class="glass-panel rounded-2xl p-8 text-center text-slate-400"><i class="fa-solid fa-clipboard-list text-3xl text-amber-400/40 mb-2"></i><p class="text-sm">No hay solicitudes.</p></div>'; return; }
   var canResolve = currentUser.role === 'admin' || currentUser.role === 'soporte';
-  var tipoMap = {
-    cambio_sector: { icon:'fa-location-dot', txt:'Cambio sector', cls:'' },
-    cambio_companero: { icon:'fa-users', txt:'Cambio compañero', cls:'' },
-    solicitud_ayuda: { icon:'fa-hand-holding-heart', txt:'Ofrece ayuda', cls:'amber' },
-    cambio_nodo_self: { icon:'fa-route', txt:'Cambio nodo', cls:'violet' },
-    solicito_ayuda: { icon:'fa-tower-broadcast', txt:'PIDE AYUDA', cls:'rose' }
-  };
+  var tipoMap = { cambio_sector: { icon:'fa-location-dot', txt:'Cambio sector', cls:'' }, cambio_companero: { icon:'fa-users', txt:'Cambio compañero', cls:'' }, solicitud_ayuda: { icon:'fa-hand-holding-heart', txt:'Ayuda', cls:'amber' }, cambio_nodo_self: { icon:'fa-route', txt:'Cambio nodo', cls:'violet' } };
   c.innerHTML = list.map(function(s){
     var t = tipoMap[s.tipo] || tipoMap.cambio_sector;
     var fecha = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
-    var urgenciaBadge = '';
-    if (s.tipo === 'solicito_ayuda' && s.urgencia) {
-      var uMap = { baja: { c: 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40', txt: '🟢 Baja' }, media: { c: 'bg-amber-500/25 text-amber-300 border-amber-500/40', txt: '🟡 Media' }, alta: { c: 'bg-rose-500/25 text-rose-300 border-rose-500/50 animate-pulse', txt: '🔴 ALTA' } };
-      var uu = uMap[s.urgencia] || uMap.media;
-      urgenciaBadge = '<span class="sol-badge ' + uu.c + '" style="border:1px solid">' + uu.txt + '</span>';
-    }
     var detalle = '';
     if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') detalle = '<div class="flex items-center gap-2 flex-wrap text-slate-200 text-xs"><span>📍 <strong>' + escapeHTML(s.sectorActual || '—') + '</strong></span><i class="fa-solid fa-arrow-right text-indigo-400"></i><span class="text-emerald-300"><strong>' + escapeHTML(s.sectorNuevo || '—') + '</strong></span></div>';
     else if (s.tipo === 'solicitud_ayuda') detalle = '<div class="text-xs"><span class="px-2 py-1 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">' + escapeHTML(s.cuadrillaDestinoNombre) + '</span> <span class="text-slate-400 text-[10px]">📍 ' + escapeHTML(s.cuadrillaDestinoSector || '') + '</span></div>';
-    else if (s.tipo === 'solicito_ayuda') detalle = '<div class="text-xs text-slate-200"><i class="fa-solid fa-satellite-dish text-rose-400 mr-1"></i> <strong>Necesita apoyo en:</strong> ' + escapeHTML(s.sectorActual || s.solicitanteArea || '—') + '</div>';
     else detalle = '<div class="text-xs text-slate-200"><strong>' + escapeHTML(s.miembroNombre || '—') + '</strong> → <strong class="text-emerald-300">' + escapeHTML(s.cuadrillaDestinoNombre || '—') + '</strong></div>';
-    return '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + t.cls + '"><i class="fa-solid ' + t.icon + '"></i> ' + t.txt + '</span>' + urgenciaBadge + '<span class="sol-badge ' + s.estado + '">' + (s.estado === 'pendiente' ? '⏳' : s.estado === 'aprobada' ? '✅' : '❌') + ' ' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + escapeHTML(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + escapeHTML(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + escapeHTML(s.motivo) + '"</p>' + (canResolve && s.estado === 'pendiente' ? '<button onclick="openRevisarSol(\'' + escapeHTML(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold active:scale-95 flex items-center justify-center gap-1"><i class="fa-solid fa-gavel"></i> Revisar</button>' : '') + '</div>';
+    return '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + t.cls + '"><i class="fa-solid ' + t.icon + '"></i> ' + t.txt + '</span><span class="sol-badge ' + s.estado + '">' + (s.estado === 'pendiente' ? '⏳' : s.estado === 'aprobada' ? '✅' : '❌') + ' ' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + escapeHTML(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + escapeHTML(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + escapeHTML(s.motivo) + '"</p>' + (canResolve && s.estado === 'pendiente' ? '<button onclick="openRevisarSol(\'' + escapeHTML(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold active:scale-95 flex items-center justify-center gap-1"><i class="fa-solid fa-gavel"></i> Revisar</button>' : '') + '</div>';
   }).join('');
 }
 function openNewSolicitudModal() {
@@ -1951,19 +1942,16 @@ function saveNewSolicitud(e) {
   }
   solicitudesData.push(base); saveSolicitudes();
   logHistory('Solicitud creada', tipo + ' · ' + motivo.slice(0,60), 'solicitud');
-  closeModal('solicitudModal'); renderSolicitudes(); updateBellBadge(); vibrate(40); showToast('Solicitud enviada ✓');
+  closeModal('solicitudModal'); renderSolicitudes(); vibrate(40); showToast('Solicitud enviada ✓');
 }
 function openRevisarSol(id) {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) return;
   var s = null; for (var i = 0; i < solicitudesData.length; i++) { if (solicitudesData[i].id === id) { s = solicitudesData[i]; break; } }
   if (!s) return;
   revisarSolCtx = { id:id }; $('revComentario').value = '';
-  var tipoMap = { cambio_sector:'Cambio sector', cambio_companero:'Cambio compañero', solicitud_ayuda:'Ofrece ayuda', cambio_nodo_self:'Cambio nodo', solicito_ayuda:'PIDE AYUDA' };
+  var tipoMap = { cambio_sector:'Cambio sector', cambio_companero:'Cambio compañero', solicitud_ayuda:'Solicitud ayuda', cambio_nodo_self:'Cambio nodo' };
   var detalle = '';
-  if (s.tipo === 'solicito_ayuda') {
-    var urg = s.urgencia ? s.urgencia.toUpperCase() : 'MEDIA';
-    detalle = '<p><strong>Urgencia:</strong> <span class="text-rose-300">' + urg + '</span></p><p><strong>Sector:</strong> ' + escapeHTML(s.sectorActual || s.solicitanteArea || '—') + '</p>';
-  } else if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') detalle = '<p><strong>Cuadrilla:</strong> ' + escapeHTML(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Actual:</strong> ' + escapeHTML(s.sectorActual || '—') + '</p><p><strong>Nuevo:</strong> <span class="text-emerald-300">' + escapeHTML(s.sectorNuevo) + '</span></p>';
+  if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') detalle = '<p><strong>Cuadrilla:</strong> ' + escapeHTML(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Actual:</strong> ' + escapeHTML(s.sectorActual || '—') + '</p><p><strong>Nuevo:</strong> <span class="text-emerald-300">' + escapeHTML(s.sectorNuevo) + '</span></p>';
   else if (s.tipo === 'solicitud_ayuda') detalle = '<p><strong>Cuadrilla:</strong> <span class="text-amber-300">' + escapeHTML(s.cuadrillaDestinoNombre) + '</span></p><p><strong>Sector:</strong> ' + escapeHTML(s.cuadrillaDestinoSector) + '</p>';
   else detalle = '<p><strong>Técnico:</strong> ' + escapeHTML(s.miembroNombre) + '</p><p><strong>De:</strong> ' + escapeHTML(s.cuadrillaOrigenNombre) + '</p><p><strong>A:</strong> <span class="text-emerald-300">' + escapeHTML(s.cuadrillaDestinoNombre) + '</span></p>';
   $('revisarSolBody').innerHTML = '<div class="p-3 rounded-xl bg-slate-900/60 border border-white/10"><span class="sol-type-badge">' + (tipoMap[s.tipo] || 'Solicitud') + '</span><p class="text-xs text-slate-400 mt-2 mb-2"><strong class="text-slate-200">' + escapeHTML(s.solicitanteNombre) + '</strong></p><div class="space-y-1 text-xs text-slate-300">' + detalle + '</div><p class="mt-3 text-xs italic text-slate-400 p-2 rounded-lg bg-slate-900/60">"' + escapeHTML(s.motivo) + '"</p></div>';
@@ -1993,34 +1981,8 @@ function resolveSolicitud(estado) {
   s.estado = estado; s.revisadoPor = currentUser.fullName || currentUser.username; s.revisadoTs = Date.now(); s.comentarioAdmin = comentario;
   saveSolicitudes();
   logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
-  closeModal('revisarSolModal'); renderSolicitudes(); renderSquads(); renderInlineReport(); updateBellBadge();
+  closeModal('revisarSolModal'); renderSolicitudes(); renderSquads(); renderInlineReport();
   vibrate(40); showToast(estado === 'aprobada' ? '✓ Aprobada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
-}
-
-/* REFRESCAR MANUAL */
-function forceRefresh() {
-  if (!fdb || !currentUser) return showToast('Sin conexión.', 'error');
-  var icon = $('refreshIcon');
-  if (icon) icon.classList.add('fa-spin');
-  showToast('🔄 Actualizando...', 'info');
-  Promise.all([fbLoad('users'), fbLoad('squads'), fbLoad('sectors'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta')]).then(function(r){
-    if (Array.isArray(r[0])) { usersData = r[0]; localStorage.setItem(LS_USERS, JSON.stringify(r[0])); }
-    if (Array.isArray(r[1])) { squadsData = r[1]; localStorage.setItem(LS_KEY, JSON.stringify(r[1])); }
-    if (Array.isArray(r[2])) { sectorsData = r[2]; localStorage.setItem(LS_SECTORS, JSON.stringify(r[2])); }
-    if (Array.isArray(r[3])) { rolesData = r[3]; localStorage.setItem(LS_ROLES, JSON.stringify(r[3])); }
-    if (Array.isArray(r[4])) { solicitudesData = r[4]; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(r[4])); }
-    if (Array.isArray(r[5])) { mapsMeta = r[5]; localStorage.setItem(LS_MAPS, JSON.stringify(r[5])); }
-    try {
-      syncMemberPhonesFromUsers();
-      renderSquads(); renderUsersList(); renderSolicitudes(); renderRolesList();
-      renderSectorsList(); renderMaps(); renderInlineReport(); renderTecnicoHome(); updateBellBadge();
-    } catch(e) {}
-    if (icon) icon.classList.remove('fa-spin');
-    showToast('✅ Datos actualizados', 'ok');
-  }).catch(function(){
-    if (icon) icon.classList.remove('fa-spin');
-    showToast('Error al recargar.', 'error');
-  });
 }
 
 function setLogRange(r) { logRange = r; var btns = document.querySelectorAll('[data-logrange]'); for (var i = 0; i < btns.length; i++) { if (btns[i].dataset.logrange === r) btns[i].classList.add('active'); else btns[i].classList.remove('active'); } renderLog(); }
@@ -2103,7 +2065,7 @@ function renderUsersList() {
     if (term || roleFilter !== 'ALL' || shiftFilter !== 'ALL') { info.classList.remove('hidden'); info.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>' + sorted.length + ' de ' + usersData.length + ' usuarios'; }
     else info.classList.add('hidden');
   }
-  if (!sorted.length) { c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-user-slash"></i><p>Sin usuarios con esos filtros</p></div>'; return; }
+  if (!sorted.length) { c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-user-slash"></i><p>Sin usuarios con esos filtros</p><p class="hint">Prueba con otro nombre, rol o término</p></div>'; return; }
   var isAdmin = currentUser.role === 'admin';
   c.innerHTML = sorted.map(function(u){
     var isMe = u.username === currentUser.username;
@@ -2263,7 +2225,9 @@ function renderInlineReport() {
   var pctP = function(v){ return s.totalMembers ? Math.round((v / s.totalMembers) * 100) : 0; };
   var sect = Object.keys(s.sectors).map(function(k){ return [k, s.sectors[k]]; }).sort(function(a,b){ return b[1] - a[1]; });
   var sectHTML = sect.map(function(x){ return '<div class="report-stat"><span class="label"><i class="fa-solid fa-location-dot text-indigo-400 mr-1.5"></i> ' + escapeHTML(x[0]) + '</span><span class="value">' + x[1] + '</span></div>'; }).join('') || '<p class="text-slate-500 text-xs text-center py-2">Sin sectores.</p>';
-  c.innerHTML = '<div class="report-section"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-users-rectangle text-indigo-400"></i> Cuadrillas</h4><div class="report-stat"><span class="label">Total</span><span class="value text-indigo-300">' + s.total + '</span></div><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> Operativas</span><span class="value text-emerald-400">' + s.operative + ' (' + pct(s.operative) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.operative) + '%;background:#10b981"></div></div><div class="report-stat" style="margin-top:8px"><span class="label"><span class="text-amber-400">●</span> Incompletas</span><span class="value text-amber-400">' + s.incomplete + ' (' + pct(s.incomplete) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.incomplete) + '%;background:#f59e0b"></div></div><div class="report-stat" style="margin-top:8px"><span class="label"><span class="text-rose-400">●</span> Inactivas</span><span class="value text-rose-400">' + s.inactive + ' (' + pct(s.inactive) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.inactive) + '%;background:#f43f5e"></div></div></div><div class="report-section"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-user-check text-cyan-400"></i> Personal (' + s.totalMembers + ')</h4><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> Presentes</span><span class="value text-emerald-400">' + s.present + ' (' + pctP(s.present) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-rose-400">●</span> Ausentes</span><span class="value text-rose-400">' + s.absent + ' (' + pctP(s.absent) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-amber-400">●</span> Con permiso</span><span class="value text-amber-400">' + s.permiso + ' (' + pctP(s.permiso) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-cyan-400">●</span> Reemplazos</span><span class="value text-cyan-400">' + s.reemplazo + ' (' + pctP(s.reemplazo) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> En turno</span><span class="value text-emerald-400">' + s.onShift + '</span></div><div class="report-stat"><span class="label"><span class="text-violet-400">●</span> Recorridos</span><span class="value text-violet-400">' + s.recorridos + '</span></div></div><div class="report-section" style="margin-bottom:0"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-indigo-400"></i> Por Sector</h4>' + sectHTML + '</div>';
+  c.innerHTML = '<div class="report-section"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-users-rectangle text-indigo-400"></i> Cuadrillas</h4><div class="report-stat"><span class="label">Total</span><span class="value text-indigo-300">' + s.total + '</span></div><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> Operativas</span><span class="value text-emerald-400">' + s.operative + ' (' + pct(s.operative) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.operative) + '%;background:#10b981"></div></div><div class="report-stat" style="margin-top:8px"><span class="label"><span class="text-amber-400">●</span> Incompletas</span><span class="value text-amber-400">' + s.incomplete + ' (' + pct(s.incomplete) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.incomplete) + '%;background:#f59e0b"></div></div><div class="report-stat" style="margin-top:8px"><span class="label"><span class="text-rose-400">●</span> Inactivas</span><span class="value text-rose-400">' + s.inactive + ' (' + pct(s.inactive) + '%)</span></div><div class="report-bar"><div class="report-bar-fill" style="width:' + pct(s.inactive) + '%;background:#f43f5e"></div></div></div>' +
+    '<div class="report-section"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-user-check text-cyan-400"></i> Personal (' + s.totalMembers + ')</h4><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> Presentes</span><span class="value text-emerald-400">' + s.present + ' (' + pctP(s.present) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-rose-400">●</span> Ausentes</span><span class="value text-rose-400">' + s.absent + ' (' + pctP(s.absent) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-amber-400">●</span> Con permiso</span><span class="value text-amber-400">' + s.permiso + ' (' + pctP(s.permiso) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-cyan-400">●</span> Reemplazos</span><span class="value text-cyan-400">' + s.reemplazo + ' (' + pctP(s.reemplazo) + '%)</span></div><div class="report-stat"><span class="label"><span class="text-emerald-400">●</span> En turno</span><span class="value text-emerald-400">' + s.onShift + '</span></div><div class="report-stat"><span class="label"><span class="text-violet-400">●</span> Recorridos</span><span class="value text-violet-400">' + s.recorridos + '</span></div></div>' +
+    '<div class="report-section" style="margin-bottom:0"><h4 class="text-sm font-bold text-slate-100 mb-3 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-indigo-400"></i> Por Sector</h4>' + sectHTML + '</div>';
 }
 function openReportView() { $('exportWrap').classList.remove('open'); switchView('view-reports'); }
 function exportCSV() {
@@ -2275,10 +2239,8 @@ function exportCSV() {
     var est = total === 1 ? (pc === 1 ? 'Operativa' : 'Fuera') : (pc >= 2 ? 'Operativa' : pc === 1 ? 'Incompleta' : 'Fuera');
     if (!sq.members.length) rows.push([sq.name, sq.sector, est, '—', '—', '—', '—', '—']);
     else sq.members.forEach(function(m){
-      var livePhone = m.phone || '';
-      for (var li = 0; li < usersData.length; li++) { if (usersData[li].fullName === m.name && usersData[li].phone) { livePhone = usersData[li].phone; break; } }
       var uname = m.name && m.name !== '—' ? m.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'.').replace(/[^a-z0-9.]/g,'').slice(0,20) : '—';
-      rows.push([sq.name, sq.sector, est, m.name, m.role, uname, livePhone ? formatPhoneDisplay(livePhone) : '—', m.status]);
+      rows.push([sq.name, sq.sector, est, m.name, m.role, uname, m.phone ? formatPhoneDisplay(m.phone) : '—', m.status]);
     });
   });
   var csv = rows.map(function(r){ return r.map(function(c){ return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n');
@@ -2371,10 +2333,7 @@ function saveNewUser(e) {
   else if (role === 'recorridos') { area = RECORRIDOS_AREA; }
   else { area = $('newUserArea').value; if (!area) return showToast('Selecciona área.', 'error'); }
   usersData.push({ username:un, password:pw, role:role, label:getRoleLabel(role), fullName: fn || un, area:area, onShift:false, phone: ph ? normalizePhone(ph) : '', nodosAsignados:nodosAsignados, sectorActual:'', companeroActual:'', confirmado:false });
-  saveUsers();
-  // SINCRONIZAR TELÉFONO EN CUADRILLAS
-  syncMemberPhonesFromUsers();
-  logHistory('Usuario creado', un + ' · ' + getRoleLabel(role), 'ok');
+  saveUsers(); logHistory('Usuario creado', un + ' · ' + getRoleLabel(role), 'ok');
   renderUsersList(); renderSquads(); renderSectorsList();
   closeModal('addUserModal'); showToast('Usuario "' + un + '" creado ✓');
 }
@@ -2411,10 +2370,7 @@ function saveUserEdit(e) {
   usersData[i].username = nu; usersData[i].password = pw; usersData[i].fullName = fn || nu;
   usersData[i].phone = ph ? normalizePhone(ph) : ''; usersData[i].area = area; usersData[i].role = role;
   usersData[i].label = getRoleLabel(role); usersData[i].nodosAsignados = nodosAsignados;
-  saveUsers();
-  // SINCRONIZAR TELÉFONO EN CUADRILLAS
-  syncMemberPhonesFromUsers();
-  logHistory('Usuario editado', orig + ' → ' + nu, 'warn');
+  saveUsers(); logHistory('Usuario editado', orig + ' → ' + nu, 'warn');
   if (isMe) {
     currentUser.username = nu; currentUser.fullName = fn || nu; currentUser.area = area; currentUser.role = role;
     currentUser.label = getRoleLabel(role); currentUser.nodosAsignados = nodosAsignados;
@@ -2497,12 +2453,7 @@ function saveMemberEdit(e) {
   var id = parseInt($('editSquadId').value); var i = parseInt($('editMemberIndex').value);
   var nn = $('editMemberName').value.trim(); var nr = $('editMemberRole').value.trim(); var np = $('editMemberPhone').value.trim();
   var sq = null; for (var k=0;k<squadsData.length;k++) if (squadsData[k].id === id) sq = squadsData[k];
-  if (sq && sq.members[i]) { var m = sq.members[i]; var o = m.name; m.name = nn || m.name; m.role = nr || 'Técnico'; m.phone = np ? normalizePhone(np) : ''; saveData();
-    // SINCRONIZAR HACIA usersData (si existe usuario con ese nombre)
-    for (var ui = 0; ui < usersData.length; ui++) {
-      if (usersData[ui].fullName === m.name && m.phone) { usersData[ui].phone = m.phone; saveUsers(); break; }
-    }
-    logHistory('Técnico editado', o + ' → ' + m.name, 'warn'); renderSquads(); renderInlineReport(); showToast('Actualizado ✓'); }
+  if (sq && sq.members[i]) { var m = sq.members[i]; var o = m.name; m.name = nn || m.name; m.role = nr || 'Técnico'; m.phone = np ? normalizePhone(np) : ''; saveData(); logHistory('Técnico editado', o + ' → ' + m.name, 'warn'); renderSquads(); renderInlineReport(); showToast('Actualizado ✓'); }
   closeModal('editMemberModal');
 }
 function openAddModal(id) {
@@ -2598,98 +2549,123 @@ document.addEventListener('DOMContentLoaded', function(){
   if (!restored) { var login = document.getElementById('loginScreen'); if (login) login.style.display = 'flex'; }
   clearTimeout(safetyTimer); hideSplash();
 
-  /* BOOTSTRAP */
+  /* 🔥 BOOTSTRAP: sube lo local a Firebase si la nube está vacía */
   Promise.all([fbLoad('users'), fbLoad('sectors'), fbLoad('squads'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta'), fbLoadHistory()]).then(function(results){
     var fbUsers = results[0], fbSectors = results[1], fbSquads = results[2], fbRoles = results[3], fbSolicitudes = results[4], fbMapsMeta = results[5], fbHistory = results[6];
-    if (Array.isArray(fbUsers) && fbUsers.length) { usersData = fbUsers; localStorage.setItem(LS_USERS, JSON.stringify(fbUsers)); }
-    else if (usersData.length) fbSave('users', usersData);
-    if (Array.isArray(fbSectors) && fbSectors.length) { sectorsData = fbSectors; localStorage.setItem(LS_SECTORS, JSON.stringify(fbSectors)); }
-    else if (sectorsData.length) fbSave('sectors', sectorsData);
-    if (Array.isArray(fbSquads) && fbSquads.length) { squadsData = fbSquads; localStorage.setItem(LS_KEY, JSON.stringify(fbSquads)); }
-    else if (squadsData.length) fbSave('squads', squadsData);
-    if (Array.isArray(fbRoles) && fbRoles.length) { rolesData = fbRoles; localStorage.setItem(LS_ROLES, JSON.stringify(fbRoles)); }
-    else if (rolesData.length) fbSave('roles', rolesData);
-    if (Array.isArray(fbSolicitudes)) { solicitudesData = fbSolicitudes; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(fbSolicitudes)); }
-    else if (solicitudesData.length) fbSave('solicitudes', solicitudesData);
-    if (Array.isArray(fbMapsMeta)) { mapsMeta = fbMapsMeta; localStorage.setItem(LS_MAPS, JSON.stringify(fbMapsMeta)); }
-    else if (mapsMeta.length) fbSave('mapsMeta', mapsMeta);
+    
+    var fbUsersArr = fbToArray(fbUsers);
+    var fbSectorsArr = fbToArray(fbSectors);
+    var fbSquadsArr = fbToArray(fbSquads);
+    var fbRolesArr = fbToArray(fbRoles);
+    var fbSolicitudesArr = fbToArray(fbSolicitudes);
+    var fbMapsMetaArr = fbToArray(fbMapsMeta);
+
+    var needPush = false;
+    if (fbUsersArr.length) { usersData = fbUsersArr; localStorage.setItem(LS_USERS, JSON.stringify(usersData)); }
+    else if (usersData.length) { console.log('⬆️ Bootstrap users → Firebase'); fbSave('users', usersData); needPush = true; }
+    
+    if (fbSectorsArr.length) { sectorsData = fbSectorsArr; localStorage.setItem(LS_SECTORS, JSON.stringify(sectorsData)); }
+    else if (sectorsData.length) { console.log('⬆️ Bootstrap sectors → Firebase'); fbSave('sectors', sectorsData); needPush = true; }
+    
+    if (fbSquadsArr.length) { squadsData = fbSquadsArr; localStorage.setItem(LS_KEY, JSON.stringify(squadsData)); }
+    else if (squadsData.length) { console.log('⬆️ Bootstrap squads → Firebase'); fbSave('squads', squadsData); needPush = true; }
+    
+    if (fbRolesArr.length) { rolesData = fbRolesArr; localStorage.setItem(LS_ROLES, JSON.stringify(rolesData)); }
+    else if (rolesData.length) { console.log('⬆️ Bootstrap roles → Firebase'); fbSave('roles', rolesData); needPush = true; }
+    
+    if (fbSolicitudesArr.length) { solicitudesData = fbSolicitudesArr; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(solicitudesData)); }
+    else if (solicitudesData.length) { fbSave('solicitudes', solicitudesData); needPush = true; }
+    
+    if (fbMapsMetaArr.length) { mapsMeta = fbMapsMetaArr; localStorage.setItem(LS_MAPS, JSON.stringify(mapsMeta)); }
+    else if (mapsMeta.length) { fbSave('mapsMeta', mapsMeta); needPush = true; }
+    
     if (Array.isArray(fbHistory) && fbHistory.length) {
       var cutoff = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000;
       localStorage.setItem(LS_HISTORY, JSON.stringify(fbHistory.filter(function(h){ return h.ts >= cutoff; }).sort(function(a,b){ return a.ts - b.ts; })));
     }
     setCloudStatus(true);
-    try { syncMemberPhonesFromUsers(); } catch(e) {}
-    if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); updateBellBadge(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome(); } catch(e) {} }
-  }).catch(function(e){ setCloudStatus(false); });
+    if (needPush) console.log('✅ Bootstrap completo: datos locales subidos a Firebase');
+    if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome(); } catch(e) {} }
+  }).catch(function(e){ console.error('❌ Bootstrap Firebase:', e); setCloudStatus(false); });
 
-  /* LISTENERS CON COMPARACIÓN JSON */
+  /* 🔥 LISTENERS EN TIEMPO REAL (Actualizados para re-renderizar todo) */
   try {
-    fbListen('users', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      usersData = d; localStorage.setItem(LS_USERS, JSON.stringify(d));
-      try { syncMemberPhonesFromUsers(); if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList(); renderSquads(); renderTecnicoHome(); } catch(e){}
+    fbListen('users', function(d){ 
+      var data = fbToArray(d);
+      usersData = data; 
+      try { localStorage.setItem(LS_USERS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList(); 
+          renderSquads(); 
+          renderTecnicoHome(); 
+          renderInlineReport();
+          updateShiftUI();
+        } catch(err){ console.error('Render error users:', err); } 
+      }
     });
-    fbListen('squads', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      squadsData = d; localStorage.setItem(LS_KEY, JSON.stringify(d));
-      try { syncMemberPhonesFromUsers(); renderSquads(); renderInlineReport(); renderTecnicoHome(); } catch(e){}
+    fbListen('squads', function(d){ 
+      var data = fbToArray(d);
+      squadsData = data; 
+      try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderSquads(); 
+          renderInlineReport(); 
+          renderTecnicoHome(); 
+          renderSectorsList();
+        } catch(err){ console.error('Render error squads:', err); } 
+      }
     });
-    fbListen('sectors', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      sectorsData = d; localStorage.setItem(LS_SECTORS, JSON.stringify(d));
-      try { refreshAllSectorSelects(); refreshAreaSelects(); refreshMapSelects(); renderSectorsList(); } catch(e){}
+    fbListen('sectors', function(d){ 
+      var data = fbToArray(d);
+      sectorsData = data; 
+      try { localStorage.setItem(LS_SECTORS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          refreshAllSectorSelects(); 
+          refreshAreaSelects(); 
+          refreshMapSelects(); 
+          renderSectorsList(); 
+          renderSquads();
+        } catch(err){ console.error('Render error sectors:', err); } 
+      }
     });
-    fbListen('solicitudes', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      solicitudesData = d; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(d));
-      try { renderSolicitudes(); updateBellBadge(); } catch(e){}
+    fbListen('solicitudes', function(d){ 
+      var data = fbToArray(d);
+      solicitudesData = data; 
+      try { localStorage.setItem(LS_SOLICITUDES, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderSolicitudes(); 
+          renderSquads(); 
+          renderTecnicoHome(); 
+        } catch(err){ console.error('Render error solicitudes:', err); } 
+      }
     });
-    fbListen('roles', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      rolesData = d; localStorage.setItem(LS_ROLES, JSON.stringify(d));
-      try { renderRolesList(); } catch(e){}
+    fbListen('roles', function(d){ 
+      var data = fbToArray(d);
+      rolesData = data; 
+      try { localStorage.setItem(LS_ROLES, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderRolesList(); 
+          renderUsersList(); 
+        } catch(err){ console.error('Render error roles:', err); } 
+      }
     });
-    fbListen('mapsMeta', function(d){
-      if (!Array.isArray(d) || !currentUser) return;
-      mapsMeta = d; localStorage.setItem(LS_MAPS, JSON.stringify(d));
-      try { renderMaps(); } catch(e){}
+    fbListen('mapsMeta', function(d){ 
+      var data = fbToArray(d);
+      mapsMeta = data; 
+      try { localStorage.setItem(LS_MAPS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderMaps(); 
+          renderSectorsList(); 
+        } catch(err){ console.error('Render error mapsMeta:', err); } 
+      }
     });
-
-    /* MONITOR CONEXIÓN */
-    if (fdb) {
-      try {
-        fdb.ref('.info/connected').on('value', function(snap){
-          var ok = !!snap.val();
-          setCloudStatus(ok);
-          console.log(ok ? '🟢 Firebase conectado' : '🔴 Firebase desconectado');
-        });
-      } catch(e) {}
-
-      /* REFRESH AL VOLVER AL FRENTE */
-      document.addEventListener('visibilitychange', function(){
-        if (document.hidden) return;
-        if (!fdb || !currentUser) return;
-        console.log('👁️ App visible → refresh');
-        Promise.all(['users','squads','sectors','roles','solicitudes','mapsMeta'].map(fbLoad)).then(function(arr){
-          if (Array.isArray(arr[0])) { usersData = arr[0]; localStorage.setItem(LS_USERS, JSON.stringify(arr[0])); }
-          if (Array.isArray(arr[1])) { squadsData = arr[1]; localStorage.setItem(LS_KEY, JSON.stringify(arr[1])); }
-          if (Array.isArray(arr[2])) { sectorsData = arr[2]; localStorage.setItem(LS_SECTORS, JSON.stringify(arr[2])); }
-          if (Array.isArray(arr[3])) { rolesData = arr[3]; localStorage.setItem(LS_ROLES, JSON.stringify(arr[3])); }
-          if (Array.isArray(arr[4])) { solicitudesData = arr[4]; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(arr[4])); }
-          if (Array.isArray(arr[5])) { mapsMeta = arr[5]; localStorage.setItem(LS_MAPS, JSON.stringify(arr[5])); }
-          try {
-            syncMemberPhonesFromUsers();
-            renderSquads(); renderUsersList(); renderSolicitudes(); renderRolesList();
-            renderSectorsList(); renderMaps(); renderInlineReport(); renderTecnicoHome(); updateBellBadge();
-          } catch(e) {}
-        });
-      });
-
-      /* RECONEXIÓN */
-      window.addEventListener('online', function(){ console.log('🌐 Red restaurada'); if (fdb) { try { fdb.goOnline(); setCloudStatus(true); } catch(e){} } });
-      window.addEventListener('offline', function(){ console.log('📴 Red perdida'); setCloudStatus(false); });
-    }
-  } catch(e) { console.warn('Listener setup error:', e); }
+  } catch(e) {}
 
   try {
     var mf = document.getElementById('mapFile');
@@ -2703,7 +2679,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   } catch(e) {}
 });
-
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') {
     var mods = document.querySelectorAll('.modal-sheet.open');
