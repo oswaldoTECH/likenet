@@ -1,0 +1,37 @@
+{
+  "name": "Likenet · Control de Cuadrillas & Personal",
+  "short_name": "Likenet",
+  "description": "Sistema de control de cuadrillas, técnicos, recorridos y soporte técnico",
+  "id": "/",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "theme_color": "#0b0f19",
+  "background_color": "#0b0f19",
+  "lang": "es-EC",
+  "dir": "ltr",
+  "categories": ["business", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cuadrillas",
+      "short_name": "Cuadrillas",
+      "url": "/index.html#view-squads",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Solicitudes",
+      "short_name": "Solicitudes",
+      "url": "/index.html#view-solicitudes",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
