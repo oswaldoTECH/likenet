@@ -928,15 +928,10 @@ function cleanForFirebase(obj) {
   return obj;
 }
 
-var _lastLocalSaveTs = 0;
-var _lastLocalSaveKey = '';
-
 function fbSave(k, d) {
   if (!fdb) { console.warn('fbSave: Firebase no disponible'); return; }
   try {
     var cleaned = cleanForFirebase(d);
-    _lastLocalSaveTs = Date.now();
-    _lastLocalSaveKey = k;
     fbRef(k).set(cleaned).then(function(){
       setCloudStatus(true);
       console.log('✅ Firebase OK:', k);
@@ -958,14 +953,12 @@ function fbListen(k, cb) {
   if (!fdb) return;
   try {
     fbRef(k).on('value', function(s){
-      if (!s.exists()) return;
-      if (k === _lastLocalSaveKey && (Date.now() - _lastLocalSaveTs) < 3000) {
-        console.log('⏸️ Ignorando eco de ' + k);
-        return;
-      }
-      cb(s.val());
+      var val = s.exists() ? s.val() : null;
+      cb(val);
     });
-  } catch(e) {}
+  } catch(e) {
+    console.error('❌ Listen error [' + k + ']:', e);
+  }
 }
 function setCloudStatus(ok) {
   var el = document.getElementById('cloudStatus'); if (!el) return;
@@ -2559,13 +2552,85 @@ document.addEventListener('DOMContentLoaded', function(){
     if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome(); } catch(e) {} }
   }).catch(function(e){ console.error('❌ Bootstrap Firebase:', e); setCloudStatus(false); });
 
+  /* 🔥 LISTENERS EN TIEMPO REAL (Actualizados para re-renderizar todo) */
   try {
-    fbListen('users', function(d){ if (Array.isArray(d) && currentUser) { usersData = d; localStorage.setItem(LS_USERS, JSON.stringify(d)); try { if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList(); renderSquads(); renderTecnicoHome(); } catch(e){} } });
-    fbListen('squads', function(d){ if (Array.isArray(d) && currentUser) { squadsData = d; localStorage.setItem(LS_KEY, JSON.stringify(d)); try { renderSquads(); renderInlineReport(); renderTecnicoHome(); } catch(e){} } });
-    fbListen('sectors', function(d){ if (Array.isArray(d) && currentUser) { sectorsData = d; localStorage.setItem(LS_SECTORS, JSON.stringify(d)); try { refreshAllSectorSelects(); refreshAreaSelects(); refreshMapSelects(); renderSectorsList(); } catch(e){} } });
-    fbListen('solicitudes', function(d){ if (Array.isArray(d) && currentUser) { solicitudesData = d; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(d)); try { renderSolicitudes(); } catch(e){} } });
-    fbListen('roles', function(d){ if (Array.isArray(d) && currentUser) { rolesData = d; localStorage.setItem(LS_ROLES, JSON.stringify(d)); try { renderRolesList(); } catch(e){} } });
+    fbListen('users', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      usersData = data; 
+      try { localStorage.setItem(LS_USERS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList(); 
+          renderSquads(); 
+          renderTecnicoHome(); 
+          renderInlineReport();
+          updateShiftUI();
+        } catch(err){ console.error('Render error users:', err); } 
+      }
+    });
+    fbListen('squads', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      squadsData = data; 
+      try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderSquads(); 
+          renderInlineReport(); 
+          renderTecnicoHome(); 
+          renderSectorsList();
+        } catch(err){ console.error('Render error squads:', err); } 
+      }
+    });
+    fbListen('sectors', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      sectorsData = data; 
+      try { localStorage.setItem(LS_SECTORS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          refreshAllSectorSelects(); 
+          refreshAreaSelects(); 
+          refreshMapSelects(); 
+          renderSectorsList(); 
+          renderSquads();
+        } catch(err){ console.error('Render error sectors:', err); } 
+      }
+    });
+    fbListen('solicitudes', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      solicitudesData = data; 
+      try { localStorage.setItem(LS_SOLICITUDES, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderSolicitudes(); 
+          renderSquads(); 
+          renderTecnicoHome(); 
+        } catch(err){ console.error('Render error solicitudes:', err); } 
+      }
+    });
+    fbListen('roles', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      rolesData = data; 
+      try { localStorage.setItem(LS_ROLES, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderRolesList(); 
+          renderUsersList(); 
+        } catch(err){ console.error('Render error roles:', err); } 
+      }
+    });
+    fbListen('mapsMeta', function(d){ 
+      var data = Array.isArray(d) ? d : [];
+      mapsMeta = data; 
+      try { localStorage.setItem(LS_MAPS, JSON.stringify(data)); } catch(e) {}
+      if (currentUser) {
+        try { 
+          renderMaps(); 
+          renderSectorsList(); 
+        } catch(err){ console.error('Render error mapsMeta:', err); } 
+      }
+    });
   } catch(e) {}
+
   try {
     var mf = document.getElementById('mapFile');
     if (mf) mf.addEventListener('change', function(e){
