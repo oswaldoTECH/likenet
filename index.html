@@ -7,14 +7,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>Likenet · Control de Cuadrillas & Personal</title>
 
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/jpeg" href="likenet.jpg">
 <link rel="shortcut icon" type="image/jpeg" href="likenet.jpg">
 <link rel="apple-touch-icon" href="likenet.jpg">
-<link rel="shortcut icon" href="/favicon.ico">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -53,6 +49,17 @@
   .sector-select { background-color:rgba(30,41,59,.9); color:#e2e8f0; cursor:pointer; }
   .sector-select option { background-color:#0f172a; color:#f8fafc; }
 
+  .search-box { position:relative; }
+  .search-box input { width:100%; padding:14px 44px 14px 42px; border-radius:14px; background:rgba(15,23,42,.7); border:1px solid rgba(255,255,255,.15); color:white; font-size:15px; font-family:inherit; transition:all .2s; }
+  .search-box input:focus { border-color:#818cf8; outline:none; box-shadow:0 0 12px rgba(129,140,248,.35); background:rgba(15,23,42,.9); }
+  .search-box input::placeholder { color:#64748b; }
+  .search-box .search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#818cf8; font-size:.95rem; pointer-events:none; }
+  .search-box .search-clear { position:absolute; right:8px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:8px; display:none; align-items:center; justify-content:center; background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); cursor:pointer; font-size:.8rem; transition:all .2s; }
+  .search-box .search-clear:active { transform:translateY(-50%) scale(.9); }
+  .search-box.has-value .search-clear { display:flex; }
+
+  .highlight { background:rgba(251,191,36,.35); color:#fef3c7; padding:1px 3px; border-radius:4px; font-weight:700; }
+
   .admin-only,.soporte-only,.tecnico-only,.auth-only,.recorridos-only { display:none !important; }
   body.r-admin .admin-only,body.r-admin .soporte-only,body.r-admin .tecnico-only,body.r-admin .auth-only,body.r-admin .recorridos-only { display:revert !important; }
   body.r-soporte .soporte-only,body.r-soporte .tecnico-only,body.r-soporte .auth-only,body.r-soporte .recorridos-only { display:revert !important; }
@@ -84,13 +91,6 @@
   .login-msg.error { color:#f87171; }
   .login-msg.ok { color:#4ade80; }
 
-  .role-badge { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:20px; font-size:.7rem; font-weight:700; white-space:nowrap; }
-  .role-badge.admin { background:rgba(79,70,229,.2); color:#a5b4fc; border:1px solid rgba(79,70,229,.4); }
-  .role-badge.soporte { background:rgba(16,185,129,.2); color:#6ee7b7; border:1px solid rgba(16,185,129,.4); }
-  .role-badge.tecnico { background:rgba(245,158,11,.2); color:#fcd34d; border:1px solid rgba(245,158,11,.4); }
-  .role-badge.recorridos { background:rgba(139,92,246,.2); color:#c4b5fd; border:1px solid rgba(139,92,246,.4); }
-  .role-badge.viewer { background:rgba(6,182,212,.2); color:#67e8f9; border:1px solid rgba(6,182,212,.4); }
-
   .area-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:8px; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.3px; background:rgba(139,92,246,.15); color:#c4b5fd; border:1px solid rgba(139,92,246,.25); }
   .area-badge.oficina { background:rgba(245,158,11,.15); color:#fcd34d; border-color:rgba(245,158,11,.3); }
   .area-badge.soporte { background:rgba(16,185,129,.18); color:#6ee7b7; border-color:rgba(16,185,129,.35); }
@@ -121,7 +121,6 @@
   .office-user-item { padding:10px 12px; border-radius:12px; background:rgba(15,23,42,.5); border:1px solid rgba(245,158,11,.15); display:flex; align-items:center; gap:10px; }
   .office-user-avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.85rem; background:linear-gradient(135deg,rgba(245,158,11,.35),rgba(217,119,6,.25)); border:2px solid rgba(245,158,11,.5); color:#fef3c7; flex-shrink:0; position:relative; }
   .office-user-avatar::after { content:''; position:absolute; bottom:-2px; right:-2px; width:9px; height:9px; border-radius:50%; background:#10b981; border:2px solid #0f172a; box-shadow:0 0 6px rgba(16,185,129,.8); }
-  .office-user-role { font-size:.58rem; font-weight:800; padding:2px 6px; border-radius:6px; text-transform:uppercase; background:rgba(100,116,139,.25); color:#cbd5e1; }
 
   .soporte-user-item { padding:10px 12px; border-radius:12px; background:rgba(15,23,42,.5); border:1px solid rgba(16,185,129,.2); display:flex; align-items:flex-start; gap:10px; }
   .soporte-user-avatar { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.85rem; background:linear-gradient(135deg,rgba(16,185,129,.35),rgba(6,182,212,.25)); border:2px solid rgba(16,185,129,.55); color:#d1fae5; flex-shrink:0; position:relative; }
@@ -297,6 +296,11 @@
   .squad-pick .squad-id-badge { width:38px; height:38px; border-radius:10px; background:rgba(99,102,241,.2); border:1px solid rgba(99,102,241,.4); color:#a5b4fc; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.78rem; flex-shrink:0; }
   .squad-pick.selected .squad-id-badge { background:rgba(245,158,11,.3); border-color:rgba(245,158,11,.5); color:#fcd34d; }
 
+  .empty-search { grid-column:1/-1; text-align:center; padding:40px 20px; color:#94a3b8; }
+  .empty-search i { font-size:2.5rem; color:rgba(129,140,248,.4); margin-bottom:12px; display:block; }
+  .empty-search p { font-size:.95rem; }
+  .empty-search .hint { font-size:.75rem; color:#64748b; margin-top:6px; }
+
   ::-webkit-scrollbar { width:6px; height:6px; }
   ::-webkit-scrollbar-track { background:rgba(15,23,42,.5); }
   ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.2); border-radius:3px; }
@@ -309,16 +313,11 @@
 <body>
 
 <div id="appSplash">
-  <img src="likenet2.jpg" alt="Likenet" class="splash-logo"
-    onerror="this.onerror=null; this.src='likenet.jpg'; this.onerror=function(){this.style.display='none';}">
+  <img src="likenet.jpg" alt="Likenet" class="splash-logo" onerror="this.style.display='none';">
   <div class="splash-text">Likenet</div>
   <div class="splash-spinner"></div>
 </div>
 
-<!-- ============================================================
-     FALLBACK INDEPENDIENTE: saca del splash pase lo que pase.
-     ES5 puro, sin dependencias.
-     ============================================================ -->
 <script>
 (function(){
   function bail(){
@@ -342,15 +341,10 @@
   }
   setTimeout(bail, 5000);
 })();
-
 window.addEventListener('error', function(e){
   try {
     var t = document.getElementById('bootError');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'bootError';
-      document.body.appendChild(t);
-    }
+    if (!t) { t = document.createElement('div'); t.id = 'bootError'; document.body.appendChild(t); }
     t.style.display = 'block';
     t.textContent = '⚠️ JS Error: ' + (e.message || (e.error && e.error.message) || 'desconocido');
   } catch(x){}
@@ -360,8 +354,8 @@ window.addEventListener('error', function(e){
 <div id="loginScreen">
   <div class="login-card">
     <div class="brand-logo-login">
-      <img src="likenet2.jpg" alt="Likenet"
-        onerror="this.onerror=null; this.src='likenet.jpg'; this.onerror=function(){this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;fallback&quot;>LK</span>';}">
+      <img src="likenet.jpg" alt="Likenet"
+        onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;fallback&quot;>LK</span>';">
     </div>
     <h1 class="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-200">LIKENET</h1>
     <p class="text-center text-xs text-slate-400 mt-1 mb-6">Te Conecta al Mundo · Control de Personal</p>
@@ -381,8 +375,7 @@ window.addEventListener('error', function(e){
   <div class="glass-panel rounded-2xl p-3 flex justify-between items-center gap-2">
     <div class="flex items-center gap-2 min-w-0 flex-1">
       <div class="brand-logo-full">
-        <img src="likenet2.jpg" alt="Likenet"
-          onerror="this.onerror=null; this.src='likenet.jpg'; this.onerror=function(){this.style.display='none';}">
+        <img src="likenet.jpg" alt="Likenet" onerror="this.style.display='none';">
       </div>
       <div class="min-w-0 flex-1">
         <p class="text-[11px] text-indigo-300/90 font-bold truncate" id="headerSubtitle">Te Conecta al Mundo</p>
@@ -441,13 +434,19 @@ window.addEventListener('error', function(e){
 </section>
 
 <section id="filtersPanel">
-  <div class="glass-panel rounded-2xl p-3 mb-4">
+  <div class="glass-panel rounded-2xl p-3 mb-4 space-y-3">
+    <div class="search-box" id="squadsSearchBox">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="search" id="squadsSearch" placeholder="Buscar cuadrilla, sector, técnico o teléfono..." autocomplete="off" oninput="onSquadsSearch()">
+      <button type="button" class="search-clear" onclick="clearSquadsSearch()" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
+    </div>
     <div class="grid grid-cols-2 gap-2">
       <select id="filterSector" onchange="renderSquads()" class="glass-input rounded-xl text-xs px-3 py-3 sector-select font-medium"><option value="ALL">📍 Todos</option></select>
       <select id="filterStatus" onchange="renderSquads()" class="glass-input rounded-xl text-xs py-3 px-3 sector-select font-medium">
         <option value="ALL">⚡ Todos</option><option value="OPERATIVE">🟢 Operativas</option><option value="INCOMPLETE">🟡 Incompletas</option><option value="INACTIVE">🔴 Inactivas</option>
       </select>
     </div>
+    <p id="squadsResultsInfo" class="text-[11px] text-slate-400 font-semibold text-center hidden"></p>
   </div>
 </section>
 
@@ -560,6 +559,27 @@ window.addEventListener('error', function(e){
       <h2 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-users-gear text-cyan-400"></i> Usuarios</h2>
       <button onclick="openAddUserModal()" class="px-3 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold active:scale-95 flex items-center gap-1.5"><i class="fa-solid fa-plus"></i> Nuevo</button>
     </div>
+    <div class="search-box mb-3" id="usersSearchBox">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="search" id="usersSearch" placeholder="Buscar por nombre, usuario, rol, teléfono..." autocomplete="off" oninput="onUsersSearch()">
+      <button type="button" class="search-clear" onclick="clearUsersSearch()" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <select id="usersFilterRole" onchange="renderUsersList()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select flex-1 min-w-[130px]">
+        <option value="ALL">🎭 Todos los roles</option>
+        <option value="admin">👑 Admin</option>
+        <option value="soporte">🔧 Soporte</option>
+        <option value="recorridos">🚐 Recorridos</option>
+        <option value="tecnico">👷 Técnico</option>
+        <option value="viewer">👁️ Viewer</option>
+      </select>
+      <select id="usersFilterShift" onchange="renderUsersList()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select flex-1 min-w-[130px]">
+        <option value="ALL">⚡ Todos</option>
+        <option value="ON">🟢 En turno</option>
+        <option value="OFF">🔴 Fuera</option>
+      </select>
+    </div>
+    <p id="usersResultsInfo" class="text-[11px] text-slate-400 font-semibold text-center mb-3 hidden"></p>
     <div id="usersList" class="space-y-3"></div>
   </div>
 </section>
@@ -578,8 +598,7 @@ window.addEventListener('error', function(e){
   <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-400">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center flex-shrink-0">
-        <img src="likenet2.jpg" alt="Likenet" class="w-full h-full object-contain"
-          onerror="this.onerror=null; this.src='likenet.jpg'; this.onerror=function(){this.style.display='none';}">
+        <img src="likenet.jpg" alt="Likenet" class="w-full h-full object-contain" onerror="this.style.display='none';">
       </div>
       <div><p class="font-bold text-slate-200 text-xs">LIKENET <span class="text-indigo-400">TE CONECTA AL MUNDO</span></p><p class="text-[10px]">© 2026 · Biblián · Cañar · Ecuador</p></div>
     </div>
@@ -1000,6 +1019,9 @@ var revisarSolCtx = { id:'' };
 var logRange = '1d';
 var helpSelectedSquadId = null;
 
+var squadsSearchTerm = '';
+var usersSearchTerm = '';
+
 function $(id) { return document.getElementById(id); }
 function escapeHTML(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); }); }
 function isOffice(a) { return OFFICES.indexOf(a) !== -1; }
@@ -1009,6 +1031,26 @@ function getRoleById(id) { for (var i=0;i<rolesData.length;i++) if (rolesData[i]
 function getRoleLabel(id) { var r = getRoleById(id); return r ? r.label : id; }
 function getRoleIcon(id) { var r = getRoleById(id); return r ? r.icon : 'fa-user'; }
 function getRoleEmoji(id) { var r = getRoleById(id); return r ? r.emoji : '👤'; }
+
+function normalizeText(s) {
+  return String(s == null ? '' : s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+
+function matchSearch(haystack, needle) {
+  if (!needle) return true;
+  return normalizeText(haystack).indexOf(needle) !== -1;
+}
+
+function highlightMatch(text, needle) {
+  if (!needle) return escapeHTML(text);
+  var normText = normalizeText(text);
+  var idx = normText.indexOf(needle);
+  if (idx === -1) return escapeHTML(text);
+  var before = text.substring(0, idx);
+  var match = text.substring(idx, idx + needle.length);
+  var after = text.substring(idx + needle.length);
+  return escapeHTML(before) + '<span class="highlight">' + escapeHTML(match) + '</span>' + escapeHTML(after);
+}
 
 function areaBadge(area) {
   if (!area) return '<span class="area-badge">— Sin área</span>';
@@ -1364,6 +1406,70 @@ function onUserRoleChange(ctx) {
   }
 }
 
+/* ============================================================
+   BÚSQUEDA: CUADRILLAS Y USUARIOS
+   ============================================================ */
+function onSquadsSearch() {
+  var el = $('squadsSearch');
+  squadsSearchTerm = normalizeText(el.value.trim());
+  var box = $('squadsSearchBox');
+  if (el.value) box.classList.add('has-value'); else box.classList.remove('has-value');
+  renderSquads();
+}
+function clearSquadsSearch() {
+  var el = $('squadsSearch');
+  el.value = '';
+  squadsSearchTerm = '';
+  $('squadsSearchBox').classList.remove('has-value');
+  renderSquads();
+  el.focus();
+}
+function squadMatchesSearch(sq, term) {
+  if (!term) return true;
+  if (matchSearch(sq.name, term)) return true;
+  if (matchSearch(sq.sector, term)) return true;
+  for (var i = 0; i < sq.members.length; i++) {
+    var m = sq.members[i];
+    if (matchSearch(m.name, term)) return true;
+    if (matchSearch(m.role, term)) return true;
+    if (m.phone && matchSearch(m.phone, term)) return true;
+    if (m.phone && matchSearch(formatPhoneDisplay(m.phone), term)) return true;
+  }
+  return false;
+}
+
+function onUsersSearch() {
+  var el = $('usersSearch');
+  usersSearchTerm = normalizeText(el.value.trim());
+  var box = $('usersSearchBox');
+  if (el.value) box.classList.add('has-value'); else box.classList.remove('has-value');
+  renderUsersList();
+}
+function clearUsersSearch() {
+  var el = $('usersSearch');
+  el.value = '';
+  usersSearchTerm = '';
+  $('usersSearchBox').classList.remove('has-value');
+  renderUsersList();
+  el.focus();
+}
+function userMatchesSearch(u, term) {
+  if (!term) return true;
+  if (matchSearch(u.username, term)) return true;
+  if (matchSearch(u.fullName, term)) return true;
+  if (matchSearch(getRoleLabel(u.role), term)) return true;
+  if (matchSearch(u.area, term)) return true;
+  if (u.phone && matchSearch(u.phone, term)) return true;
+  if (u.phone && matchSearch(formatPhoneDisplay(u.phone), term)) return true;
+  if (Array.isArray(u.nodosAsignados)) {
+    for (var i = 0; i < u.nodosAsignados.length; i++) {
+      if (matchSearch(u.nodosAsignados[i], term)) return true;
+    }
+  }
+  if (u.sectorActual && matchSearch(u.sectorActual, term)) return true;
+  return false;
+}
+
 function switchView(viewId) {
   var panels = document.querySelectorAll('.view-panel');
   for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
@@ -1389,6 +1495,7 @@ function renderSquads() {
   var c = $('squadsContainer'); c.innerHTML = '';
   var fs = $('filterSector').value, fSt = $('filterStatus').value;
   var isAdmin = currentUser && currentUser.role === 'admin';
+  var term = squadsSearchTerm;
   var cO = 0, cI = 0, cIn = 0, cPres = 0, totalCap = 0;
 
   squadsData.forEach(function(sq){
@@ -1403,12 +1510,14 @@ function renderSquads() {
   var filterIsEspecial = AREAS_ESPECIALES.indexOf(fs) !== -1;
   var filterIsSector = fs !== 'ALL' && !filterIsEspecial;
 
-  if (!filterIsSector) {
+  var totalRenderizadas = 0;
+
+  if (!term && !filterIsSector) {
     var onShift = getOnShiftUsers();
     var soporteOnShift = onShift.filter(function(u){ return u.role === 'soporte'; });
-    if (fs === SOPORTE_AREA || soporteOnShift.length > 0) c.appendChild(buildSoporteCard(soporteOnShift, isAdmin));
+    if (fs === SOPORTE_AREA || soporteOnShift.length > 0) { c.appendChild(buildSoporteCard(soporteOnShift, isAdmin)); totalRenderizadas++; }
     var recorridosOnShift = onShift.filter(function(u){ return u.role === 'recorridos'; });
-    if (fs === RECORRIDOS_AREA || recorridosOnShift.length > 0) c.appendChild(buildRecorridosCard(recorridosOnShift, isAdmin));
+    if (fs === RECORRIDOS_AREA || recorridosOnShift.length > 0) { c.appendChild(buildRecorridosCard(recorridosOnShift, isAdmin)); totalRenderizadas++; }
     var officesToRender = OFFICES.filter(function(off){
       if (fs === off) return true;
       if (fs !== 'ALL') return false;
@@ -1417,6 +1526,7 @@ function renderSquads() {
     officesToRender.forEach(function(off){
       var users = onShift.filter(function(u){ return u.area === off && u.role !== 'soporte' && u.role !== 'recorridos'; });
       c.appendChild(buildOfficeCard(off, users, isAdmin));
+      totalRenderizadas++;
     });
   }
 
@@ -1430,7 +1540,9 @@ function renderSquads() {
       else key = 'INACTIVE';
       if (fs !== 'ALL' && sq.sector !== fs) return;
       if (fSt !== 'ALL' && key !== fSt) return;
-      c.appendChild(buildSquadCard(sq, isAdmin, pc, key));
+      if (!squadMatchesSearch(sq, term)) return;
+      c.appendChild(buildSquadCard(sq, isAdmin, pc, key, term));
+      totalRenderizadas++;
     });
   }
 
@@ -1443,8 +1555,22 @@ function renderSquads() {
   $('statPersonnelCountM').innerText = cPres + '/' + totalCap;
   ['statOnShift','statOnShiftM'].forEach(function(id){ $(id).innerText = onShiftC; });
 
+  var info = $('squadsResultsInfo');
+  if (info) {
+    if (term) {
+      info.classList.remove('hidden');
+      info.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>' + totalRenderizadas + ' resultado' + (totalRenderizadas === 1 ? '' : 's') + ' para "' + escapeHTML($('squadsSearch').value) + '"';
+    } else {
+      info.classList.add('hidden');
+    }
+  }
+
   if (!c.children.length) {
-    c.innerHTML = '<div class="glass-panel rounded-2xl p-10 text-center text-slate-400" style="grid-column:1/-1"><i class="fa-solid fa-filter-circle-xmark text-3xl text-indigo-400/50 mb-2"></i><p>Sin resultados.</p></div>';
+    if (term) {
+      c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-magnifying-glass"></i><p>Sin resultados para "' + escapeHTML($('squadsSearch').value) + '"</p><p class="hint">Prueba con otro nombre, sector, técnico o teléfono</p></div>';
+    } else {
+      c.innerHTML = '<div class="glass-panel rounded-2xl p-10 text-center text-slate-400" style="grid-column:1/-1"><i class="fa-solid fa-filter-circle-xmark text-3xl text-indigo-400/50 mb-2"></i><p>Sin resultados.</p></div>';
+    }
   }
 }
 
@@ -1544,7 +1670,7 @@ function buildOfficeCard(office, users, isAdmin) {
   return card;
 }
 
-function buildSquadCard(squad, isAdmin, presentCount, key) {
+function buildSquadCard(squad, isAdmin, presentCount, key, searchTerm) {
   var card = document.createElement('div');
   card.className = 'glass-card rounded-2xl p-4';
   var sb = '';
@@ -1552,10 +1678,11 @@ function buildSquadCard(squad, isAdmin, presentCount, key) {
   else if (key === 'INCOMPLETE') sb = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Falta</span>';
   else sb = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Inactiva</span>';
 
+  var term = searchTerm || '';
   var sectorOpts = sectorsData.map(function(sec){ return '<option value="' + escapeHTML(sec) + '" ' + (sec === squad.sector ? 'selected' : '') + '>📍 ' + escapeHTML(sec) + '</option>'; }).join('');
   var sectorBlock = isAdmin
     ? '<select onchange="updateSquadSector(' + squad.id + ', this.value)" class="glass-input w-full rounded-xl text-xs px-3 py-2.5 sector-select">' + sectorOpts + '</select>'
-    : '<div class="glass-input w-full rounded-xl text-xs px-3 py-2.5 flex items-center gap-2"><i class="fa-solid fa-location-dot text-indigo-400"></i>' + escapeHTML(squad.sector || 'Sin asignar') + '</div>';
+    : '<div class="glass-input w-full rounded-xl text-xs px-3 py-2.5 flex items-center gap-2"><i class="fa-solid fa-location-dot text-indigo-400"></i>' + highlightMatch(squad.sector || 'Sin asignar', term) + '</div>';
 
   var membersHTML = squad.members.length ? squad.members.map(function(m, idx){
     var statusColors = {'Presente':'bg-emerald-500/20 text-emerald-400 border-emerald-500/30','Ausente':'bg-rose-500/20 text-rose-400 border-rose-500/30','Permiso':'bg-amber-500/20 text-amber-400 border-amber-500/30','Reemplazo':'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'};
@@ -1574,7 +1701,7 @@ function buildSquadCard(squad, isAdmin, presentCount, key) {
       '<div class="flex items-center justify-between gap-2">' +
         '<div class="flex items-center gap-2 min-w-0 flex-1">' +
           '<div class="w-8 h-8 rounded-md ' + sc + ' border flex items-center justify-center text-xs font-bold flex-shrink-0">' + (idx+1) + '</div>' +
-          '<div class="min-w-0"><p class="text-xs font-semibold text-slate-200 truncate">' + escapeHTML(m.name) + '</p><p class="text-[10px] text-slate-400 truncate">' + escapeHTML(m.role) + '</p></div>' +
+          '<div class="min-w-0"><p class="text-xs font-semibold text-slate-200 truncate">' + highlightMatch(m.name, term) + '</p><p class="text-[10px] text-slate-400 truncate">' + highlightMatch(m.role, term) + '</p></div>' +
         '</div>' +
         '<div class="flex items-center gap-1 flex-shrink-0">' + phoneBtn + adminBtns + '</div>' +
       '</div>' +
@@ -1585,8 +1712,8 @@ function buildSquadCard(squad, isAdmin, presentCount, key) {
   var addBtn = (isAdmin && squad.members.length < 6) ? '<button onclick="openAddModal(' + squad.id + ')" class="w-full mt-2 py-2.5 rounded-lg text-xs font-bold text-emerald-300 border border-emerald-500/30 bg-emerald-500/5 active:bg-emerald-500/15 flex items-center justify-center gap-1.5"><i class="fa-solid fa-plus"></i> Agregar técnico</button>' : '';
   var delSquad = isAdmin ? '<button onclick="removeSquad(' + squad.id + ')" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center active:scale-90 flex-shrink-0"><i class="fa-solid fa-trash text-xs"></i></button>' : '';
   var squadNameHTML = isAdmin
-    ? '<div class="squad-name-wrap" onclick="openEditSquadNameModal(' + squad.id + ')"><h4 class="font-bold text-slate-100 text-sm">' + escapeHTML(squad.name) + '</h4><i class="fa-solid fa-pen edit-ico"></i></div>'
-    : '<h4 class="font-bold text-slate-100 text-sm px-1">' + escapeHTML(squad.name) + '</h4>';
+    ? '<div class="squad-name-wrap" onclick="openEditSquadNameModal(' + squad.id + ')"><h4 class="font-bold text-slate-100 text-sm">' + highlightMatch(squad.name, term) + '</h4><i class="fa-solid fa-pen edit-ico"></i></div>'
+    : '<h4 class="font-bold text-slate-100 text-sm px-1">' + highlightMatch(squad.name, term) + '</h4>';
 
   card.innerHTML =
     '<div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 gap-2">' +
@@ -2076,11 +2203,39 @@ function renderUsersList() {
   var c = $('usersList'); if (!c) return;
   if (!usersData.length) { c.innerHTML = '<p class="text-slate-500 text-center py-6 text-sm">Sin usuarios.</p>'; return; }
   var order = { admin:0, soporte:1, recorridos:2, tecnico:3, viewer:4 };
-  var sorted = usersData.slice().sort(function(a,b){
+  var term = usersSearchTerm;
+  var roleFilter = $('usersFilterRole') ? $('usersFilterRole').value : 'ALL';
+  var shiftFilter = $('usersFilterShift') ? $('usersFilterShift').value : 'ALL';
+
+  var filtered = usersData.filter(function(u){
+    if (roleFilter !== 'ALL' && u.role !== roleFilter) return false;
+    if (shiftFilter === 'ON' && !u.onShift) return false;
+    if (shiftFilter === 'OFF' && u.onShift) return false;
+    if (!userMatchesSearch(u, term)) return false;
+    return true;
+  });
+
+  var sorted = filtered.slice().sort(function(a,b){
     if (a.onShift !== b.onShift) return b.onShift ? 1 : -1;
     if (a.role !== b.role) return (order[a.role] || 9) - (order[b.role] || 9);
-    return a.username.localeCompare(b.username);
+    return (a.fullName || a.username).localeCompare(b.fullName || b.username);
   });
+
+  var info = $('usersResultsInfo');
+  if (info) {
+    if (term || roleFilter !== 'ALL' || shiftFilter !== 'ALL') {
+      info.classList.remove('hidden');
+      info.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>' + sorted.length + ' de ' + usersData.length + ' usuarios';
+    } else {
+      info.classList.add('hidden');
+    }
+  }
+
+  if (!sorted.length) {
+    c.innerHTML = '<div class="empty-search"><i class="fa-solid fa-user-slash"></i><p>Sin usuarios con esos filtros</p><p class="hint">Prueba con otro nombre, rol o término</p></div>';
+    return;
+  }
+
   var isAdmin = currentUser.role === 'admin';
   c.innerHTML = sorted.map(function(u){
     var isMe = u.username === currentUser.username;
@@ -2096,10 +2251,10 @@ function renderUsersList() {
       '<div class="user-avatar ' + u.role + ' ' + (onShift ? 'on-shift' : '') + '">' + (initial || '<i class="fa-solid ' + getRoleIcon(u.role) + '"></i>') + '</div>' +
       '<div class="min-w-0 flex-1">' +
         '<div class="flex items-center gap-2 flex-wrap">' +
-          '<p class="font-bold text-slate-100 text-sm truncate">' + escapeHTML(u.fullName || u.username) + '</p>' +
+          '<p class="font-bold text-slate-100 text-sm truncate">' + highlightMatch(u.fullName || u.username, term) + '</p>' +
           (isMe ? '<span class="text-[9px] font-bold text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded">TÚ</span>' : '') +
         '</div>' +
-        '<p class="text-xs text-slate-400 truncate mb-1.5">@' + escapeHTML(u.username) + (phoneOk ? ' · ' + escapeHTML(formatPhoneDisplay(u.phone)) : '') + '</p>' +
+        '<p class="text-xs text-slate-400 truncate mb-1.5">@' + highlightMatch(u.username, term) + (phoneOk ? ' · ' + highlightMatch(formatPhoneDisplay(u.phone), term) : '') + '</p>' +
         '<div class="flex items-center gap-1.5 flex-wrap">' +
           '<span class="user-role-pill ' + u.role + '">' + getRoleEmoji(u.role) + ' ' + getRoleLabel(u.role) + '</span>' +
           (onShift ? '<span class="user-role-pill" style="background:rgba(16,185,129,.25);color:#6ee7b7">🟢 En turno</span>' : '') +
@@ -2381,7 +2536,7 @@ function printReport() {
     return '<tr><td>' + escapeHTML(sq.name) + '</td><td>' + escapeHTML(sq.sector || '—') + '</td><td>' + est + '</td><td>' + (sq.members.map(function(m){ return escapeHTML(m.name) + ' <em>(' + escapeHTML(m.role) + ' — ' + escapeHTML(m.status) + ')</em>'; }).join('<br>') || '—') + '</td></tr>';
   }).join('');
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Reporte Likenet</title><style>body{font-family:system-ui,sans-serif;padding:32px;color:#111;max-width:900px;margin:0 auto}.head{display:flex;align-items:center;gap:20px;border-bottom:3px solid #4f46e5;padding-bottom:16px;margin-bottom:24px}.head img{width:80px;height:80px;object-fit:contain;border-radius:12px}.head h1{margin:0;font-size:26px;color:#1e1b4b}.head p{margin:4px 0 0;color:#666;font-size:13px}h2{font-size:15px;color:#1e1b4b;border-left:4px solid #4f46e5;padding-left:10px;margin-top:28px}table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}th,td{border:1px solid #ddd;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eef2ff;color:#1e1b4b}.footer{margin-top:36px;padding-top:14px;border-top:1px solid #ddd;font-size:11px;color:#888;text-align:center}em{color:#666;font-style:normal;font-size:11px}</style></head><body>' +
-    '<div class="head"><img src="likenet2.jpg" onerror="this.src=\'likenet.jpg\';this.onerror=function(){this.style.visibility=\'hidden\'}"><div><h1>LIKENET · Reporte</h1><p>Biblián · Cañar · Ecuador — ' + fecha + '</p><p>Por: <strong>' + escapeHTML(currentUser ? (currentUser.fullName || '') : '') + '</strong></p></div></div>' +
+    '<div class="head"><img src="likenet.jpg" onerror="this.style.visibility=\'hidden\'"><div><h1>LIKENET · Reporte</h1><p>Biblián · Cañar · Ecuador — ' + fecha + '</p><p>Por: <strong>' + escapeHTML(currentUser ? (currentUser.fullName || '') : '') + '</strong></p></div></div>' +
     '<h2>Resumen</h2><table><tr><th>Cuadrillas</th><th>Operativas</th><th>Incompletas</th><th>Inactivas</th></tr><tr><td>' + s.total + '</td><td>' + s.operative + '</td><td>' + s.incomplete + '</td><td>' + s.inactive + '</td></tr></table>' +
     '<h2>Detalle</h2><table><thead><tr><th>Cuadrilla</th><th>Sector</th><th>Estado</th><th>Integrantes</th></tr></thead><tbody>' + rows + '</tbody></table>' +
     '<div class="footer">Likenet © 2026</div></body></html>';
@@ -2711,9 +2866,6 @@ function showConfirm(text, cb) { $('confirmText').textContent = text; openModal(
 $('confirmOk').addEventListener('click', function(){ closeModal('confirmModal'); if (confirmCallback) confirmCallback(); confirmCallback = null; });
 $('confirmCancel').addEventListener('click', function(){ closeModal('confirmModal'); confirmCallback = null; });
 
-/* ============================================================
-   DOMContentLoaded
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', function(){
   console.log('🚀 DOMContentLoaded');
 
@@ -2722,11 +2874,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!splash || splash.classList.contains('hide')) return;
     splash.classList.add('hide');
     setTimeout(function(){ try { splash.remove(); } catch(e){} }, 500);
-    console.log('✅ Splash oculto');
   }
 
   var safetyTimer = setTimeout(function(){
-    console.warn('⚠️ Safety timer: forzando ocultar splash');
     hideSplash();
     var login = document.getElementById('loginScreen');
     var app = document.getElementById('appContainer');
@@ -2737,10 +2887,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
   try {
     initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes();
-    console.log('✅ Datos locales cargados');
   } catch(e) { console.error('❌ Error datos locales:', e); }
 
-  initMapsDB().then(function(){ console.log('✅ IndexedDB listo'); }).catch(function(e){ console.warn('IndexedDB no disponible:', e); });
+  initMapsDB().catch(function(e){ console.warn('IndexedDB no disponible:', e); });
 
   var restored = false;
   try {
@@ -2753,22 +2902,17 @@ document.addEventListener('DOMContentLoaded', function(){
         currentUser = { username:u.username, role:u.role, label:u.label || getRoleLabel(u.role), fullName:u.fullName || u.username, area:u.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [], sectorActual: u.sectorActual || '', companeroActual: u.companeroActual || '' };
         entrarApp();
         restored = true;
-        console.log('✅ Sesión restaurada:', currentUser.username);
       } else {
         localStorage.removeItem(LS_SESSION);
       }
     }
   } catch(e) {
-    console.error('❌ Error sesión:', e);
     localStorage.removeItem(LS_SESSION);
   }
 
   if (!restored) {
     var login = document.getElementById('loginScreen');
-    if (login) {
-      login.style.display = 'flex';
-      console.log('👤 Login mostrado');
-    }
+    if (login) login.style.display = 'flex';
   }
 
   clearTimeout(safetyTimer);
@@ -2790,17 +2934,15 @@ document.addEventListener('DOMContentLoaded', function(){
       localStorage.setItem(LS_HISTORY, JSON.stringify(fbHistory.filter(function(h){ return h.ts >= cutoff; }).sort(function(a,b){ return a.ts - b.ts; })));
     }
     setCloudStatus(true);
-    console.log('✅ Firebase sync OK');
     if (currentUser) {
       try {
         renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList();
         renderMaps(); renderInlineReport();
         if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome();
-      } catch(e) { console.warn('Error re-render:', e); }
+      } catch(e) {}
     }
   }).catch(function(e){
     setCloudStatus(false);
-    console.warn('Firebase sync falló:', e);
   });
 
   try {
@@ -2809,7 +2951,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fbListen('sectors', function(d){ if (Array.isArray(d) && currentUser) { sectorsData = d; localStorage.setItem(LS_SECTORS, JSON.stringify(d)); try { refreshAllSectorSelects(); refreshAreaSelects(); refreshMapSelects(); renderSectorsList(); } catch(e){} } });
     fbListen('solicitudes', function(d){ if (Array.isArray(d) && currentUser) { solicitudesData = d; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(d)); try { renderSolicitudes(); } catch(e){} } });
     fbListen('roles', function(d){ if (Array.isArray(d) && currentUser) { rolesData = d; localStorage.setItem(LS_ROLES, JSON.stringify(d)); try { renderRolesList(); } catch(e){} } });
-  } catch(e) { console.warn('Error listeners:', e); }
+  } catch(e) {}
 
   try {
     var mf = document.getElementById('mapFile');
@@ -2822,8 +2964,6 @@ document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('mapDropSub').textContent = formatBytes(f.size) + ' · Listo';
     });
   } catch(e) {}
-
-  console.log('✅ App inicializada');
 });
 
 document.addEventListener('keydown', function(e){
@@ -2846,101 +2986,6 @@ for (var si = 0; si < sheets.length; si++) {
     content.addEventListener('touchend', function(){ var d = cy - sy; if (d > 100) { sheet.classList.remove('open'); document.body.style.overflow = ''; } content.style.transform = ''; sy = 0; cy = 0; });
   })(sheets[si]);
 }
-</script>
-
-<script>
-/* ============ PWA: SERVICE WORKER + INSTALL ============ */
-var deferredPrompt = null;
-var swRegistered = false;
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function(){
-    navigator.serviceWorker.register('/sw.js', { scope: '/' })
-      .then(function(reg){
-        swRegistered = true;
-        console.log('✅ SW registrado:', reg.scope);
-        reg.addEventListener('updatefound', function(){
-          var nw = reg.installing;
-          if (!nw) return;
-          nw.addEventListener('statechange', function(){
-            if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-              if (confirm('Nueva versión. ¿Actualizar?')) {
-                nw.postMessage({ type: 'SKIP_WAITING' });
-                setTimeout(function(){ location.reload(); }, 400);
-              }
-            }
-          });
-        });
-      })
-      .catch(function(err){ console.warn('⚠️ SW error:', err); });
-  });
-}
-
-window.addEventListener('beforeinstallprompt', function(e){
-  e.preventDefault();
-  deferredPrompt = e;
-  injectInstallBtn();
-});
-window.addEventListener('appinstalled', function(){
-  deferredPrompt = null;
-  var b = document.getElementById('installAppBtn');
-  if (b) b.remove();
-});
-
-function injectInstallBtn() {
-  var menu = document.querySelector('.dropdown-menu');
-  if (!menu || document.getElementById('installAppBtn')) return;
-  var btn = document.createElement('button');
-  btn.id = 'installAppBtn';
-  btn.className = 'dropdown-item';
-  btn.innerHTML = '<i class="fa-solid fa-mobile-screen-button text-cyan-400"></i> 📲 Instalar app';
-  btn.onclick = function(){
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function(r){
-        if (r.outcome === 'accepted') { deferredPrompt = null; btn.remove(); }
-      });
-    } else showInstallHelp();
-  };
-  menu.insertBefore(btn, menu.lastElementChild);
-}
-
-function showInstallHelp() {
-  var ua = navigator.userAgent;
-  var isAndroid = /Android/i.test(ua);
-  var isIOS = /iPhone|iPad|iPod/i.test(ua);
-  var isChrome = /Chrome/i.test(ua) && !/Edg/i.test(ua);
-  var isEdge = /Edg/i.test(ua);
-  var isSafari = /Safari/i.test(ua) && !/Chrome/i.test(ua);
-  var pasos = '';
-  if (isAndroid && isChrome) pasos = '<b>Chrome Android:</b><br>1. Toca <b>⋮</b><br>2. <b>"Instalar aplicación"</b><br>3. Confirma';
-  else if (isIOS && isSafari) pasos = '<b>iOS Safari:</b><br>1. <b>Compartir</b> ⬆️<br>2. <b>"Añadir a pantalla de inicio"</b>';
-  else if (isChrome) pasos = '<b>Chrome PC:</b><br>1. Ícono <b>⊕</b> en la barra<br>2. O menú <b>⋮ → Instalar página como aplicación</b>';
-  else if (isEdge) pasos = '<b>Edge:</b><br>Menú <b>··· → Aplicaciones → Instalar este sitio como aplicación</b>';
-  else pasos = 'Usa <b>Chrome</b> o <b>Edge</b>.';
-  var avisos = [];
-  if (location.protocol === 'file:') avisos.push('⚠️ Estás abriendo como <b>file://</b>. Necesitas HTTPS.');
-  if (!swRegistered) avisos.push('⚠️ SW no registrado aún.');
-  var alerta = avisos.length ? '<div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#fca5a5;padding:12px;border-radius:10px;font-size:.8rem;margin-bottom:14px">' + avisos.join('<br>') + '</div>' : '';
-  var modal = document.createElement('div');
-  modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px';
-  modal.innerHTML = '<div style="background:linear-gradient(180deg,#0f172a,#0b0f19);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;max-width:440px;width:100%;color:#f8fafc;font-family:Inter,sans-serif">' +
-    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:1.3rem">📲</div><h3 style="margin:0;font-size:1.1rem;font-weight:800">Instalar Likenet</h3></div>' +
-    alerta +
-    '<div style="font-size:.85rem;line-height:1.65;color:#cbd5e1;background:rgba(15,23,42,.6);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.08)">' + pasos + '</div>' +
-    '<button onclick="this.closest(\'div[style*=fixed]\').remove()" style="margin-top:16px;width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;font-weight:700;font-size:.9rem;cursor:pointer">Entendido</button>' +
-  '</div>';
-  modal.onclick = function(e){ if (e.target === modal) modal.remove(); };
-  document.body.appendChild(modal);
-}
-
-window.addEventListener('load', function(){
-  var check = setInterval(function(){
-    var app = document.getElementById('appContainer');
-    if (app && !app.classList.contains('hidden')) { clearInterval(check); injectInstallBtn(); }
-  }, 1500);
-  setTimeout(function(){ clearInterval(check); }, 30000);
-});
 </script>
 </body>
 </html>
