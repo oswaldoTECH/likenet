@@ -173,9 +173,9 @@ body.r-viewer .auth-only { display:revert !important; }
 
 .modal-sheet { position:fixed; inset:0; z-index:200; display:none; align-items:flex-end; justify-content:center; background:rgba(0,0,0,.75); backdrop-filter:blur(6px); }
 .modal-sheet.open { display:flex; }
-.modal-sheet-content { width:100%; max-width:520px; background:linear-gradient(180deg,#0f172a,#0b0f19); border:1px solid rgba(255,255,255,.1); border-bottom:none; border-radius:24px 24px 0 0; padding:16px 20px calc(24px + var(--safe-bottom)); max-height:94vh; overflow-y:auto; animation:slideUp .3s; }
+.modal-sheet-content { width:100%; max-width:520px; background:linear-gradient(180deg,#0f172a,#0b0f19); border:1px solid rgba(255,255,255,.1); border-bottom:none; border-radius:24px 24px 0 0; padding:16px 20px calc(24px + var(--safe-bottom)); max-height:94vh; overflow-y:auto; animation:slideUp .3s; position:relative; }
 @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-.modal-handle { width:48px; height:5px; border-radius:3px; background:rgba(255,255,255,.25); margin:0 auto 16px; }
+.modal-handle { width:48px; height:5px; border-radius:3px; background:rgba(255,255,255,.25); margin:0 auto 16px; cursor:grab; }
 @media (min-width:640px) { .modal-sheet { align-items:center; padding:20px; } .modal-sheet-content { border-radius:22px; border-bottom:1px solid rgba(255,255,255,.1); padding:24px; animation:none; } .modal-handle { display:none; } }
 
 .form-label { display:block; font-size:.72rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
@@ -289,7 +289,6 @@ body.r-viewer .auth-only { display:revert !important; }
 .empty-state i { font-size:2.5rem; color:rgba(129,140,248,.35); margin-bottom:12px; display:block; }
 .empty-state p { font-size:.85rem; }
 
-/* Resolution popup */
 #resolutionPopup { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); padding:20px; }
 #resolutionPopup.open { display:flex; }
 .resolution-card { background:linear-gradient(180deg,#0f172a,#0b0f19); border:2px solid; border-radius:24px; padding:32px 24px; max-width:440px; width:100%; text-align:center; animation:popIn .4s cubic-bezier(.2,.9,.3,1.3); }
@@ -305,6 +304,28 @@ body.r-viewer .auth-only { display:revert !important; }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.2); border-radius:3px; }
 button, select, input, textarea { touch-action:manipulation; }
 
+/* ============ CIERRE DE MODALES ============ */
+.modal-close-x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  font-size: .9rem;
+  transition: all .2s;
+  font-family: inherit;
+}
+.modal-close-x:active { transform: scale(.92); background: rgba(239,68,68,.25); color: #fca5a5; }
+
 /* ============ TEMA CLARO ============ */
 body.theme-light {
   background: linear-gradient(135deg,#f8fafc 0%,#e2e8f0 50%,#e0e7ff 100%);
@@ -312,7 +333,6 @@ body.theme-light {
 }
 body.theme-light::before { opacity:.06; filter:invert(1); }
 body.theme-light::after { background:radial-gradient(ellipse at center, transparent 0%, rgba(255,255,255,.35) 100%); }
-
 body.theme-light .glass-panel {
   background: linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.75));
   border: 1px solid rgba(15,23,42,.08);
@@ -324,14 +344,12 @@ body.theme-light .glass-card {
   box-shadow: 0 4px 16px rgba(15,23,42,.06);
 }
 body.theme-light .glass-card:hover { border-color: rgba(99,102,241,.35); box-shadow: 0 8px 24px rgba(15,23,42,.12); }
-
 body.theme-light .glass-input {
   background: rgba(255,255,255,.85); border: 1px solid rgba(15,23,42,.12); color:#0f172a;
 }
 body.theme-light .glass-input:focus { background:#fff; border-color:#6366f1; }
 body.theme-light .sector-select { background-color:rgba(255,255,255,.9); color:#0f172a; }
 body.theme-light .sector-select option { background-color:#fff; color:#0f172a; }
-
 body.theme-light .text-white,
 body.theme-light .text-slate-100,
 body.theme-light .text-slate-200 { color:#0f172a !important; }
@@ -345,18 +363,14 @@ body.theme-light .form-input {
   background: rgba(255,255,255,.9); border-color: rgba(15,23,42,.12); color:#0f172a;
 }
 body.theme-light .form-input::placeholder { color:#94a3b8; }
-
 body.theme-light .text-emerald-400, body.theme-light .text-emerald-300 { color:#059669 !important; }
 body.theme-light .text-amber-400, body.theme-light .text-amber-300 { color:#b45309 !important; }
 body.theme-light .text-rose-400, body.theme-light .text-rose-300 { color:#dc2626 !important; }
 body.theme-light .text-cyan-400, body.theme-light .text-cyan-300 { color:#0891b2 !important; }
 body.theme-light .text-indigo-300, body.theme-light .text-indigo-400, body.theme-light .text-indigo-200 { color:#4f46e5 !important; }
 body.theme-light .text-violet-400, body.theme-light .text-violet-300 { color:#7c3aed !important; }
-
 body.theme-light .app-header .glass-panel { background: rgba(255,255,255,.92); }
-body.theme-light .bottom-nav {
-  background: rgba(255,255,255,.96); border-top: 1px solid rgba(15,23,42,.08);
-}
+body.theme-light .bottom-nav { background: rgba(255,255,255,.96); border-top: 1px solid rgba(15,23,42,.08); }
 body.theme-light .nav-item { color:#64748b; }
 body.theme-light .nav-item.active { color:#4f46e5; background:rgba(99,102,241,.15); }
 body.theme-light .dropdown-menu {
@@ -367,7 +381,6 @@ body.theme-light .dropdown-item { color:#334155; }
 body.theme-light .dropdown-divider { background: rgba(15,23,42,.08); }
 body.theme-light .notif-btn { background: rgba(255,255,255,.75); }
 body.theme-light .shift-toggle { background:rgba(148,163,184,.2); color:#475569; border-color:rgba(148,163,184,.35); }
-
 body.theme-light .stat-card {
   background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.75));
   border-color: rgba(15,23,42,.08);
@@ -386,10 +399,7 @@ body.theme-light .user-card.on-shift {
 body.theme-light .soporte-user-item,
 body.theme-light .recorridos-user-item,
 body.theme-light .office-user-item { background: rgba(255,255,255,.75); }
-
-body.theme-light .notif-item {
-  background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08);
-}
+body.theme-light .notif-item { background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08); }
 body.theme-light .notif-item.unread {
   background: linear-gradient(90deg,rgba(245,158,11,.14),rgba(255,255,255,.85));
   border-color: rgba(245,158,11,.45);
@@ -398,7 +408,6 @@ body.theme-light .notif-item:hover { border-color: rgba(99,102,241,.5); }
 body.theme-light .notif-title { color:#0f172a; }
 body.theme-light .notif-msg { color:#475569; }
 body.theme-light .notif-time { color:#64748b; }
-
 body.theme-light .solicitud-card { background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08); }
 body.theme-light .solicitud-card .bg-slate-900\/50,
 body.theme-light .solicitud-card .bg-slate-900\/60 { background: rgba(241,245,249,.8) !important; }
@@ -406,29 +415,28 @@ body.theme-light .log-row { background: rgba(255,255,255,.75); border-color: rgb
 body.theme-light .log-row .log-action { color:#0f172a; }
 body.theme-light .log-row .log-detail { color:#475569; }
 body.theme-light .log-row .log-meta { color:#64748b; }
-
 body.theme-light .modal-sheet { background: rgba(15,23,42,.4); }
 body.theme-light .modal-sheet-content {
   background: linear-gradient(180deg,#ffffff,#f1f5f9);
   border-color: rgba(15,23,42,.1);
 }
 body.theme-light .modal-handle { background: rgba(15,23,42,.2); }
+body.theme-light .modal-close-x {
+  background: rgba(15,23,42,.06);
+  border-color: rgba(15,23,42,.12);
+  color: #475569;
+}
 body.theme-light .confirm-check-item { background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08); }
 body.theme-light .confirm-check-item .text-slate-100 { color:#0f172a; }
 body.theme-light .nodo-picker { background: rgba(255,255,255,.75); border-color: rgba(15,23,42,.08); }
 body.theme-light .nodo-check { background: rgba(255,255,255,.7); border-color: rgba(15,23,42,.08); color:#334155; }
 body.theme-light .nodo-check.checked { background: rgba(6,182,212,.15); color:#0891b2; }
-
 body.theme-light .map-card { background: rgba(255,255,255,.85); border-color: rgba(6,182,212,.3); }
 body.theme-light .upload-drop { background: rgba(6,182,212,.06); }
 body.theme-light .report-section { background: rgba(255,255,255,.75); border-color: rgba(15,23,42,.08); }
 body.theme-light .report-stat { border-bottom-color: rgba(15,23,42,.08); }
-body.theme-light .tecnico-home-card {
-  background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));
-}
-body.theme-light .tecnico-home-card.recorridos {
-  background: linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.08));
-}
+body.theme-light .tecnico-home-card { background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08)); }
+body.theme-light .tecnico-home-card.recorridos { background: linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.08)); }
 body.theme-light .phone-action { background: rgba(255,255,255,.9); border-color: rgba(15,23,42,.08); color:#0f172a; }
 body.theme-light .phone-display { background: rgba(16,185,129,.12); }
 body.theme-light .phone-display .num { color:#059669; }
@@ -441,7 +449,7 @@ body.theme-light footer { color:#64748b; }
 <body>
 
 <div id="appSplash">
-  <img src="likenet.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+  <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
   <div class="splash-text">Likenet</div>
   <div class="splash-spinner"></div>
 </div>
@@ -460,7 +468,7 @@ body.theme-light footer { color:#64748b; }
 <div id="loginScreen">
   <div class="login-card">
     <div class="brand-logo-login">
-      <img src="likenet.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+      <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
     </div>
     <h1 class="text-2xl font-bold text-center text-indigo-200">LIKENET</h1>
     <p class="text-center text-xs text-slate-400 mt-1 mb-6">Te Conecta al Mundo · Control de Personal</p>
@@ -479,7 +487,7 @@ body.theme-light footer { color:#64748b; }
   <div class="glass-panel rounded-2xl p-3 flex justify-between items-center gap-2">
     <div class="flex items-center gap-3 min-w-0 flex-1">
       <div class="brand-logo-full">
-        <img src="likenet.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+        <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
       </div>
       <div class="min-w-0 flex-1">
         <p class="text-[11px] text-indigo-300/90 font-bold truncate" id="headerSubtitle">Likenet</p>
@@ -728,7 +736,7 @@ body.theme-light footer { color:#64748b; }
 <!-- MODAL: NOTIFICACIONES -->
 <div id="notifModal" class="modal-sheet"><div class="modal-sheet-content" style="max-width:560px">
   <div class="modal-handle"></div>
-  <div class="flex items-center justify-between mb-4">
+  <div class="flex items-center justify-between mb-4 pr-10">
     <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-bell text-amber-400"></i> Notificaciones</h3>
     <div class="flex gap-2">
       <button onclick="markAllNotifRead()" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2.5 py-1.5 rounded-lg border border-emerald-500/30"><i class="fa-solid fa-check-double"></i> Leídas</button>
@@ -738,10 +746,10 @@ body.theme-light footer { color:#64748b; }
   <div id="notifContainer" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
 
-<!-- MODAL: EN TURNO (QUIÉN ESTÁ ACTIVO) -->
+<!-- MODAL: EN TURNO -->
 <div id="onShiftModal" class="modal-sheet"><div class="modal-sheet-content" style="max-width:520px">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Personal en Turno</h3>
+  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2 pr-10"><i class="fa-solid fa-bolt text-emerald-400"></i> Personal en Turno</h3>
   <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 activos</p>
   <div id="onShiftList" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
@@ -749,7 +757,7 @@ body.theme-light footer { color:#64748b; }
 <!-- MODAL: SOLICITAR AYUDA -->
 <div id="helpModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-tower-broadcast text-rose-400"></i> Solicitar Ayuda</h3>
+  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2 pr-10"><i class="fa-solid fa-tower-broadcast text-rose-400"></i> Solicitar Ayuda</h3>
   <p class="text-xs text-slate-400 mb-5">Solicita apoyo cuando necesites refuerzo, herramienta o asistencia técnica.</p>
   <form id="helpForm" onsubmit="saveSolicitudAyuda(event)" class="space-y-4">
     <div>
@@ -789,7 +797,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="changeNodoModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-location-dot text-violet-400"></i> Cambiar Nodo / Sector</h3>
+  <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2 pr-10"><i class="fa-solid fa-location-dot text-violet-400"></i> Cambiar Nodo / Sector</h3>
   <p class="text-xs text-slate-400 mb-4">Solicita cambio de sector. Será aprobado por el administrador.</p>
   <div class="confirm-check-item">
     <div class="ico info"><i class="fa-solid fa-location-dot"></i></div>
@@ -811,10 +819,10 @@ body.theme-light footer { color:#64748b; }
   </div>
 </div></div>
 
-<!-- MODAL: REVISAR SOLICITUD (con asignación de cuadrilla) -->
+<!-- MODAL: REVISAR SOLICITUD -->
 <div id="revisarSolModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-gavel text-indigo-400"></i> Revisar Solicitud</h3>
+  <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2 pr-10"><i class="fa-solid fa-gavel text-indigo-400"></i> Revisar Solicitud</h3>
   <div id="revisarSolBody" class="mb-4"></div>
 
   <div id="revAsignarSquadField" class="hidden mb-3 p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
@@ -836,7 +844,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="addUserModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-user-plus text-emerald-400"></i> Crear Usuario</h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-user-plus text-emerald-400"></i> Crear Usuario</h3>
   <form id="addUserForm" onsubmit="saveNewUser(event)" class="space-y-3">
     <div><label class="form-label">Usuario *</label><input type="text" id="newUserName" required maxlength="20" class="form-input" placeholder="ej. juan.perez" autocapitalize="none"></div>
     <div><label class="form-label">Contraseña *</label><input type="text" id="newUserPass" required minlength="3" class="form-input" placeholder="Mínimo 3 caracteres"></div>
@@ -873,7 +881,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="editUserModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-user-pen text-indigo-400"></i> Editar Usuario</h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-user-pen text-indigo-400"></i> Editar Usuario</h3>
   <form id="editUserForm" onsubmit="saveUserEdit(event)" class="space-y-3">
     <input type="hidden" id="editUserOriginal">
     <div><label class="form-label">Usuario</label><input type="text" id="editUserName" required maxlength="20" class="form-input" autocapitalize="none"></div>
@@ -907,7 +915,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="editSquadNameModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-indigo-400"></i> Renombrar Cuadrilla</h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-pen-to-square text-indigo-400"></i> Renombrar Cuadrilla</h3>
   <form id="editSquadNameForm" onsubmit="saveSquadName(event)" class="space-y-3">
     <input type="hidden" id="editSquadNameId">
     <div><label class="form-label">Nombre de la cuadrilla</label><input type="text" id="editSquadNameInput" required maxlength="40" class="form-input" placeholder="Ej. A1"></div>
@@ -920,7 +928,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="editMemberModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-user-pen text-indigo-400"></i> Editar Técnico</h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-user-pen text-indigo-400"></i> Editar Técnico</h3>
   <form id="editMemberForm" onsubmit="saveMemberEdit(event)" class="space-y-3">
     <input type="hidden" id="editSquadId"><input type="hidden" id="editMemberIndex">
     <div><label class="form-label">Nombre completo</label><input type="text" id="editMemberName" required class="form-input"></div>
@@ -935,7 +943,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="addMemberModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-user-plus text-emerald-400"></i> Agregar a <span id="addMemberSquadName" class="text-indigo-300"></span></h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-user-plus text-emerald-400"></i> Agregar a <span id="addMemberSquadName" class="text-indigo-300"></span></h3>
   <form id="addMemberForm" onsubmit="saveNewMember(event)" class="space-y-3">
     <input type="hidden" id="addMemberSquadId">
     <div><label class="form-label">Nombre completo</label><input type="text" id="addMemberName" required class="form-input"></div>
@@ -950,7 +958,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="sectorModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-violet-400"></i> <span id="sectorModalTitle">Nuevo Sector</span></h3>
+  <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 pr-10"><i class="fa-solid fa-map-location-dot text-violet-400"></i> <span id="sectorModalTitle">Nuevo Sector</span></h3>
   <form id="sectorForm" onsubmit="saveSector(event)" class="space-y-3">
     <input type="hidden" id="sectorOriginalName">
     <div><label class="form-label">Nombre del sector / nodo</label><input type="text" id="sectorNameInput" required maxlength="30" class="form-input" autocapitalize="characters" placeholder="Ej. JADAN"></div>
@@ -963,7 +971,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="phoneModal" class="modal-sheet"><div class="modal-sheet-content" style="max-width:440px">
   <div class="modal-handle"></div>
-  <div class="flex items-center gap-3 mb-2">
+  <div class="flex items-center gap-3 mb-2 pr-10">
     <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#10b981,#06b6d4)"><i class="fa-solid fa-phone text-white"></i></div>
     <div><h3 class="text-base font-bold text-white" id="phoneModalName">Contacto</h3><p class="text-xs text-slate-400" id="phoneModalRole">—</p></div>
   </div>
@@ -979,7 +987,7 @@ body.theme-light footer { color:#64748b; }
 
 <div id="confirmModal" class="modal-sheet" style="z-index:300"><div class="modal-sheet-content" style="max-width:440px">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Confirmar acción</h3>
+  <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2 pr-10"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Confirmar acción</h3>
   <p id="confirmText" class="text-sm text-slate-300 mb-5 whitespace-pre-line">¿Estás seguro?</p>
   <div class="flex gap-3">
     <button id="confirmCancel" class="flex-1 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
@@ -1121,14 +1129,12 @@ function fallbackCopy(text) { var ta = document.createElement('textarea'); ta.va
 function applyTheme(theme) {
   if (theme === 'light') document.body.classList.add('theme-light');
   else document.body.classList.remove('theme-light');
-
   var label = $('themeToggleLabel');
   var icon  = $('themeToggleIcon');
   if (label) label.textContent = theme === 'light' ? 'Tema oscuro' : 'Tema claro';
   if (icon) icon.className = theme === 'light'
     ? 'fa-solid fa-moon text-indigo-400'
     : 'fa-solid fa-sun text-pink-400';
-
   var meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute('content', theme === 'light' ? '#e2e8f0' : '#0b0f19');
 }
@@ -1141,31 +1147,80 @@ function toggleTheme() {
   $('exportWrap').classList.remove('open');
 }
 
-/* ============ PUSH NOTIFICATIONS (Notification API) ============ */
+/* ============ PUSH NOTIFICATIONS (Notification API + Service Worker) ============ */
 function requestPushPermission() {
-  if (!('Notification' in window)) return;
-  if (Notification.permission === 'default') {
-    setTimeout(function() { Notification.requestPermission().then(function(perm) { console.log('Permiso push:', perm); }); }, 2000);
+  if (!('Notification' in window)) { console.warn('Notification API no soportada'); return; }
+  if (Notification.permission === 'granted') {
+    console.log('✅ Permiso ya concedido');
+    return;
   }
+  if (Notification.permission === 'denied') {
+    console.warn('🔕 Notificaciones bloqueadas por el usuario');
+    return;
+  }
+  Notification.requestPermission().then(function(perm) {
+    console.log('Permiso push:', perm);
+    if (perm === 'granted' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function() {
+        console.log('✅ SW listo para notificaciones');
+      });
+    }
+  });
 }
 function sendPushNotification(title, body, options) {
   if (!('Notification' in window)) return;
   if (Notification.permission !== 'granted') return;
-  try {
-    var opts = {
-      body: body,
-      icon: '/icon-192.png',
-      badge: '/icon-192.png',
-      tag: (options && options.tag) ? options.tag : 'likenet',
-      vibrate: [250, 100, 250],
-      requireInteraction: false,
-      silent: false
-    };
-    if (options && options.data) opts.data = options.data;
-    var n = new Notification(title, opts);
-    n.onclick = function() { try { window.focus(); n.close(); } catch(e) {} };
-    setTimeout(function() { try { n.close(); } catch(e) {} }, 12000);
-  } catch(e) { console.warn('Push error:', e); }
+  options = options || {};
+
+  var isUrgent = options.urgent === true;
+  var opts = {
+    body: body,
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
+    tag: options.tag || 'likenet',
+    vibrate: isUrgent ? [400, 150, 400, 150, 400] : [250, 100, 250],
+    requireInteraction: isUrgent ? true : false,
+    silent: false,
+    renotify: true,
+    data: options.data || { url: '/', urgent: isUrgent }
+  };
+  if (isUrgent) {
+    opts.actions = [
+      { action: 'open', title: '🆘 Ver solicitud' },
+      { action: 'close', title: 'Descartar' }
+    ];
+  }
+
+  function showIt() {
+    try {
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.ready.then(function(reg) {
+          reg.showNotification(title, opts).then(function() {
+            console.log('✅ Notificación sistema mostrada');
+          }).catch(function(err) {
+            console.warn('SW showNotification falló, usando fallback:', err);
+            try {
+              var n = new Notification(title, opts);
+              n.onclick = function() { try { window.focus(); n.close(); } catch(e) {} };
+            } catch(e) {}
+          });
+        });
+      } else {
+        var n = new Notification(title, opts);
+        n.onclick = function() { try { window.focus(); n.close(); } catch(e) {} };
+      }
+    } catch(e) {
+      console.warn('Push error:', e);
+    }
+  }
+
+  if (isUrgent) {
+    showIt();
+    setTimeout(showIt, 800);
+    setTimeout(showIt, 2500);
+  } else {
+    showIt();
+  }
 }
 
 /* ============ HISTORIAL ============ */
@@ -1180,7 +1235,7 @@ function logHistory(action, details, type) {
   fbPushHistory(entry);
 }
 
-/* ============ NOTIFICACIONES (campanita + push) ============ */
+/* ============ NOTIFICACIONES ============ */
 function loadNotifications() {
   try { var r = localStorage.getItem(LS_NOTIF); notificationsData = r ? JSON.parse(r) : []; } catch(e) { notificationsData = []; }
   var cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
@@ -1334,7 +1389,7 @@ function clearAllNotif() {
   });
 }
 
-/* ============ RESOLUTION POPUP (respuesta del admin) ============ */
+/* ============ RESOLUTION POPUP ============ */
 function getSeenResolutions() {
   try { var r = localStorage.getItem(LS_SEEN_RESOLUTIONS); return r ? JSON.parse(r) : []; } catch(e) { return []; }
 }
@@ -1476,8 +1531,10 @@ function entrarApp() {
   renderSolicitudes(); renderUsersList(); renderSectorsList();
   loadNotifications(); updateNotificationUI();
   applyTheme(localStorage.getItem(LS_THEME) || 'dark');
-  if (currentUser.role === 'admin') { checkStatusChanges(); requestPushPermission(); }
-  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); requestPushPermission(); setTimeout(checkMyResolutions, 1500); }
+  // Pedir permiso de notificaciones a TODOS los roles
+  requestPushPermission();
+  if (currentUser.role === 'admin') { checkStatusChanges(); }
+  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
 }
 
@@ -1870,8 +1927,15 @@ function saveSolicitudAyuda(e) {
   solicitudesData.push(sol); saveSolicitudes();
   logHistory('Petición de ayuda', '[' + (tipoMap[tipo]||tipo) + '] ' + currentUser.fullName, 'solicitud');
 
+  // Notificación in-app + push al sistema
   pushNotification('help', '🆘 Nueva petición de ayuda', currentUser.fullName + ' (' + (mySquad ? mySquad.name : 'Sin cuadrilla') + ') solicita: ' + (tipoMap[tipo]||tipo) + '. Prioridad: ' + prioridad.toUpperCase(), prioridad === 'urgente' ? 'alta' : 'normal', sol.id);
-  sendPushNotification('🆘 Nueva petición de ayuda', currentUser.fullName + ' solicita: ' + (tipoMap[tipo]||tipo), { tag: 'help-' + sol.id });
+
+  var esEmergencia = (tipo === 'emergencia' || prioridad === 'urgente');
+  sendPushNotification(
+    esEmergencia ? '🚨 EMERGENCIA - ' + currentUser.fullName : '🆘 Petición de ayuda',
+    currentUser.fullName + ' (' + (mySquad ? mySquad.name : 'Sin cuadrilla') + ' · ' + (mySquad ? mySquad.sector : '—') + ') solicita: ' + (tipoMap[tipo]||tipo) + '\n"' + motivo.substring(0, 100) + '"',
+    { tag: 'help-' + sol.id, urgent: esEmergencia, data: { url: '/', solId: sol.id } }
+  );
 
   closeModal('helpModal'); renderSolicitudes();
   vibrate(60); showToast('✅ Solicitud enviada al administrador', 'ok');
@@ -2009,9 +2073,9 @@ function resolveSolicitud(estado) {
   logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
 
   if (estado === 'aprobada' && s.equipoAyudaNombre) {
-    sendPushNotification('✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', { tag: 'resolved-' + s.id });
+    sendPushNotification('✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', { tag: 'resolved-' + s.id, urgent: s.prioridad === 'urgente' });
   } else if (estado === 'rechazada') {
-    sendPushNotification('❌ Solicitud Rechazada', comentario || 'El administrador revisó tu solicitud', { tag: 'resolved-' + s.id });
+    sendPushNotification('❌ Solicitud Rechazada', comentario || 'El administrador revisó tu solicitud', { tag: 'resolved-' + s.id, urgent: s.prioridad === 'urgente' });
   }
 
   closeModal('revisarSolModal'); renderSolicitudes(); renderSquads(); renderInlineReport();
@@ -2446,8 +2510,76 @@ function downloadMap(id) {
   }).catch(function() { showToast('Error.', 'error'); });
 }
 
-function openModal(id) { var el = $(id); if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; } }
-function closeModal(id) { var el = $(id); if (el) { el.classList.remove('open'); document.body.style.overflow = ''; } }
+/* ============ MODALES: ABRIR / CERRAR (con X, backdrop, atrás y swipe) ============ */
+function openModal(id) {
+  var el = $(id);
+  if (!el) return;
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Añadir botón X si no existe
+  var content = el.querySelector('.modal-sheet-content');
+  if (content && !content.querySelector('.modal-close-x')) {
+    var btn = document.createElement('button');
+    btn.className = 'modal-close-x';
+    btn.setAttribute('aria-label', 'Cerrar');
+    btn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    btn.onclick = function(e) { e.stopPropagation(); closeModal(id); };
+    content.appendChild(btn);
+  }
+  // Guardar para el botón "atrás" del celular
+  try { history.pushState({ modal: id }, '', ''); } catch(e) {}
+}
+function closeModal(id) {
+  var el = $(id);
+  if (!el) return;
+  el.classList.remove('open');
+  var stillOpen = document.querySelector('.modal-sheet.open');
+  if (!stillOpen) document.body.style.overflow = '';
+}
+// Cerrar al tocar el fondo oscuro
+document.addEventListener('click', function(e) {
+  if (e.target.classList && e.target.classList.contains('modal-sheet') && e.target.classList.contains('open')) {
+    e.target.classList.remove('open');
+    var stillOpen = document.querySelector('.modal-sheet.open');
+    if (!stillOpen) document.body.style.overflow = '';
+  }
+});
+// Botón físico "atrás" del celular cierra modales
+window.addEventListener('popstate', function() {
+  var open = document.querySelector('.modal-sheet.open');
+  if (open) {
+    open.classList.remove('open');
+    var stillOpen = document.querySelector('.modal-sheet.open');
+    if (!stillOpen) document.body.style.overflow = '';
+  } else {
+    var rp = $('resolutionPopup');
+    if (rp && rp.classList.contains('open')) closeResolutionPopup();
+  }
+});
+// Swipe hacia abajo en el handle del modal para cerrar
+document.addEventListener('touchstart', function(e) {
+  var handle = e.target.closest ? e.target.closest('.modal-handle') : null;
+  if (!handle) return;
+  var sheet = handle.closest('.modal-sheet');
+  if (!sheet) return;
+  var startY = e.touches[0].clientY;
+  var content = sheet.querySelector('.modal-sheet-content');
+  if (!content) return;
+  function onMove(ev) {
+    var dy = ev.touches[0].clientY - startY;
+    if (dy > 0) content.style.transform = 'translateY(' + dy + 'px)';
+  }
+  function onEnd(ev) {
+    var dy = ev.changedTouches[0].clientY - startY;
+    content.style.transform = '';
+    if (dy > 100) closeModal(sheet.id);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onEnd);
+  }
+  document.addEventListener('touchmove', onMove, { passive: true });
+  document.addEventListener('touchend', onEnd);
+}, { passive: true });
+
 function toggleExportMenu(e) { e.stopPropagation(); $('exportWrap').classList.toggle('open'); vibrate(10); }
 document.addEventListener('click', function(e) { if (!e.target.closest('#exportWrap')) $('exportWrap').classList.remove('open'); });
 
