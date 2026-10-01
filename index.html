@@ -386,8 +386,8 @@ body.light-theme .brand-logo-login { background:linear-gradient(135deg,rgba(79,7
 .empty-state i { font-size:2.5rem; color:rgba(129,140,248,.35); margin-bottom:12px; display:block; }
 .empty-state p { font-size:.85rem; }
 
-#resolutionPopup { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); padding:20px; }
-#resolutionPopup.open { display:flex; }
+#resolutionPopup, #assignmentPopup { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); padding:20px; }
+#resolutionPopup.open, #assignmentPopup.open { display:flex; }
 .resolution-card { background:linear-gradient(180deg,#0f172a,#0b0f19); border:2px solid; border-radius:24px; padding:32px 24px; max-width:440px; width:100%; text-align:center; animation:popIn .4s cubic-bezier(.2,.9,.3,1.3); }
 @keyframes popIn { from { opacity:0; transform:scale(.85); } to { opacity:1; transform:scale(1); } }
 .resolution-card.aprobada { border-color:rgba(16,185,129,.5); box-shadow:0 0 60px rgba(16,185,129,.3); }
@@ -420,6 +420,20 @@ button, select, input, textarea { touch-action:manipulation; }
     <p class="text-sm text-slate-300 mb-4" id="resolutionMsg"></p>
     <div id="resolutionExtra" class="text-left mb-4"></div>
     <button onclick="closeResolutionPopup()" class="w-full py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-lg"><i class="fa-solid fa-check mr-1"></i> Entendido</button>
+  </div>
+</div>
+
+<div id="assignmentPopup">
+  <div class="resolution-card aprobada" style="border-color:rgba(6,182,212,.5);box-shadow:0 0 60px rgba(6,182,212,.3)">
+    <div class="resolution-icon" style="background:linear-gradient(135deg,rgba(6,182,212,.25),rgba(14,116,144,.15));color:#67e8f9;border:3px solid rgba(6,182,212,.5)">
+      <i class="fa-solid fa-people-carry-box"></i>
+    </div>
+    <h2 class="text-xl font-bold text-white mb-2" id="assignmentTitle">✅ Asignación Realizada</h2>
+    <p class="text-sm text-slate-300 mb-4" id="assignmentMsg"></p>
+    <div id="assignmentExtra" class="text-left mb-4"></div>
+    <button onclick="closeAssignmentPopup()" class="w-full py-3 rounded-xl text-sm font-bold text-white shadow-lg" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+      <i class="fa-solid fa-check mr-1"></i> Entendido
+    </button>
   </div>
 </div>
 
@@ -667,7 +681,7 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </nav>
 
-<!-- MODAL: NOTIFICACIONES (con botón X y cerrar al tocar afuera) -->
+<!-- MODAL: NOTIFICACIONES -->
 <div id="notifModal" class="modal-sheet" onclick="if(event.target === this) closeModal('notifModal')">
   <div class="modal-sheet-content" style="max-width:560px">
     <div class="modal-handle"></div>
@@ -937,7 +951,7 @@ function fbLoad(k) { return new Promise(function(resolve) { if (!fdb) return res
 function setCloudStatus(ok) { var el = document.getElementById('cloudStatus'); if (!el) return; el.className = 'cloud-status ' + (ok ? 'online' : 'offline'); el.innerHTML = '<i class="fa-solid fa-circle"></i> <span>' + (ok ? 'Online' : 'Offline') + '</span>'; }
 function fbPushHistory(e) { if (!fdb) return; try { fdb.ref('likenet/history').push(e); } catch(x) {} }
 function fbLoadHistory() { return new Promise(function(resolve) { if (!fdb) return resolve(null); fdb.ref('likenet/history').orderByChild('ts').limitToLast(2000).get().then(function(s) { if (!s.exists()) return resolve([]); var arr = []; s.forEach(function(c) { arr.push(c.val()); }); resolve(arr); }).catch(function() { resolve(null); }); }); }
-function fbLoadNotifications() { return new Promise(function(resolve) { if (!fdb) return resolve(null); fdb.ref('likenet/notifications').get().then(function(snap) { if (!snap.exists()) return resolve([]); var arr = []; snap.forEach(function(child) { var n = child.val(); if (n && !n._empty && n.id) arr.push(n); }); resolve(arr); }).catch(function() { resolve(null); }); }); }
+function fbLoadNotifications() { return new Promise(function(resolve) { if (!fdb) return resolve(null); fdb.ref('likenet/notifications').get().then(function(snap) { if (!snap.exists()) return resolve([]); var arr = []; snap.forEach(function(child) { var n = child.val(); if (n && !n._empty && n.id) arr.push(n); }); resolve(arr); }).catch(function() { return resolve(null); }); }); }
 
 /* CONFIG */
 var OFFICES = ["OFICINA CAÑAR","OFICINA BIBLIAN","OFICINA AZOGUES"];
@@ -1009,6 +1023,35 @@ var revisarSolCtx = { id:'' };
 var logRange = '1d';
 var isFirstNotifLoad = true;
 var notifListenerAttached = false;
+
+/* === RENDIMIENTO: renders agrupados en RAF === */
+var _renderQueue = {};
+var _renderPending = false;
+function scheduleRender(fn) {
+  var key = fn.name || ('fn_' + Object.keys(_renderQueue).length);
+  _renderQueue[key] = fn;
+  if (!_renderPending) {
+    _renderPending = true;
+    requestAnimationFrame(function() {
+      _renderPending = false;
+      var fns = _renderQueue; _renderQueue = {};
+      for (var k in fns) { try { fns[k](); } catch(e) { console.warn('render:', e); } }
+    });
+  }
+}
+
+/* === POPUP DE ASIGNACIÓN === */
+var _lastSolSignature = '';
+function showAssignmentPopup(title, msg, extraHtml) {
+  var t = $('assignmentTitle'), m = $('assignmentMsg'), e = $('assignmentExtra');
+  if (!t || !m || !e) return;
+  t.textContent = title;
+  m.textContent = msg;
+  e.innerHTML = extraHtml || '';
+  $('assignmentPopup').classList.add('open');
+  try { vibrate([200,100,200]); playNotificationSound(); } catch(x) {}
+}
+function closeAssignmentPopup() { var el = $('assignmentPopup'); if (el) el.classList.remove('open'); }
 
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -1385,6 +1428,11 @@ function attachNotifListener() {
         if (isForMe && !n.read && seenIds.indexOf(n.id) < 0) {
           markNotifSeen(n.id); playNotificationSound(); showToast(n.title, 'info');
           sendPushNotification(n.title, n.message, { tag: 'likenet-' + n.id });
+          /* ✅ Popup de asignación para la cuadrilla ayudante */
+          if (n.type === 'help_assigned') {
+            var extraH = '<div class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30"><p class="text-xs text-slate-200">' + esc(n.message) + '</p></div>';
+            showAssignmentPopup('🚨 Apoyo Asignado', 'Administrador ha asignado asistencia al que necesita ayuda', extraH);
+          }
         }
       });
     }
@@ -1787,6 +1835,13 @@ function renderSolicitudes() {
   if (fEst !== 'ALL') list = list.filter(function(s) { return s.estado === fEst; });
   if (fTip !== 'ALL') list = list.filter(function(s) { return s.tipo === fTip; });
   list.sort(function(a,b) { return b.ts - a.ts; });
+
+  /* ✅ CACHE: si nada cambió, no re-renderizar */
+  var sig = fEst + '|' + fTip + '|' + currentUser.username + '|' +
+    list.map(function(s){ return s.id + s.estado + (s.equipoAyudaNombre||'') + (s.comentarioAdmin||'').length + (s.revisadoTs||''); }).join(',');
+  if (sig === _lastSolSignature) return;
+  _lastSolSignature = sig;
+
   var pending = solicitudesData.filter(function(s) { return s.estado === 'pendiente'; }).length;
   var sub = $('solSubtitle'); if (sub) sub.textContent = pending + ' pendiente' + (pending === 1 ? '' : 's') + ' · ' + solicitudesData.length + ' total';
   var navBadge = $('navSolBadge');
@@ -1886,8 +1941,31 @@ function resolveSolicitud(estado) {
     pushNotification('help_assigned', '🚨 Apoyo asignado a tu cuadrilla', msg, s.prioridad === 'urgente' ? 'alta' : 'normal', helpingUsernames);
     helpingUsernames.forEach(function(un) { sendPushNotification('🚨 Apoyo asignado', 'Debes apoyar a ' + s.cuadrillaOrigenNombre + ' - ' + (s.subtipoLabel || 'ayuda'), { tag: 'assigned-' + s.id + '-' + un }); });
   }
-  closeModal('revisarSolModal'); renderSolicitudes(); renderSquads(); renderInlineReport();
-  vibrate(40); showToast(estado === 'aprobada' ? '✓ Aprobada y notificada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
+  closeModal('revisarSolModal');
+  scheduleRender(renderSolicitudes);
+  scheduleRender(renderSquads);
+  scheduleRender(renderInlineReport);
+  vibrate(40);
+
+  if (estado === 'aprobada' && s.tipo === 'solicitud_ayuda' && helpingSquad) {
+    var fechaA = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
+    var extraHtml =
+      '<div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 mb-3">' +
+        '<p class="text-[10px] text-cyan-300 uppercase font-bold mb-1">Solicitante que recibe ayuda</p>' +
+        '<p class="text-sm font-bold text-white">' + esc(s.solicitanteNombre) + '</p>' +
+        '<p class="text-[10px] text-slate-400">' + esc(s.cuadrillaOrigenNombre || '—') + ' · ' + esc(s.cuadrillaOrigenSector || '—') + '</p>' +
+        '<p class="text-[10px] text-slate-500 mt-1">' + esc(fechaA) + '</p>' +
+      '</div>' +
+      '<div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">' +
+        '<p class="text-[10px] text-emerald-300 uppercase font-bold mb-1">Asistencia asignada a</p>' +
+        '<p class="text-sm font-bold text-white">' + esc(helpingSquad.name) + '</p>' +
+        '<p class="text-[10px] text-emerald-300/80">📍 ' + esc(helpingSquad.sector) + '</p>' +
+      '</div>';
+    showAssignmentPopup('✅ Asignación Realizada', 'Administrador ha asignado asistencia al que necesita ayuda', extraHtml);
+    showToast('✓ Aprobada y notificada', 'ok');
+  } else {
+    showToast(estado === 'aprobada' ? '✓ Aprobada y notificada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
+  }
 }
 
 /* LOG */
@@ -2518,7 +2596,7 @@ function autoInjectCloseButtons() {
   document.querySelectorAll('.modal-sheet-content').forEach(function(content) {
     if (content.querySelector('.modal-auto-close')) return;
     var sheet = content.closest('.modal-sheet');
-    if (!sheet || sheet.id === 'notifModal') return; // notifModal ya tiene X propio
+    if (!sheet || sheet.id === 'notifModal') return;
     var btn = document.createElement('button');
     btn.className = 'modal-auto-close';
     btn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
@@ -2557,7 +2635,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var sess = JSON.parse(sessionRaw);
       var u = null;
       for (var i = 0; i < usersData.length; i++) if (usersData[i].username === sess.username) { u = usersData[i]; break; }
-      // Si no está en usersData, usamos los datos de la sesión directamente (evita logout al recargar)
       if (!u && sess.username && sess.role) {
         u = {
           username: sess.username, role: sess.role, label: sess.label || sess.role,
@@ -2616,10 +2693,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setCloudStatus(true);
     if (currentUser) {
       try {
-        renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList();
-        renderMaps(); renderInlineReport(); updateNotificationUI(); updateShiftUI();
+        scheduleRender(renderSquads);
+        scheduleRender(renderUsersList);
+        scheduleRender(renderSolicitudes);
+        scheduleRender(renderSectorsList);
+        scheduleRender(renderMaps);
+        scheduleRender(renderInlineReport);
+        scheduleRender(updateNotificationUI);
+        scheduleRender(updateShiftUI);
         if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') {
-          renderTecnicoHome();
+          scheduleRender(renderTecnicoHome);
           setTimeout(checkMyResolutions, 1500);
         }
         attachNotifListener();
@@ -2637,6 +2720,7 @@ document.addEventListener('keydown', function(e) {
     document.body.style.overflow = '';
     $('exportWrap').classList.remove('open');
     closeResolutionPopup();
+    closeAssignmentPopup();
   }
 });
 </script>
