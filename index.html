@@ -20,7 +20,7 @@
 :root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --nav-h: 68px; }
 * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg,#0b0f19 0%,#111827 50%,#1e1b4b 100%); min-height: 100dvh; color: #f8fafc; overscroll-behavior-y: none; }
+body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg,#0b0f19 0%,#111827 50%,#1e1b4b 100%); min-height: 100dvh; color: #f8fafc; overscroll-behavior-y: none; transition: background .35s ease, color .35s ease; }
 body::before { content:''; position:fixed; inset:0; background:url('likenet.jpg') center/420px no-repeat; opacity:.045; pointer-events:none; z-index:0; }
 body::after { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at center, transparent 0%, rgba(11,15,25,.4) 100%); pointer-events:none; z-index:0; }
 body > * { position:relative; z-index:1; }
@@ -110,7 +110,8 @@ body.r-viewer .auth-only { display:revert !important; }
 @keyframes notifShake { 0%,90%,100%{transform:rotate(0);} 92%,96%{transform:rotate(-12deg);} 94%,98%{transform:rotate(12deg);} }
 .notif-badge { position:absolute; top:-4px; right:-4px; min-width:20px; height:20px; border-radius:10px; background:linear-gradient(135deg,#ef4444,#dc2626); color:white; font-size:.65rem; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 5px; border:2px solid #0b0f19; box-shadow:0 4px 12px rgba(239,68,68,.5); }
 
-.notif-item { padding:14px; border-radius:12px; background:rgba(15,23,42,.6); border:1px solid rgba(255,255,255,.07); margin-bottom:8px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:all .2s; }
+.notif-item { padding:14px; border-radius:12px; background:rgba(15,23,42,.6); border:1px solid rgba(255,255,255,.07); margin-bottom:8px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:all .2s; cursor:pointer; }
+.notif-item:hover { border-color:rgba(129,140,248,.45); transform:translateY(-1px); }
 .notif-item.unread { border-color:rgba(245,158,11,.35); background:linear-gradient(90deg,rgba(245,158,11,.08),rgba(15,23,42,.6)); }
 .notif-item.unread::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,#f59e0b,#d97706); border-radius:12px 0 0 12px; }
 .notif-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
@@ -303,6 +304,138 @@ body.r-viewer .auth-only { display:revert !important; }
 ::-webkit-scrollbar-track { background:rgba(15,23,42,.5); }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.2); border-radius:3px; }
 button, select, input, textarea { touch-action:manipulation; }
+
+/* ============ TEMA CLARO ============ */
+body.theme-light {
+  background: linear-gradient(135deg,#f8fafc 0%,#e2e8f0 50%,#e0e7ff 100%);
+  color: #0f172a;
+}
+body.theme-light::before { opacity:.06; filter:invert(1); }
+body.theme-light::after { background:radial-gradient(ellipse at center, transparent 0%, rgba(255,255,255,.35) 100%); }
+
+body.theme-light .glass-panel {
+  background: linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.75));
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 12px 32px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.8);
+}
+body.theme-light .glass-card {
+  background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.8));
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 4px 16px rgba(15,23,42,.06);
+}
+body.theme-light .glass-card:hover { border-color: rgba(99,102,241,.35); box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+
+body.theme-light .glass-input {
+  background: rgba(255,255,255,.85); border: 1px solid rgba(15,23,42,.12); color:#0f172a;
+}
+body.theme-light .glass-input:focus { background:#fff; border-color:#6366f1; }
+body.theme-light .sector-select { background-color:rgba(255,255,255,.9); color:#0f172a; }
+body.theme-light .sector-select option { background-color:#fff; color:#0f172a; }
+
+body.theme-light .text-white,
+body.theme-light .text-slate-100,
+body.theme-light .text-slate-200 { color:#0f172a !important; }
+body.theme-light .text-slate-300 { color:#1e293b !important; }
+body.theme-light .text-slate-400 { color:#475569 !important; }
+body.theme-light .text-slate-500 { color:#64748b !important; }
+body.theme-light .page-title h2 { color:#0f172a; }
+body.theme-light .page-title p { color:#64748b; }
+body.theme-light .form-label { color:#475569; }
+body.theme-light .form-input {
+  background: rgba(255,255,255,.9); border-color: rgba(15,23,42,.12); color:#0f172a;
+}
+body.theme-light .form-input::placeholder { color:#94a3b8; }
+
+body.theme-light .text-emerald-400, body.theme-light .text-emerald-300 { color:#059669 !important; }
+body.theme-light .text-amber-400, body.theme-light .text-amber-300 { color:#b45309 !important; }
+body.theme-light .text-rose-400, body.theme-light .text-rose-300 { color:#dc2626 !important; }
+body.theme-light .text-cyan-400, body.theme-light .text-cyan-300 { color:#0891b2 !important; }
+body.theme-light .text-indigo-300, body.theme-light .text-indigo-400, body.theme-light .text-indigo-200 { color:#4f46e5 !important; }
+body.theme-light .text-violet-400, body.theme-light .text-violet-300 { color:#7c3aed !important; }
+
+body.theme-light .app-header .glass-panel { background: rgba(255,255,255,.92); }
+body.theme-light .bottom-nav {
+  background: rgba(255,255,255,.96); border-top: 1px solid rgba(15,23,42,.08);
+}
+body.theme-light .nav-item { color:#64748b; }
+body.theme-light .nav-item.active { color:#4f46e5; background:rgba(99,102,241,.15); }
+body.theme-light .dropdown-menu {
+  background: rgba(255,255,255,.98); border: 1px solid rgba(15,23,42,.1);
+  box-shadow: 0 20px 40px rgba(15,23,42,.15);
+}
+body.theme-light .dropdown-item { color:#334155; }
+body.theme-light .dropdown-divider { background: rgba(15,23,42,.08); }
+body.theme-light .notif-btn { background: rgba(255,255,255,.75); }
+body.theme-light .shift-toggle { background:rgba(148,163,184,.2); color:#475569; border-color:rgba(148,163,184,.35); }
+
+body.theme-light .stat-card {
+  background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.75));
+  border-color: rgba(15,23,42,.08);
+}
+body.theme-light .stat-card .stat-value { color:#0f172a; }
+body.theme-light .user-card,
+body.theme-light .sector-card,
+body.theme-light .role-item {
+  background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.75));
+  border-color: rgba(15,23,42,.08);
+}
+body.theme-light .user-card.on-shift {
+  border-color: rgba(16,185,129,.5);
+  background: linear-gradient(180deg,rgba(16,185,129,.12),rgba(16,185,129,.04));
+}
+body.theme-light .soporte-user-item,
+body.theme-light .recorridos-user-item,
+body.theme-light .office-user-item { background: rgba(255,255,255,.75); }
+
+body.theme-light .notif-item {
+  background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08);
+}
+body.theme-light .notif-item.unread {
+  background: linear-gradient(90deg,rgba(245,158,11,.14),rgba(255,255,255,.85));
+  border-color: rgba(245,158,11,.45);
+}
+body.theme-light .notif-item:hover { border-color: rgba(99,102,241,.5); }
+body.theme-light .notif-title { color:#0f172a; }
+body.theme-light .notif-msg { color:#475569; }
+body.theme-light .notif-time { color:#64748b; }
+
+body.theme-light .solicitud-card { background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08); }
+body.theme-light .solicitud-card .bg-slate-900\/50,
+body.theme-light .solicitud-card .bg-slate-900\/60 { background: rgba(241,245,249,.8) !important; }
+body.theme-light .log-row { background: rgba(255,255,255,.75); border-color: rgba(15,23,42,.05); }
+body.theme-light .log-row .log-action { color:#0f172a; }
+body.theme-light .log-row .log-detail { color:#475569; }
+body.theme-light .log-row .log-meta { color:#64748b; }
+
+body.theme-light .modal-sheet { background: rgba(15,23,42,.4); }
+body.theme-light .modal-sheet-content {
+  background: linear-gradient(180deg,#ffffff,#f1f5f9);
+  border-color: rgba(15,23,42,.1);
+}
+body.theme-light .modal-handle { background: rgba(15,23,42,.2); }
+body.theme-light .confirm-check-item { background: rgba(255,255,255,.85); border-color: rgba(15,23,42,.08); }
+body.theme-light .confirm-check-item .text-slate-100 { color:#0f172a; }
+body.theme-light .nodo-picker { background: rgba(255,255,255,.75); border-color: rgba(15,23,42,.08); }
+body.theme-light .nodo-check { background: rgba(255,255,255,.7); border-color: rgba(15,23,42,.08); color:#334155; }
+body.theme-light .nodo-check.checked { background: rgba(6,182,212,.15); color:#0891b2; }
+
+body.theme-light .map-card { background: rgba(255,255,255,.85); border-color: rgba(6,182,212,.3); }
+body.theme-light .upload-drop { background: rgba(6,182,212,.06); }
+body.theme-light .report-section { background: rgba(255,255,255,.75); border-color: rgba(15,23,42,.08); }
+body.theme-light .report-stat { border-bottom-color: rgba(15,23,42,.08); }
+body.theme-light .tecnico-home-card {
+  background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));
+}
+body.theme-light .tecnico-home-card.recorridos {
+  background: linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.08));
+}
+body.theme-light .phone-action { background: rgba(255,255,255,.9); border-color: rgba(15,23,42,.08); color:#0f172a; }
+body.theme-light .phone-display { background: rgba(16,185,129,.12); }
+body.theme-light .phone-display .num { color:#059669; }
+body.theme-light .empty-state { color:#64748b; }
+body.theme-light .resolution-card { background: linear-gradient(180deg,#fff,#f1f5f9); }
+body.theme-light .row-action-btn { background: rgba(255,255,255,.8); }
+body.theme-light footer { color:#64748b; }
 </style>
 </head>
 <body>
@@ -372,6 +505,11 @@ button, select, input, textarea { touch-action:manipulation; }
           <button class="dropdown-item admin-only" onclick="switchView('view-sectors')"><i class="fa-solid fa-map-location-dot text-violet-400"></i> Sectores</button>
           <button class="dropdown-item soporte-only" onclick="switchView('view-users')"><i class="fa-solid fa-users-gear text-cyan-400"></i> Usuarios</button>
           <button class="dropdown-item admin-only" onclick="exportCSV()"><i class="fa-solid fa-file-csv text-emerald-400"></i> Exportar CSV</button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" onclick="toggleTheme()">
+            <i id="themeToggleIcon" class="fa-solid fa-sun text-pink-400"></i>
+            <span id="themeToggleLabel">Tema claro</span>
+          </button>
           <div class="dropdown-divider"></div>
           <button class="dropdown-item" onclick="logout()" style="color:#fca5a5"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</button>
         </div>
@@ -929,6 +1067,7 @@ var LS_ROLES = 'likenet_roles';
 var LS_NOTIF = 'likenet_notifications';
 var LS_CHECKED_STATUS = 'likenet_status_snapshot';
 var LS_SEEN_RESOLUTIONS = 'likenet_seen_resolutions';
+var LS_THEME = 'likenet_theme';
 var MAPS_DB_NAME = 'likenet_maps_db';
 var LOG_MAX_DAYS = 30;
 var squadsData = [], usersData = [], sectorsData = [], mapsMeta = [], solicitudesData = [], rolesData = [], notificationsData = [];
@@ -977,6 +1116,30 @@ function phoneAction(action) {
 }
 function copyToClipboard(text) { if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function(){ showToast('Copiado ✓'); }).catch(function(){ fallbackCopy(text); }); else fallbackCopy(text); }
 function fallbackCopy(text) { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('Copiado ✓'); } catch(e) { showToast('No se pudo copiar.', 'error'); } document.body.removeChild(ta); }
+
+/* ============ TEMA CLARO / OSCURO ============ */
+function applyTheme(theme) {
+  if (theme === 'light') document.body.classList.add('theme-light');
+  else document.body.classList.remove('theme-light');
+
+  var label = $('themeToggleLabel');
+  var icon  = $('themeToggleIcon');
+  if (label) label.textContent = theme === 'light' ? 'Tema oscuro' : 'Tema claro';
+  if (icon) icon.className = theme === 'light'
+    ? 'fa-solid fa-moon text-indigo-400'
+    : 'fa-solid fa-sun text-pink-400';
+
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', theme === 'light' ? '#e2e8f0' : '#0b0f19');
+}
+function toggleTheme() {
+  var current = localStorage.getItem(LS_THEME) || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(LS_THEME, next);
+  applyTheme(next);
+  showToast(next === 'light' ? '☀️ Tema claro activado' : '🌙 Tema oscuro activado', 'info');
+  $('exportWrap').classList.remove('open');
+}
 
 /* ============ PUSH NOTIFICATIONS (Notification API) ============ */
 function requestPushPermission() {
@@ -1027,14 +1190,22 @@ function saveNotifications() {
   try { localStorage.setItem(LS_NOTIF, JSON.stringify(notificationsData)); } catch(e) {}
   fbSave('notifications', notificationsData);
 }
-function pushNotification(type, title, message, priority) {
-  var n = { id: 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,6), ts: Date.now(), type: type, title: title, message: message, priority: priority || 'normal', read: false };
+function pushNotification(type, title, message, priority, refId) {
+  var n = {
+    id: 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+    ts: Date.now(),
+    type: type,
+    title: title,
+    message: message,
+    priority: priority || 'normal',
+    read: false,
+    refId: refId || null
+  };
   notificationsData.push(n);
   notificationsData = notificationsData.slice(-200);
   saveNotifications();
   updateNotificationUI();
   vibrate(30);
-  // Push al celular
   if (currentUser && currentUser.role === 'admin') {
     sendPushNotification(title, message, { tag: 'likenet-' + n.id });
   }
@@ -1060,28 +1231,73 @@ function openNotifPanel() {
 }
 function renderNotifList() {
   var c = $('notifContainer'); if (!c) return;
-  if (!notificationsData.length) { c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i><p>Sin notificaciones</p></div>'; return; }
+  if (!notificationsData.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i><p>Sin notificaciones</p></div>';
+    return;
+  }
   var iconMap = {
-    ausencia:   { icon: 'fa-user-slash', cls: 'ausencia' },
-    inactiva:   { icon: 'fa-circle-xmark', cls: 'inactiva' },
-    no_confirm: { icon: 'fa-clock', cls: 'no_confirm' },
-    help:       { icon: 'fa-tower-broadcast', cls: 'help' },
-    resolved:   { icon: 'fa-circle-check', cls: 'resolved' },
-    system:     { icon: 'fa-circle-info', cls: 'system' }
+    ausencia:   { icon:'fa-user-slash',      cls:'ausencia' },
+    inactiva:   { icon:'fa-circle-xmark',    cls:'inactiva' },
+    no_confirm: { icon:'fa-clock',           cls:'no_confirm' },
+    help:       { icon:'fa-tower-broadcast', cls:'help' },
+    resolved:   { icon:'fa-circle-check',    cls:'resolved' },
+    system:     { icon:'fa-circle-info',     cls:'system' }
   };
   var html = '';
-  notificationsData.slice().sort(function(a,b) { return b.ts - a.ts; }).forEach(function(n) {
+  notificationsData.slice().sort(function(a,b){ return b.ts - a.ts; }).forEach(function(n) {
     var m = iconMap[n.type] || iconMap.system;
     var timeAgo = getTimeAgo(n.ts);
-    html += '<div class="notif-item ' + (!n.read ? 'unread' : '') + '" onclick="markNotifRead(\'' + esc(n.id) + '\')">';
-    html += '<div class="notif-icon ' + m.cls + '"><i class="fa-solid ' + m.icon + '"></i></div>';
-    html += '<div class="flex-1 min-w-0">';
-    html += '<p class="notif-title">' + esc(n.title) + '</p>';
-    html += '<p class="notif-msg">' + esc(n.message) + '</p>';
-    html += '<p class="notif-time"><i class="fa-solid fa-clock"></i> ' + timeAgo + '</p>';
-    html += '</div></div>';
+    var hint = '';
+    if (n.type === 'help') hint = '<p class="text-[10px] text-indigo-300 mt-1.5 font-bold"><i class="fa-solid fa-arrow-pointer mr-1"></i>Toca para aprobar / rechazar</p>';
+    else if (n.type === 'ausencia' || n.type === 'inactiva') hint = '<p class="text-[10px] text-indigo-300 mt-1.5 font-bold"><i class="fa-solid fa-arrow-pointer mr-1"></i>Ver cuadrillas</p>';
+    else if (n.type === 'resolved') hint = '<p class="text-[10px] text-indigo-300 mt-1.5 font-bold"><i class="fa-solid fa-arrow-pointer mr-1"></i>Ver solicitud</p>';
+
+    html += '<div class="notif-item ' + (!n.read ? 'unread' : '') + '" onclick="handleNotifClick(\'' + esc(n.id) + '\')">';
+    html +=   '<div class="notif-icon ' + m.cls + '"><i class="fa-solid ' + m.icon + '"></i></div>';
+    html +=   '<div class="flex-1 min-w-0">';
+    html +=     '<p class="notif-title">' + esc(n.title) + '</p>';
+    html +=     '<p class="notif-msg">' + esc(n.message) + '</p>';
+    html +=     '<p class="notif-time"><i class="fa-solid fa-clock"></i> ' + timeAgo + '</p>';
+    html +=     hint;
+    html +=   '</div>';
+    html += '</div>';
   });
   c.innerHTML = html;
+}
+function handleNotifClick(id) {
+  markNotifRead(id);
+  var n = null;
+  for (var i = 0; i < notificationsData.length; i++) {
+    if (notificationsData[i].id === id) { n = notificationsData[i]; break; }
+  }
+  if (!n) return;
+  vibrate(20);
+
+  if (n.type === 'help') {
+    closeModal('notifModal');
+    switchView('view-solicitudes');
+    var sel = $('solFilterEstado');
+    if (sel) sel.value = 'pendiente';
+    renderSolicitudes();
+    if (n.refId) {
+      setTimeout(function() {
+        var exists = solicitudesData.some(function(s) { return s.id === n.refId && s.estado === 'pendiente'; });
+        if (exists) openRevisarSol(n.refId);
+        else showToast('Esta solicitud ya fue resuelta', 'info');
+      }, 400);
+    }
+  }
+  else if (n.type === 'ausencia' || n.type === 'inactiva' || n.type === 'no_confirm') {
+    closeModal('notifModal');
+    switchView('view-squads');
+  }
+  else if (n.type === 'resolved') {
+    closeModal('notifModal');
+    switchView('view-solicitudes');
+    var sel2 = $('solFilterEstado');
+    if (sel2) sel2.value = 'ALL';
+    renderSolicitudes();
+  }
 }
 function getTimeAgo(ts) {
   var diff = Date.now() - ts;
@@ -1098,14 +1314,23 @@ function markNotifRead(id) {
   saveNotifications(); updateNotificationUI(); renderNotifList();
 }
 function markAllNotifRead() {
-  notificationsData.forEach(function(n) { n.read = true; });
-  saveNotifications(); updateNotificationUI(); renderNotifList();
-  showToast('Marcadas como leídas', 'info');
+  if (!notificationsData.length) return showToast('No hay notificaciones', 'info');
+  for (var i = 0; i < notificationsData.length; i++) notificationsData[i].read = true;
+  saveNotifications();
+  updateNotificationUI();
+  renderNotifList();
+  vibrate(30);
+  showToast('✓ Todas marcadas como leídas', 'ok');
 }
 function clearAllNotif() {
-  showConfirm('¿Eliminar todas las notificaciones?', function() {
-    notificationsData = []; saveNotifications(); updateNotificationUI(); renderNotifList();
-    showToast('Eliminadas', 'info');
+  if (!notificationsData.length) return showToast('No hay notificaciones', 'info');
+  showConfirm('¿Eliminar TODAS las notificaciones?', function() {
+    notificationsData = [];
+    saveNotifications();
+    updateNotificationUI();
+    renderNotifList();
+    vibrate(40);
+    showToast('Notificaciones eliminadas', 'info');
   });
 }
 
@@ -1147,7 +1372,6 @@ function showResolutionPopup(sol) {
   markResolutionSeen(sol.id);
   vibrate(aprobada ? [200,100,200] : 200);
 
-  // Push también al que solicitó
   if (aprobada && sol.equipoAyudaNombre) {
     sendPushNotification('✅ Solicitud Aprobada', sol.equipoAyudaNombre + ' te ayudará', { tag: 'resolved-' + sol.id });
   } else if (!aprobada) {
@@ -1251,6 +1475,7 @@ function entrarApp() {
   renderInlineReport(); updateShiftUI(); renderMaps(); refreshMapSelects();
   renderSolicitudes(); renderUsersList(); renderSectorsList();
   loadNotifications(); updateNotificationUI();
+  applyTheme(localStorage.getItem(LS_THEME) || 'dark');
   if (currentUser.role === 'admin') { checkStatusChanges(); requestPushPermission(); }
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); requestPushPermission(); setTimeout(checkMyResolutions, 1500); }
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
@@ -1645,8 +1870,7 @@ function saveSolicitudAyuda(e) {
   solicitudesData.push(sol); saveSolicitudes();
   logHistory('Petición de ayuda', '[' + (tipoMap[tipo]||tipo) + '] ' + currentUser.fullName, 'solicitud');
 
-  // Notificación + push al admin
-  pushNotification('help', '🆘 Nueva petición de ayuda', currentUser.fullName + ' (' + (mySquad ? mySquad.name : 'Sin cuadrilla') + ') solicita: ' + (tipoMap[tipo]||tipo) + '. Prioridad: ' + prioridad.toUpperCase(), prioridad === 'urgente' ? 'alta' : 'normal');
+  pushNotification('help', '🆘 Nueva petición de ayuda', currentUser.fullName + ' (' + (mySquad ? mySquad.name : 'Sin cuadrilla') + ') solicita: ' + (tipoMap[tipo]||tipo) + '. Prioridad: ' + prioridad.toUpperCase(), prioridad === 'urgente' ? 'alta' : 'normal', sol.id);
   sendPushNotification('🆘 Nueva petición de ayuda', currentUser.fullName + ' solicita: ' + (tipoMap[tipo]||tipo), { tag: 'help-' + sol.id });
 
   closeModal('helpModal'); renderSolicitudes();
@@ -1732,7 +1956,6 @@ function openRevisarSol(id) {
   if (s.tipo === 'solicitud_ayuda') {
     detalle = '<div class="space-y-2"><p><strong>Tipo:</strong> ' + esc(s.subtipoLabel || 'Ayuda') + '</p><p><strong>Prioridad:</strong> <span class="priority-badge ' + (s.prioridad || 'normal') + '">' + (s.prioridad || 'normal').toUpperCase() + '</span></p><p><strong>Cuadrilla:</strong> ' + esc(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Sector:</strong> ' + esc(s.cuadrillaOrigenSector || '—') + '</p></div>';
     showAsignar = true;
-    // Populate squad select: exclude origin squad
     var opts = '<option value="">— Selecciona cuadrilla —</option>';
     squadsData.forEach(function(sq) {
       if (sq.id === s.cuadrillaOrigenId) return;
@@ -1756,7 +1979,6 @@ function resolveSolicitud(estado) {
   if (!s) return;
   var comentario = $('revComentario').value.trim();
 
-  // Validate squad assignment for help requests
   var equipoAyudaId = null, equipoAyudaNombre = '', equipoAyudaSector = '';
   if (s.tipo === 'solicitud_ayuda' && estado === 'aprobada') {
     var selVal = $('revAsignarSquad').value;
@@ -1786,7 +2008,6 @@ function resolveSolicitud(estado) {
   saveSolicitudes();
   logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
 
-  // Notificación + push al solicitante
   if (estado === 'aprobada' && s.equipoAyudaNombre) {
     sendPushNotification('✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', { tag: 'resolved-' + s.id });
   } else if (estado === 'rechazada') {
@@ -2238,6 +2459,7 @@ $('confirmCancel').addEventListener('click', function() { closeModal('confirmMod
 /* ============ DOMContentLoaded ============ */
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 Inicio');
+  applyTheme(localStorage.getItem(LS_THEME) || 'dark');
   var splash = document.getElementById('appSplash');
   var hidden = false;
   function hideSplash() { if (hidden || !splash) return; hidden = true; splash.classList.add('hide'); setTimeout(function() { try { splash.remove(); } catch(e){} }, 500); }
@@ -2245,7 +2467,6 @@ document.addEventListener('DOMContentLoaded', function() {
   try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); loadNotifications(); } catch(e) { console.error(e); }
   initMapsDB().catch(function(){});
 
-  // Sesión persistente: se mantiene hasta que el usuario finalice turno o cierre sesión
   var restored = false;
   try {
     var raw = localStorage.getItem(LS_SESSION);
