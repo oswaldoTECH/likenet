@@ -27,7 +27,7 @@ body::after { content:''; position:fixed; inset:0; background:radial-gradient(el
 body > * { position:relative; z-index:1; }
 
 #appSplash { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:linear-gradient(135deg,#050810 0%,#0d1224 40%,#1e1b4b 100%); transition:opacity .35s; }
-#appSplash.hide { opacity:0; pointer-events:none; }
+#appSplash.hide { opacity:0; pointer-events:none; visibility:hidden; }
 #appSplash img { width:110px; height:110px; object-fit:contain; border-radius:22px; padding:6px; background:rgba(255,255,255,.05); border:2px solid rgba(129,140,248,.35); box-shadow:0 0 60px rgba(99,102,241,.4); animation:splashPulse 1.6s infinite; }
 #appSplash .splash-text { font-size:.9rem; color:#a5b4fc; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
 #appSplash .splash-spinner { width:32px; height:32px; border:3px solid rgba(129,140,248,.25); border-top-color:#818cf8; border-radius:50%; animation:spin .8s linear infinite; }
@@ -404,9 +404,7 @@ button, select, input, textarea { touch-action:manipulation; }
 </style>
 </head>
 <body>
-  <div style="text-align: center; margin-top: 20px;">
-        <img src="likenet.jpg" alt="Logo Likenet" width="150">
-    </div>
+
 <div id="appSplash">
   <img src="likenet.jpg" alt="Likenet">
   <div class="splash-text">Likenet</div>
@@ -1121,7 +1119,7 @@ function requestPushPermission() { if (!('Notification' in window)) return; if (
 function sendPushNotification(title, body, options) {
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
   try {
-    var opts = { body:body, icon:'/icon-192.png', badge:'/icon-192.png', tag:(options && options.tag) ? options.tag : 'likenet', vibrate:[250,100,250,100,250], silent:false };
+    var opts = { body:body, icon:'/likenet.jpg', badge:'/likenet.jpg', tag:(options && options.tag) ? options.tag : 'likenet', vibrate:[250,100,250,100,250], silent:false };
     var n = new Notification(title, opts);
     n.onclick = function() {
       try {
@@ -1378,7 +1376,6 @@ function entrarApp() {
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
   attachNotifListener();
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
-  /* Auto-render cada 5s si está en vista solicitudes (respaldo) */
   setInterval(function() {
     if (!currentUser) return;
     var solView = document.getElementById('view-solicitudes');
@@ -1830,7 +1827,7 @@ function saveCambiarNodo() {
   vibrate(40); showToast('✅ Solicitud enviada', 'ok');
 }
 
-/* ============ RENDER SOLICITUDES (sin cache, siempre renderiza) ============ */
+/* ============ RENDER SOLICITUDES ============ */
 function renderSolicitudes(force) {
   var c = $('solicitudesContainer'); if (!c) return;
   var fEst = $('solFilterEstado').value, fTip = $('solFilterTipo').value;
@@ -1870,9 +1867,7 @@ function renderSolicitudes(force) {
     var fecha = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
     html += '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + clase + '">' + tipoInfo + '</span><span class="sol-badge ' + s.estado + '">' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + esc(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + esc(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + esc(s.motivo) + '"</p>' + extraRespuesta;
     if (s.comentarioAdmin && !extraRespuesta) html += '<div class="mt-2 p-2 rounded-lg bg-slate-900/50 border border-white/5"><p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Comentario del admin</p><p class="text-xs text-slate-300">"' + esc(s.comentarioAdmin) + '"</p></div>';
-    /* Botón para pendientes */
     if (canResolve && s.estado === 'pendiente') html += '<button onclick="openRevisarSol(\'' + esc(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold"><i class="fa-solid fa-gavel"></i> Revisar solicitud</button>';
-    /* Botón para reasignar aprobadas (solo solicitud_ayuda) */
     if (canResolve && s.estado === 'aprobada' && s.tipo === 'solicitud_ayuda') html += '<button onclick="openRevisarSol(\'' + esc(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-rotate"></i> Cambiar asignación</button>';
     html += '</div>';
   });
@@ -1945,7 +1940,6 @@ function resolveSolicitud(estado) {
       helpingUsernames.forEach(function(un) { sendPushNotification('🚨 Apoyo asignado', 'Debes apoyar a ' + s.cuadrillaOrigenNombre + ' - ' + (s.subtipoLabel || 'ayuda'), { tag: 'assigned-' + s.id + '-' + un }); });
     }
     closeModal('revisarSolModal');
-    /* Forzar re-render inmediato (no usar scheduleRender aquí para que sea visible al instante) */
     renderSolicitudes(true);
     renderSquads();
     renderInlineReport();
@@ -2626,6 +2620,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var hidden = false;
   function hideSplash() { if (hidden || !splash) return; hidden = true; splash.classList.add('hide'); setTimeout(function() { try { splash.remove(); } catch(e){} }, 500); }
   var safety = setTimeout(function() { hideSplash(); var lg = document.getElementById('loginScreen'); var ap = document.getElementById('appContainer'); if (lg && ap && ap.classList.contains('hidden') && lg.style.display !== 'flex') lg.style.display = 'flex'; }, 3000);
+  /* FIX: remover splash pase lo que pase */
+  window.addEventListener('load', function() { setTimeout(hideSplash, 800); });
+  setTimeout(hideSplash, 2500);
 
   try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); loadNotifications(); } catch(e) { console.error(e); }
   initMapsDB().catch(function(){});
