@@ -33,7 +33,6 @@ body > * { position:relative; z-index:1; }
 @keyframes spin { to { transform:rotate(360deg); } }
 @keyframes splashPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.05); } }
 
-/* GLASS */
 .glass-panel { background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025)); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.09); box-shadow:0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); }
 .glass-card { background:linear-gradient(180deg,rgba(15,23,42,.6),rgba(15,23,42,.4)); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.07); transition:all .25s; box-shadow:0 4px 16px rgba(0,0,0,.2); }
 .glass-card:hover { border-color:rgba(129,140,248,.25); box-shadow:0 8px 24px rgba(0,0,0,.35); }
@@ -54,8 +53,9 @@ body > * { position:relative; z-index:1; }
 .search-wrap i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#64748b; font-size:.85rem; pointer-events:none; }
 .search-wrap input { padding-left:38px !important; }
 
-.stat-card { padding:16px; border-radius:14px; background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)); border:1px solid rgba(255,255,255,.08); transition:all .25s; position:relative; overflow:hidden; }
+.stat-card { padding:16px; border-radius:14px; background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)); border:1px solid rgba(255,255,255,.08); transition:all .25s; position:relative; overflow:hidden; cursor:pointer; }
 .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(129,140,248,.5),transparent); }
+.stat-card.clickable:hover { border-color:rgba(16,185,129,.4); transform:translateY(-2px); }
 .stat-card .stat-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:.9rem; margin-bottom:8px; }
 .stat-card .stat-label { font-size:.65rem; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
 .stat-card .stat-value { font-size:1.6rem; font-weight:800; margin-top:2px; letter-spacing:-.5px; line-height:1; }
@@ -105,14 +105,11 @@ body.r-viewer .auth-only { display:revert !important; }
 .shift-toggle.on .dot { background:#10b981; animation:pulseDot 2s infinite; }
 @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 3px rgba(16,185,129,.25);} 50%{box-shadow:0 0 0 5px rgba(16,185,129,.15);} }
 
-/* NOTIFICATION BELL */
 .notif-btn { position:relative; width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(245,158,11,.25); color:#fcd34d; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; }
-.notif-btn:hover { background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.4); }
 .notif-btn.has-new { animation:notifShake 1.5s ease-in-out infinite; }
 @keyframes notifShake { 0%,90%,100%{transform:rotate(0);} 92%,96%{transform:rotate(-12deg);} 94%,98%{transform:rotate(12deg);} }
 .notif-badge { position:absolute; top:-4px; right:-4px; min-width:20px; height:20px; border-radius:10px; background:linear-gradient(135deg,#ef4444,#dc2626); color:white; font-size:.65rem; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 5px; border:2px solid #0b0f19; box-shadow:0 4px 12px rgba(239,68,68,.5); }
 
-/* NOTIFICATION ITEMS */
 .notif-item { padding:14px; border-radius:12px; background:rgba(15,23,42,.6); border:1px solid rgba(255,255,255,.07); margin-bottom:8px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:all .2s; }
 .notif-item.unread { border-color:rgba(245,158,11,.35); background:linear-gradient(90deg,rgba(245,158,11,.08),rgba(15,23,42,.6)); }
 .notif-item.unread::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,#f59e0b,#d97706); border-radius:12px 0 0 12px; }
@@ -121,6 +118,7 @@ body.r-viewer .auth-only { display:revert !important; }
 .notif-icon.inactiva { background:rgba(245,158,11,.15); color:#fcd34d; border:1px solid rgba(245,158,11,.3); }
 .notif-icon.no_confirm { background:rgba(139,92,246,.15); color:#c4b5fd; border:1px solid rgba(139,92,246,.3); }
 .notif-icon.help { background:rgba(6,182,212,.15); color:#67e8f9; border:1px solid rgba(6,182,212,.3); }
+.notif-icon.resolved { background:rgba(16,185,129,.15); color:#6ee7b7; border:1px solid rgba(16,185,129,.3); }
 .notif-icon.system { background:rgba(99,102,241,.15); color:#a5b4fc; border:1px solid rgba(99,102,241,.3); }
 .notif-title { font-size:.82rem; font-weight:800; color:#f8fafc; line-height:1.2; }
 .notif-msg { font-size:.75rem; color:#94a3b8; margin-top:4px; line-height:1.4; }
@@ -179,7 +177,6 @@ body.r-viewer .auth-only { display:revert !important; }
 .modal-handle { width:48px; height:5px; border-radius:3px; background:rgba(255,255,255,.25); margin:0 auto 16px; }
 @media (min-width:640px) { .modal-sheet { align-items:center; padding:20px; } .modal-sheet-content { border-radius:22px; border-bottom:1px solid rgba(255,255,255,.1); padding:24px; animation:none; } .modal-handle { display:none; } }
 
-/* FORM LABELS & INPUTS polished */
 .form-label { display:block; font-size:.72rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
 .form-input { width:100%; padding:13px 14px; border-radius:12px; background:rgba(2,6,23,.55); border:1px solid rgba(255,255,255,.1); color:white; font-size:15px; font-family:inherit; transition:all .2s; }
 .form-input:focus { outline:none; border-color:#818cf8; background:rgba(2,6,23,.75); box-shadow:0 0 0 3px rgba(129,140,248,.15); }
@@ -291,6 +288,17 @@ body.r-viewer .auth-only { display:revert !important; }
 .empty-state i { font-size:2.5rem; color:rgba(129,140,248,.35); margin-bottom:12px; display:block; }
 .empty-state p { font-size:.85rem; }
 
+/* Resolution popup */
+#resolutionPopup { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); padding:20px; }
+#resolutionPopup.open { display:flex; }
+.resolution-card { background:linear-gradient(180deg,#0f172a,#0b0f19); border:2px solid; border-radius:24px; padding:32px 24px; max-width:440px; width:100%; text-align:center; animation:popIn .4s cubic-bezier(.2,.9,.3,1.3); }
+@keyframes popIn { from { opacity:0; transform:scale(.85); } to { opacity:1; transform:scale(1); } }
+.resolution-card.aprobada { border-color:rgba(16,185,129,.5); box-shadow:0 0 60px rgba(16,185,129,.3); }
+.resolution-card.rechazada { border-color:rgba(239,68,68,.5); box-shadow:0 0 60px rgba(239,68,68,.3); }
+.resolution-icon { width:90px; height:90px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2.5rem; animation:pulseDot 2s infinite; }
+.resolution-card.aprobada .resolution-icon { background:linear-gradient(135deg,rgba(16,185,129,.25),rgba(5,150,105,.15)); color:#6ee7b7; border:3px solid rgba(16,185,129,.5); }
+.resolution-card.rechazada .resolution-icon { background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(190,24,93,.15)); color:#fca5a5; border:3px solid rgba(239,68,68,.5); }
+
 ::-webkit-scrollbar { width:6px; height:6px; }
 ::-webkit-scrollbar-track { background:rgba(15,23,42,.5); }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.2); border-radius:3px; }
@@ -303,6 +311,17 @@ button, select, input, textarea { touch-action:manipulation; }
   <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
   <div class="splash-text">Likenet</div>
   <div class="splash-spinner"></div>
+</div>
+
+<!-- RESOLUTION POPUP -->
+<div id="resolutionPopup">
+  <div class="resolution-card" id="resolutionCard">
+    <div class="resolution-icon" id="resolutionIcon"><i class="fa-solid fa-check"></i></div>
+    <h2 class="text-xl font-bold text-white mb-2" id="resolutionTitle">¡Solicitud Aprobada!</h2>
+    <p class="text-sm text-slate-300 mb-4" id="resolutionMsg"></p>
+    <div id="resolutionExtra" class="text-left mb-4"></div>
+    <button onclick="closeResolutionPopup()" class="w-full py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-lg"><i class="fa-solid fa-check mr-1"></i> Entendido</button>
+  </div>
 </div>
 
 <div id="loginScreen">
@@ -352,7 +371,7 @@ button, select, input, textarea { touch-action:manipulation; }
           <button class="dropdown-item admin-only" onclick="switchView('view-log')"><i class="fa-solid fa-list-check text-rose-400"></i> Log auditoría</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-sectors')"><i class="fa-solid fa-map-location-dot text-violet-400"></i> Sectores</button>
           <button class="dropdown-item soporte-only" onclick="switchView('view-users')"><i class="fa-solid fa-users-gear text-cyan-400"></i> Usuarios</button>
-          <button class="dropdown-item" onclick="exportCSV()"><i class="fa-solid fa-file-csv text-emerald-400"></i> Exportar CSV</button>
+          <button class="dropdown-item admin-only" onclick="exportCSV()"><i class="fa-solid fa-file-csv text-emerald-400"></i> Exportar CSV</button>
           <div class="dropdown-divider"></div>
           <button class="dropdown-item" onclick="logout()" style="color:#fca5a5"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</button>
         </div>
@@ -368,7 +387,7 @@ button, select, input, textarea { touch-action:manipulation; }
     <div class="stat-card"><div class="stat-icon" style="background:rgba(245,158,11,.15);color:#fcd34d"><i class="fa-solid fa-triangle-exclamation"></i></div><p class="stat-label">Incompletas</p><p class="stat-value text-amber-400" id="statIncomplete">0</p></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(239,68,68,.15);color:#fca5a5"><i class="fa-solid fa-circle-xmark"></i></div><p class="stat-label">Inactivas</p><p class="stat-value text-rose-400" id="statInactive">0</p></div>
     <div class="stat-card"><div class="stat-icon" style="background:rgba(6,182,212,.15);color:#67e8f9"><i class="fa-solid fa-user-check"></i></div><p class="stat-label">Presentes</p><p class="stat-value text-cyan-400" id="statPersonnelCount">0 / 0</p></div>
-    <div class="stat-card"><div class="stat-icon" style="background:rgba(16,185,129,.15);color:#6ee7b7"><i class="fa-solid fa-bolt"></i></div><p class="stat-label">En Turno</p><p class="stat-value text-emerald-400" id="statOnShift">0</p></div>
+    <div class="stat-card clickable" onclick="openOnShiftModal()" title="Ver quién está en turno"><div class="stat-icon" style="background:rgba(16,185,129,.15);color:#6ee7b7"><i class="fa-solid fa-bolt"></i></div><p class="stat-label">En Turno <i class="fa-solid fa-circle-info" style="font-size:.55rem;opacity:.6"></i></p><p class="stat-value text-emerald-400" id="statOnShift">0</p></div>
   </div>
 </section>
 
@@ -379,7 +398,7 @@ button, select, input, textarea { touch-action:manipulation; }
     <div class="glass-panel stat-pill"><p class="text-[10px] text-amber-400 font-bold uppercase">Incompletas</p><p class="text-2xl font-extrabold text-amber-400 mt-1" id="statIncompleteM">0</p></div>
     <div class="glass-panel stat-pill"><p class="text-[10px] text-rose-400 font-bold uppercase">Inactivas</p><p class="text-2xl font-extrabold text-rose-400 mt-1" id="statInactiveM">0</p></div>
     <div class="glass-panel stat-pill"><p class="text-[10px] text-cyan-400 font-bold uppercase">Presentes</p><p class="text-2xl font-extrabold text-cyan-400 mt-1" id="statPersonnelCountM">0/0</p></div>
-    <div class="glass-panel stat-pill"><p class="text-[10px] text-emerald-300 font-bold uppercase">En Turno</p><p class="text-2xl font-extrabold text-emerald-400 mt-1" id="statOnShiftM">0</p></div>
+    <div class="glass-panel stat-pill" onclick="openOnShiftModal()"><p class="text-[10px] text-emerald-300 font-bold uppercase">En Turno 👆</p><p class="text-2xl font-extrabold text-emerald-400 mt-1" id="statOnShiftM">0</p></div>
   </div>
 </section>
 
@@ -452,11 +471,11 @@ button, select, input, textarea { touch-action:manipulation; }
       <select id="logFilterUser" onchange="renderLog()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select"><option value="ALL">👤 Todos</option></select>
       <select id="logFilterType" onchange="renderLog()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
         <option value="ALL">⚡ Todos</option>
-        <option value="ok">🟢 Creaciones</option>
-        <option value="warn">🟡 Modificaciones</option>
-        <option value="danger">🔴 Eliminaciones</option>
-        <option value="info">🔵 Info</option>
-        <option value="solicitud">🆘 Solicitudes</option>
+        <option value="ok">🟢</option>
+        <option value="warn">🟡</option>
+        <option value="danger">🔴</option>
+        <option value="info">🔵</option>
+        <option value="solicitud">🆘</option>
       </select>
     </div>
     <div id="logContainer" style="max-height:60vh; overflow-y:auto;"></div>
@@ -500,7 +519,7 @@ button, select, input, textarea { touch-action:manipulation; }
         <div class="icon-box" style="background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(79,70,229,.1));color:#a5b4fc"><i class="fa-solid fa-chart-pie"></i></div>
         <div><h2>Reportes</h2><p>Resumen ejecutivo</p></div>
       </div>
-      <div class="flex gap-2">
+      <div class="flex gap-2 admin-only">
         <button onclick="exportCSV()" class="btn-primary btn-emerald"><i class="fa-solid fa-file-csv"></i> CSV</button>
         <button onclick="printReport()" class="btn-primary btn-indigo"><i class="fa-solid fa-print"></i> PDF</button>
       </div>
@@ -574,14 +593,22 @@ button, select, input, textarea { touch-action:manipulation; }
   <div class="flex items-center justify-between mb-4">
     <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-bell text-amber-400"></i> Notificaciones</h3>
     <div class="flex gap-2">
-      <button onclick="markAllNotifRead()" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2.5 py-1.5 rounded-lg border border-emerald-500/30"><i class="fa-solid fa-check-double"></i> Marcar leídas</button>
+      <button onclick="markAllNotifRead()" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2.5 py-1.5 rounded-lg border border-emerald-500/30"><i class="fa-solid fa-check-double"></i> Leídas</button>
       <button onclick="clearAllNotif()" class="text-[10px] font-bold text-rose-300 bg-rose-500/15 px-2.5 py-1.5 rounded-lg border border-rose-500/30"><i class="fa-solid fa-trash"></i> Limpiar</button>
     </div>
   </div>
   <div id="notifContainer" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
 
-<!-- MODAL: PETICIÓN DE AYUDA (REDISEÑADO) -->
+<!-- MODAL: EN TURNO (QUIÉN ESTÁ ACTIVO) -->
+<div id="onShiftModal" class="modal-sheet"><div class="modal-sheet-content" style="max-width:520px">
+  <div class="modal-handle"></div>
+  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Personal en Turno</h3>
+  <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 activos</p>
+  <div id="onShiftList" style="max-height:65vh; overflow-y:auto;"></div>
+</div></div>
+
+<!-- MODAL: SOLICITAR AYUDA -->
 <div id="helpModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-tower-broadcast text-rose-400"></i> Solicitar Ayuda</h3>
@@ -600,7 +627,7 @@ button, select, input, textarea { touch-action:manipulation; }
     </div>
     <div>
       <label class="form-label">Prioridad *</label>
-      <div class="grid grid-cols-4 gap-2" id="helpPrioridadGroup">
+      <div class="grid grid-cols-4 gap-2">
         <label class="cursor-pointer"><input type="radio" name="helpPrioridad" value="baja" class="sr-only peer"><div class="p-2.5 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-slate-400 peer-checked:bg-slate-500/15 text-center"><p class="text-[11px] font-bold text-slate-300">Baja</p></div></label>
         <label class="cursor-pointer"><input type="radio" name="helpPrioridad" value="normal" class="sr-only peer" checked><div class="p-2.5 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-cyan-400 peer-checked:bg-cyan-500/15 text-center"><p class="text-[11px] font-bold text-cyan-300">Normal</p></div></label>
         <label class="cursor-pointer"><input type="radio" name="helpPrioridad" value="alta" class="sr-only peer"><div class="p-2.5 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-amber-400 peer-checked:bg-amber-500/15 text-center"><p class="text-[11px] font-bold text-amber-300">Alta</p></div></label>
@@ -646,12 +673,22 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </div></div>
 
+<!-- MODAL: REVISAR SOLICITUD (con asignación de cuadrilla) -->
 <div id="revisarSolModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-gavel text-indigo-400"></i> Revisar Solicitud</h3>
   <div id="revisarSolBody" class="mb-4"></div>
-  <label class="form-label">Comentario (opcional)</label>
-  <textarea id="revComentario" maxlength="150" rows="2" class="form-input form-textarea" placeholder="Respuesta para el solicitante..."></textarea>
+
+  <div id="revAsignarSquadField" class="hidden mb-3 p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+    <label class="form-label" style="color:#6ee7b7"><i class="fa-solid fa-people-group mr-1"></i> Cuadrilla que brindará ayuda *</label>
+    <select id="revAsignarSquad" class="form-input sector-select">
+      <option value="">— Selecciona cuadrilla —</option>
+    </select>
+    <p class="text-[10px] text-emerald-300/70 mt-2">Esta cuadrilla aparecerá en la respuesta al técnico solicitante.</p>
+  </div>
+
+  <label class="form-label">Comentario / Respuesta</label>
+  <textarea id="revComentario" maxlength="200" rows="2" class="form-input form-textarea" placeholder="Ej. Se envía apoyo. B1 te ayudará..."></textarea>
   <div class="flex gap-2 mt-4">
     <button onclick="closeModal('revisarSolModal')" class="flex-1 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
     <button onclick="resolveSolicitud('rechazada')" class="flex-1 py-3 rounded-xl text-sm font-bold bg-rose-600 text-white shadow-lg"><i class="fa-solid fa-xmark mr-1"></i> Rechazar</button>
@@ -730,7 +767,6 @@ button, select, input, textarea { touch-action:manipulation; }
   </form>
 </div></div>
 
-<!-- MODALES EDIT (reemplazan prompt()) -->
 <div id="editSquadNameModal" class="modal-sheet"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-indigo-400"></i> Renombrar Cuadrilla</h3>
@@ -892,6 +928,7 @@ var LS_SOLICITUDES = 'likenet_solicitudes';
 var LS_ROLES = 'likenet_roles';
 var LS_NOTIF = 'likenet_notifications';
 var LS_CHECKED_STATUS = 'likenet_status_snapshot';
+var LS_SEEN_RESOLUTIONS = 'likenet_seen_resolutions';
 var MAPS_DB_NAME = 'likenet_maps_db';
 var LOG_MAX_DAYS = 30;
 var squadsData = [], usersData = [], sectorsData = [], mapsMeta = [], solicitudesData = [], rolesData = [], notificationsData = [];
@@ -941,6 +978,34 @@ function phoneAction(action) {
 function copyToClipboard(text) { if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function(){ showToast('Copiado ✓'); }).catch(function(){ fallbackCopy(text); }); else fallbackCopy(text); }
 function fallbackCopy(text) { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('Copiado ✓'); } catch(e) { showToast('No se pudo copiar.', 'error'); } document.body.removeChild(ta); }
 
+/* ============ PUSH NOTIFICATIONS (Notification API) ============ */
+function requestPushPermission() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'default') {
+    setTimeout(function() { Notification.requestPermission().then(function(perm) { console.log('Permiso push:', perm); }); }, 2000);
+  }
+}
+function sendPushNotification(title, body, options) {
+  if (!('Notification' in window)) return;
+  if (Notification.permission !== 'granted') return;
+  try {
+    var opts = {
+      body: body,
+      icon: '/icon-192.png',
+      badge: '/icon-192.png',
+      tag: (options && options.tag) ? options.tag : 'likenet',
+      vibrate: [250, 100, 250],
+      requireInteraction: false,
+      silent: false
+    };
+    if (options && options.data) opts.data = options.data;
+    var n = new Notification(title, opts);
+    n.onclick = function() { try { window.focus(); n.close(); } catch(e) {} };
+    setTimeout(function() { try { n.close(); } catch(e) {} }, 12000);
+  } catch(e) { console.warn('Push error:', e); }
+}
+
+/* ============ HISTORIAL ============ */
 function getHistory() { try { var raw = localStorage.getItem(LS_HISTORY); var list = raw ? JSON.parse(raw) : []; var cutoff = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000; return list.filter(function(h) { return h.ts >= cutoff; }); } catch(e) { return []; } }
 function logHistory(action, details, type) {
   if (!currentUser) return; details = details || ''; type = type || 'info';
@@ -952,7 +1017,7 @@ function logHistory(action, details, type) {
   fbPushHistory(entry);
 }
 
-/* ============ NOTIFICACIONES (SOLO ADMIN) ============ */
+/* ============ NOTIFICACIONES (campanita + push) ============ */
 function loadNotifications() {
   try { var r = localStorage.getItem(LS_NOTIF); notificationsData = r ? JSON.parse(r) : []; } catch(e) { notificationsData = []; }
   var cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
@@ -963,20 +1028,16 @@ function saveNotifications() {
   fbSave('notifications', notificationsData);
 }
 function pushNotification(type, title, message, priority) {
-  var n = {
-    id: 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    ts: Date.now(),
-    type: type,
-    title: title,
-    message: message,
-    priority: priority || 'normal',
-    read: false
-  };
+  var n = { id: 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,6), ts: Date.now(), type: type, title: title, message: message, priority: priority || 'normal', read: false };
   notificationsData.push(n);
   notificationsData = notificationsData.slice(-200);
   saveNotifications();
   updateNotificationUI();
   vibrate(30);
+  // Push al celular
+  if (currentUser && currentUser.role === 'admin') {
+    sendPushNotification(title, message, { tag: 'likenet-' + n.id });
+  }
 }
 function updateNotificationUI() {
   var badge = $('notifBadge');
@@ -999,15 +1060,13 @@ function openNotifPanel() {
 }
 function renderNotifList() {
   var c = $('notifContainer'); if (!c) return;
-  if (!notificationsData.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i><p>Sin notificaciones</p></div>';
-    return;
-  }
+  if (!notificationsData.length) { c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i><p>Sin notificaciones</p></div>'; return; }
   var iconMap = {
     ausencia:   { icon: 'fa-user-slash', cls: 'ausencia' },
     inactiva:   { icon: 'fa-circle-xmark', cls: 'inactiva' },
     no_confirm: { icon: 'fa-clock', cls: 'no_confirm' },
     help:       { icon: 'fa-tower-broadcast', cls: 'help' },
+    resolved:   { icon: 'fa-circle-check', cls: 'resolved' },
     system:     { icon: 'fa-circle-info', cls: 'system' }
   };
   var html = '';
@@ -1036,37 +1095,84 @@ function getTimeAgo(ts) {
 }
 function markNotifRead(id) {
   for (var i = 0; i < notificationsData.length; i++) if (notificationsData[i].id === id) { notificationsData[i].read = true; break; }
-  saveNotifications();
-  updateNotificationUI();
-  renderNotifList();
+  saveNotifications(); updateNotificationUI(); renderNotifList();
 }
 function markAllNotifRead() {
   notificationsData.forEach(function(n) { n.read = true; });
-  saveNotifications();
-  updateNotificationUI();
-  renderNotifList();
-  showToast('Todas marcadas como leídas', 'info');
+  saveNotifications(); updateNotificationUI(); renderNotifList();
+  showToast('Marcadas como leídas', 'info');
 }
 function clearAllNotif() {
   showConfirm('¿Eliminar todas las notificaciones?', function() {
-    notificationsData = [];
-    saveNotifications();
-    updateNotificationUI();
-    renderNotifList();
-    showToast('Notificaciones eliminadas', 'info');
+    notificationsData = []; saveNotifications(); updateNotificationUI(); renderNotifList();
+    showToast('Eliminadas', 'info');
   });
 }
 
-/* Detección de cambios en estados para generar notificaciones automáticas */
+/* ============ RESOLUTION POPUP (respuesta del admin) ============ */
+function getSeenResolutions() {
+  try { var r = localStorage.getItem(LS_SEEN_RESOLUTIONS); return r ? JSON.parse(r) : []; } catch(e) { return []; }
+}
+function markResolutionSeen(id) {
+  var seen = getSeenResolutions();
+  if (seen.indexOf(id) < 0) { seen.push(id); }
+  if (seen.length > 500) seen = seen.slice(-500);
+  localStorage.setItem(LS_SEEN_RESOLUTIONS, JSON.stringify(seen));
+}
+function showResolutionPopup(sol) {
+  var card = $('resolutionCard');
+  var icon = $('resolutionIcon');
+  var title = $('resolutionTitle');
+  var msg = $('resolutionMsg');
+  var extra = $('resolutionExtra');
+  var aprobada = sol.estado === 'aprobada';
+  card.className = 'resolution-card ' + (aprobada ? 'aprobada' : 'rechazada');
+  icon.innerHTML = aprobada ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>';
+  title.textContent = aprobada ? '¡Solicitud Aprobada!' : 'Solicitud Rechazada';
+
+  var extraHtml = '';
+  if (aprobada) {
+    var respuestaPrincipal = '';
+    if (sol.tipo === 'solicitud_ayuda' && sol.equipoAyudaNombre) {
+      respuestaPrincipal = '<div class="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-center mb-3"><p class="text-[10px] text-emerald-300 uppercase font-bold mb-2">Respuesta del administrador</p><p class="text-lg font-bold text-white">' + esc(sol.equipoAyudaNombre) + ' TE AYUDA</p><p class="text-xs text-emerald-300/80 mt-1">📍 ' + esc(sol.equipoAyudaSector || '—') + '</p></div>';
+    }
+    msg.textContent = sol.comentarioAdmin || (respuestaPrincipal ? '' : 'El administrador ha revisado tu solicitud.');
+    if (respuestaPrincipal) extraHtml = respuestaPrincipal;
+  } else {
+    msg.textContent = sol.comentarioAdmin || 'El administrador revisó tu solicitud pero no fue aprobada.';
+  }
+  extra.innerHTML = extraHtml;
+
+  $('resolutionPopup').classList.add('open');
+  markResolutionSeen(sol.id);
+  vibrate(aprobada ? [200,100,200] : 200);
+
+  // Push también al que solicitó
+  if (aprobada && sol.equipoAyudaNombre) {
+    sendPushNotification('✅ Solicitud Aprobada', sol.equipoAyudaNombre + ' te ayudará', { tag: 'resolved-' + sol.id });
+  } else if (!aprobada) {
+    sendPushNotification('❌ Solicitud Rechazada', sol.comentarioAdmin || 'El admin revisó tu solicitud', { tag: 'resolved-' + sol.id });
+  }
+}
+function closeResolutionPopup() { $('resolutionPopup').classList.remove('open'); }
+function checkMyResolutions() {
+  if (!currentUser) return;
+  if (currentUser.role === 'admin' || currentUser.role === 'soporte' || currentUser.role === 'viewer') return;
+  var seen = getSeenResolutions();
+  var pending = solicitudesData.filter(function(s) {
+    return s.solicitanteUser === currentUser.username &&
+           (s.estado === 'aprobada' || s.estado === 'rechazada') &&
+           seen.indexOf(s.id) < 0;
+  }).sort(function(a,b) { return (a.revisadoTs || a.ts) - (b.revisadoTs || b.ts); });
+  if (pending.length > 0) {
+    setTimeout(function() { showResolutionPopup(pending[0]); }, 800);
+  }
+}
+
+/* Detección de cambios en estados */
 function snapshotStatus() {
   var snap = {};
-  squadsData.forEach(function(sq) {
-    snap[sq.id] = {
-      name: sq.name,
-      sector: sq.sector,
-      members: sq.members.map(function(m) { return { name: m.name, status: m.status }; })
-    };
-  });
+  squadsData.forEach(function(sq) { snap[sq.id] = { name: sq.name, sector: sq.sector, members: sq.members.map(function(m) { return { name: m.name, status: m.status }; }) }; });
   return snap;
 }
 function checkStatusChanges() {
@@ -1075,31 +1181,23 @@ function checkStatusChanges() {
   try { prev = prevRaw ? JSON.parse(prevRaw) : null; } catch(e) { prev = null; }
   var curr = snapshotStatus();
   if (!prev) { localStorage.setItem(LS_CHECKED_STATUS, JSON.stringify(curr)); return; }
-
   squadsData.forEach(function(sq) {
     var p = prev[sq.id];
     if (!p) return;
     var total = sq.members.length;
     var pc = sq.members.filter(function(m) { return m.status === 'Presente' || m.status === 'Reemplazo'; }).length;
     var prevPresent = p.members.filter(function(m) { return m.status === 'Presente' || m.status === 'Reemplazo'; }).length;
-
-    // Squad became incomplete/inactive
     if (total >= 2) {
-      if (prevPresent >= 2 && pc === 1) pushNotification('inactiva', '🟡 Cuadrilla incompleta', 'La cuadrilla ' + sq.name + ' (' + sq.sector + ') perdió personal. Ahora tiene ' + pc + '/' + total, 'alta');
-      if (prevPresent >= 1 && pc === 0) pushNotification('inactiva', '🔴 Cuadrilla inactiva', 'La cuadrilla ' + sq.name + ' (' + sq.sector + ') quedó sin personal activo', 'alta');
+      if (prevPresent >= 2 && pc === 1) pushNotification('inactiva', '🟡 Cuadrilla incompleta', 'Cuadrilla ' + sq.name + ' (' + sq.sector + ') perdió personal. Ahora ' + pc + '/' + total, 'alta');
+      if (prevPresent >= 1 && pc === 0) pushNotification('inactiva', '🔴 Cuadrilla inactiva', 'Cuadrilla ' + sq.name + ' (' + sq.sector + ') quedó sin personal activo', 'alta');
     } else if (total === 1) {
-      if (prevPresent >= 1 && pc === 0) pushNotification('inactiva', '🔴 Cuadrilla inactiva', 'La cuadrilla ' + sq.name + ' (' + sq.sector + ') quedó sin personal', 'alta');
+      if (prevPresent >= 1 && pc === 0) pushNotification('inactiva', '🔴 Cuadrilla inactiva', 'Cuadrilla ' + sq.name + ' (' + sq.sector + ') quedó sin personal', 'alta');
     }
-
-    // Detect new absentees
     sq.members.forEach(function(m, idx) {
       var pm = p.members[idx];
-      if (pm && pm.status !== 'Ausente' && m.status === 'Ausente') {
-        pushNotification('ausencia', '⚠️ Técnico ausente', m.name + ' fue marcado ausente en la cuadrilla ' + sq.name + ' (' + sq.sector + ')', 'alta');
-      }
+      if (pm && pm.status !== 'Ausente' && m.status === 'Ausente') pushNotification('ausencia', '⚠️ Técnico ausente', m.name + ' fue marcado ausente en cuadrilla ' + sq.name + ' (' + sq.sector + ')', 'alta');
     });
   });
-
   localStorage.setItem(LS_CHECKED_STATUS, JSON.stringify(curr));
 }
 
@@ -1153,8 +1251,8 @@ function entrarApp() {
   renderInlineReport(); updateShiftUI(); renderMaps(); refreshMapSelects();
   renderSolicitudes(); renderUsersList(); renderSectorsList();
   loadNotifications(); updateNotificationUI();
-  if (currentUser.role === 'admin') checkStatusChanges();
-  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') switchView('view-tecnico-home');
+  if (currentUser.role === 'admin') { checkStatusChanges(); requestPushPermission(); }
+  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); requestPushPermission(); setTimeout(checkMyResolutions, 1500); }
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
 }
 
@@ -1197,6 +1295,30 @@ function updateShiftUI() {
   if (on) { btn.classList.add('on'); txt.textContent = 'En turno'; } else { btn.classList.remove('on'); txt.textContent = 'Fuera'; }
 }
 function getOnShiftUsers() { return usersData.filter(function(u) { return u.onShift; }); }
+
+/* MODAL: quién está en turno */
+function openOnShiftModal() {
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) {
+    showToast('Solo admin/soporte puede ver el detalle', 'info'); return;
+  }
+  var list = getOnShiftUsers();
+  $('onShiftSub').textContent = list.length + ' activo' + (list.length === 1 ? '' : 's');
+  var c = $('onShiftList');
+  if (!list.length) { c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bed"></i><p>Nadie en turno</p></div>'; openModal('onShiftModal'); return; }
+  var html = '';
+  list.forEach(function(u) {
+    var init = (u.fullName || u.username).charAt(0).toUpperCase();
+    var phoneOk = hasPhone(u.phone);
+    var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(u.area) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '';
+    var extra = '';
+    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) extra = '<div class="flex flex-wrap gap-1 mt-1">' + u.nodosAsignados.map(function(n){ return '<span class="nodo-chip">' + esc(n) + '</span>'; }).join('') + '</div>';
+    if (u.role === 'recorridos' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + '</span>';
+    if (u.role === 'tecnico' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + (u.companeroActual ? ' · ' + esc(u.companeroActual) : '') + '</span>';
+    html += '<div class="user-card on-shift"><div class="user-avatar ' + u.role + '">' + init + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm truncate">' + esc(u.fullName || u.username) + '</p><p class="text-xs text-slate-400 truncate mb-1">@' + esc(u.username) + (phoneOk ? ' · ' + esc(formatPhoneDisplay(u.phone)) : '') + '</p><div class="flex items-center gap-1.5 flex-wrap"><span class="user-role-pill ' + u.role + '">' + getRoleEmoji(u.role) + ' ' + getRoleLabel(u.role) + '</span><span class="user-role-pill" style="background:rgba(16,185,129,.25);color:#6ee7b7">🟢 En turno</span></div>' + extra + '</div>' + phoneBtn + '</div>';
+  });
+  c.innerHTML = html;
+  openModal('onShiftModal');
+}
 
 function initData() {
   var s = localStorage.getItem(LS_KEY);
@@ -1273,8 +1395,7 @@ function switchView(viewId) {
 
 function renderSquads() {
   var c = $('squadsContainer'); if (!c) return; c.innerHTML = '';
-  var fs = $('filterSector').value;
-  var fSt = $('filterStatus').value;
+  var fs = $('filterSector').value; var fSt = $('filterStatus').value;
   var searchEl = $('searchSquads');
   var search = searchEl ? searchEl.value.trim().toLowerCase() : '';
   var isAdmin = currentUser && currentUser.role === 'admin';
@@ -1330,9 +1451,7 @@ function renderSquads() {
   $('statPersonnelCount').innerText = cPres + ' / ' + totalCap; $('statPersonnelCountM').innerText = cPres + '/' + totalCap;
   $('statOnShift').innerText = onShiftC; $('statOnShiftM').innerText = onShiftC;
   var sub = $('squadsCountSub'); if (sub) sub.textContent = shown + ' de ' + squadsData.length + ' cuadrillas' + (search ? ' · filtro "' + search + '"' : '');
-  if (!c.children.length) {
-    c.innerHTML = '<div class="glass-panel rounded-2xl empty-state" style="grid-column:1/-1"><i class="fa-solid fa-magnifying-glass"></i><p>No se encontraron resultados' + (search ? ' para "' + esc(search) + '"' : '') + '</p></div>';
-  }
+  if (!c.children.length) c.innerHTML = '<div class="glass-panel rounded-2xl empty-state" style="grid-column:1/-1"><i class="fa-solid fa-magnifying-glass"></i><p>No se encontraron resultados' + (search ? ' para "' + esc(search) + '"' : '') + '</p></div>';
 }
 
 function buildSoporteCard(usersOnShift) {
@@ -1468,14 +1587,24 @@ function confirmarTurno(e) {
 function finalizarTurno() {
   var me = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { me = usersData[i]; break; }
   if (!me) return;
-  showConfirm('¿Finalizar turno?', function() { me.onShift = false; me.confirmado = false; saveUsers(); logHistory('Turno finalizado', me.fullName, 'info'); updateShiftUI(); renderSquads(); renderTecnicoHome(); renderUsersList(); showToast('Turno finalizado', 'info'); });
+  showConfirm('¿Finalizar turno y cerrar sesión?\n\nTu sesión se cerrará automáticamente.', function() {
+    me.onShift = false; me.confirmado = false; me.sectorActual = ''; me.companeroActual = '';
+    saveUsers();
+    logHistory('Turno finalizado y sesión cerrada', me.fullName, 'info');
+    vibrate(80);
+    showToast('Turno finalizado. Cerrando sesión...', 'info');
+    setTimeout(function() {
+      localStorage.removeItem(LS_SESSION);
+      currentUser = null;
+      location.reload();
+    }, 1200);
+  });
 }
 
-/* ============ SOLICITAR AYUDA (REDISEÑADO) ============ */
+/* ============ SOLICITAR AYUDA ============ */
 function openSolicitarAyudaModal() {
   if (['tecnico','recorridos','soporte'].indexOf(currentUser.role) < 0) return showToast('Sin permiso.', 'error');
   $('helpForm').reset();
-  // Set default priority
   var radios = document.querySelectorAll('input[name="helpPrioridad"]');
   for (var i = 0; i < radios.length; i++) radios[i].checked = (radios[i].value === 'normal');
   openModal('helpModal');
@@ -1487,7 +1616,7 @@ function saveSolicitudAyuda(e) {
   var prioEl = document.querySelector('input[name="helpPrioridad"]:checked');
   var prioridad = prioEl ? prioEl.value : 'normal';
   if (!tipo) return showToast('Selecciona tipo de ayuda.', 'error');
-  if (!motivo || motivo.length < 10) return showToast('Describe la situación (mín 10 caracteres).', 'error');
+  if (!motivo || motivo.length < 10) return showToast('Describe (mín 10 caracteres).', 'error');
 
   var me = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { me = usersData[i]; break; }
   var mySquad = null;
@@ -1510,15 +1639,18 @@ function saveSolicitudAyuda(e) {
     cuadrillaOrigenSector: mySquad ? mySquad.sector : '—',
     estado: 'pendiente',
     ts: Date.now(),
-    revisadoPor: '', revisadoTs: null, comentarioAdmin: ''
+    revisadoPor: '', revisadoTs: null, comentarioAdmin: '',
+    equipoAyudaId: null, equipoAyudaNombre: '', equipoAyudaSector: ''
   };
   solicitudesData.push(sol); saveSolicitudes();
-  logHistory('Petición de ayuda', '[' + (tipoMap[tipo]||tipo) + '] ' + currentUser.fullName + ' · ' + prioridad, 'solicitud');
+  logHistory('Petición de ayuda', '[' + (tipoMap[tipo]||tipo) + '] ' + currentUser.fullName, 'solicitud');
+
+  // Notificación + push al admin
   pushNotification('help', '🆘 Nueva petición de ayuda', currentUser.fullName + ' (' + (mySquad ? mySquad.name : 'Sin cuadrilla') + ') solicita: ' + (tipoMap[tipo]||tipo) + '. Prioridad: ' + prioridad.toUpperCase(), prioridad === 'urgente' ? 'alta' : 'normal');
-  closeModal('helpModal');
-  renderSolicitudes();
-  vibrate(60);
-  showToast('✅ Solicitud enviada al administrador', 'ok');
+  sendPushNotification('🆘 Nueva petición de ayuda', currentUser.fullName + ' solicita: ' + (tipoMap[tipo]||tipo), { tag: 'help-' + sol.id });
+
+  closeModal('helpModal'); renderSolicitudes();
+  vibrate(60); showToast('✅ Solicitud enviada al administrador', 'ok');
 }
 
 function openCambiarNodoModal() {
@@ -1562,12 +1694,15 @@ function renderSolicitudes() {
   var canResolve = currentUser.role === 'admin' || currentUser.role === 'soporte';
   var html = '';
   list.forEach(function(s) {
-    var tipoInfo = '', clase = '', detalle = '';
+    var tipoInfo = '', clase = '', detalle = '', extraRespuesta = '';
     if (s.tipo === 'solicitud_ayuda') {
       tipoInfo = '🆘 ' + (s.subtipoLabel || 'Petición de ayuda');
       clase = (s.prioridad === 'urgente') ? 'rose' : 'amber';
       var prioBadge = '<span class="priority-badge ' + (s.prioridad || 'normal') + '">' + (s.prioridad || 'normal').toUpperCase() + '</span>';
       detalle = '<div class="space-y-1.5"><div class="flex items-center gap-2 flex-wrap">' + prioBadge + '<span class="text-[10px] text-slate-400">📍 ' + esc(s.cuadrillaOrigenNombre || '—') + ' · ' + esc(s.cuadrillaOrigenSector || '—') + '</span></div></div>';
+      if (s.estado === 'aprobada' && s.equipoAyudaNombre) {
+        extraRespuesta = '<div class="mt-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30"><p class="text-[10px] text-emerald-300 uppercase font-bold mb-1"><i class="fa-solid fa-reply mr-1"></i> Respuesta del admin</p><p class="text-sm font-bold text-white">' + esc(s.equipoAyudaNombre) + ' TE AYUDA</p>' + (s.equipoAyudaSector ? '<p class="text-[10px] text-emerald-300/80">📍 ' + esc(s.equipoAyudaSector) + '</p>' : '') + '</div>';
+      }
     } else if (s.tipo === 'cambio_nodo_self') {
       tipoInfo = '🛣️ Cambio de nodo'; clase = 'violet';
       detalle = '<div class="text-xs text-slate-200">📍 ' + esc(s.sectorActual || '—') + ' → <strong class="text-emerald-300">' + esc(s.sectorNuevo || '—') + '</strong></div>';
@@ -1579,7 +1714,8 @@ function renderSolicitudes() {
       detalle = '<div class="text-xs text-slate-200"><strong>' + esc(s.miembroNombre || '—') + '</strong> → <strong class="text-emerald-300">' + esc(s.cuadrillaDestinoNombre || '—') + '</strong></div>';
     }
     var fecha = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
-    html += '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + clase + '">' + tipoInfo + '</span><span class="sol-badge ' + s.estado + '">' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + esc(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + esc(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + esc(s.motivo) + '"</p>';
+    html += '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + clase + '">' + tipoInfo + '</span><span class="sol-badge ' + s.estado + '">' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + esc(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + esc(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + esc(s.motivo) + '"</p>' + extraRespuesta;
+    if (s.comentarioAdmin && !extraRespuesta) html += '<div class="mt-2 p-2 rounded-lg bg-slate-900/50 border border-white/5"><p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Comentario del admin</p><p class="text-xs text-slate-300">"' + esc(s.comentarioAdmin) + '"</p></div>';
     if (canResolve && s.estado === 'pendiente') html += '<button onclick="openRevisarSol(\'' + esc(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold"><i class="fa-solid fa-gavel"></i> Revisar solicitud</button>';
     html += '</div>';
   });
@@ -1592,14 +1728,26 @@ function openRevisarSol(id) {
   if (!s) return;
   revisarSolCtx = { id:id }; $('revComentario').value = '';
   var detalle = '';
+  var showAsignar = false;
   if (s.tipo === 'solicitud_ayuda') {
     detalle = '<div class="space-y-2"><p><strong>Tipo:</strong> ' + esc(s.subtipoLabel || 'Ayuda') + '</p><p><strong>Prioridad:</strong> <span class="priority-badge ' + (s.prioridad || 'normal') + '">' + (s.prioridad || 'normal').toUpperCase() + '</span></p><p><strong>Cuadrilla:</strong> ' + esc(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Sector:</strong> ' + esc(s.cuadrillaOrigenSector || '—') + '</p></div>';
+    showAsignar = true;
+    // Populate squad select: exclude origin squad
+    var opts = '<option value="">— Selecciona cuadrilla —</option>';
+    squadsData.forEach(function(sq) {
+      if (sq.id === s.cuadrillaOrigenId) return;
+      var present = sq.members.filter(function(m){ return m.status === 'Presente' || m.status === 'Reemplazo'; }).length;
+      var total = sq.members.length;
+      opts += '<option value="' + sq.id + '">' + esc(sq.name) + ' · ' + esc(sq.sector) + ' (' + present + '/' + total + ')</option>';
+    });
+    $('revAsignarSquad').innerHTML = opts;
   } else if (s.tipo === 'cambio_nodo_self' || s.tipo === 'cambio_sector') {
     detalle = '<p>Actual: ' + esc(s.sectorActual || '—') + '</p><p>Nuevo: <strong class="text-emerald-300">' + esc(s.sectorNuevo) + '</strong></p>';
   } else {
     detalle = '<p>Origen: ' + esc(s.cuadrillaOrigenNombre || '—') + '</p><p>Destino: <strong class="text-emerald-300">' + esc(s.cuadrillaDestinoNombre || '—') + '</strong></p>';
   }
   $('revisarSolBody').innerHTML = '<div class="p-3 rounded-xl bg-slate-900/60 border border-white/10"><p class="text-xs text-slate-400 mb-2"><strong class="text-slate-200">' + esc(s.solicitanteNombre) + '</strong></p><div class="space-y-1 text-xs text-slate-300">' + detalle + '</div><p class="mt-3 text-xs italic text-slate-400 p-2 rounded-lg bg-slate-900/60">"' + esc(s.motivo) + '"</p></div>';
+  $('revAsignarSquadField').classList.toggle('hidden', !showAsignar);
   openModal('revisarSolModal');
 }
 function resolveSolicitud(estado) {
@@ -1607,19 +1755,46 @@ function resolveSolicitud(estado) {
   var s = null; for (var i = 0; i < solicitudesData.length; i++) if (solicitudesData[i].id === revisarSolCtx.id) { s = solicitudesData[i]; break; }
   if (!s) return;
   var comentario = $('revComentario').value.trim();
+
+  // Validate squad assignment for help requests
+  var equipoAyudaId = null, equipoAyudaNombre = '', equipoAyudaSector = '';
+  if (s.tipo === 'solicitud_ayuda' && estado === 'aprobada') {
+    var selVal = $('revAsignarSquad').value;
+    if (!selVal) return showToast('Selecciona la cuadrilla que ayudará.', 'error');
+    equipoAyudaId = parseInt(selVal);
+    var squadAsignada = null;
+    for (var k = 0; k < squadsData.length; k++) if (squadsData[k].id === equipoAyudaId) { squadAsignada = squadsData[k]; break; }
+    if (!squadAsignada) return showToast('Cuadrilla no encontrada.', 'error');
+    equipoAyudaNombre = squadAsignada.name;
+    equipoAyudaSector = squadAsignada.sector;
+  }
+
   if (estado === 'aprobada') {
     if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') {
       var sq = null; for (var j = 0; j < squadsData.length; j++) if (squadsData[j].id === s.cuadrillaOrigenId) { sq = squadsData[j]; break; }
       if (sq) { sq.sector = s.sectorNuevo; saveData(); logHistory('Nodo cambiado', sq.name + ': → ' + s.sectorNuevo, 'warn'); }
-      var u = null; for (var k = 0; k < usersData.length; k++) if (usersData[k].username === s.solicitanteUser) { u = usersData[k]; break; }
+      var u = null; for (var k2 = 0; k2 < usersData.length; k2++) if (usersData[k2].username === s.solicitanteUser) { u = usersData[k2]; break; }
       if (u && s.tipo === 'cambio_nodo_self') { u.sectorActual = s.sectorNuevo; u.area = s.sectorNuevo; saveUsers(); }
+    } else if (s.tipo === 'solicitud_ayuda') {
+      s.equipoAyudaId = equipoAyudaId;
+      s.equipoAyudaNombre = equipoAyudaNombre;
+      s.equipoAyudaSector = equipoAyudaSector;
     }
   }
+
   s.estado = estado; s.revisadoPor = currentUser.fullName || currentUser.username; s.revisadoTs = Date.now(); s.comentarioAdmin = comentario;
   saveSolicitudes();
   logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
+
+  // Notificación + push al solicitante
+  if (estado === 'aprobada' && s.equipoAyudaNombre) {
+    sendPushNotification('✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', { tag: 'resolved-' + s.id });
+  } else if (estado === 'rechazada') {
+    sendPushNotification('❌ Solicitud Rechazada', comentario || 'El administrador revisó tu solicitud', { tag: 'resolved-' + s.id });
+  }
+
   closeModal('revisarSolModal'); renderSolicitudes(); renderSquads(); renderInlineReport();
-  vibrate(40); showToast(estado === 'aprobada' ? '✓ Aprobada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
+  vibrate(40); showToast(estado === 'aprobada' ? '✓ Aprobada y notificada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
 }
 
 /* LOG */
@@ -1711,7 +1886,6 @@ function renderSectorsList() {
   c.innerHTML = html;
 }
 
-/* USUARIOS */
 function openAddUserModal() {
   if (currentUser.role !== 'admin' && currentUser.role !== 'soporte') return;
   $('addUserForm').reset();
@@ -1742,8 +1916,6 @@ function saveNewUser(e) {
   usersData.push({ username:un, password:pw, role:role, label:getRoleLabel(role), fullName: fn || un, area:area, onShift:false, phone: ph ? normalizePhone(ph) : '', nodosAsignados:nodosAsignados, sectorActual:'', companeroActual:'', confirmado:false });
   saveUsers();
   logHistory('Usuario creado', un + ' · ' + getRoleLabel(role), 'ok');
-
-  // Auto-link phone to squad
   if ((role === 'tecnico' || role === 'recorridos') && hasPhone(ph)) {
     var normNew = normalizePhone(ph);
     var targetName = (fn || un).trim().toLowerCase();
@@ -1752,7 +1924,6 @@ function saveNewUser(e) {
     if (linked > 0) { saveData(); showToast('Creado y vinculado a ' + linked + ' cuadrilla(s) ✓', 'ok'); }
     else showToast('Usuario "' + un + '" creado ✓');
   } else showToast('Usuario "' + un + '" creado ✓');
-
   renderUsersList(); renderSquads(); renderSectorsList();
   closeModal('addUserModal');
 }
@@ -1826,7 +1997,6 @@ function removeUser(un) {
   });
 }
 
-/* SECTORES */
 function openAddSectorModal() { if (currentUser.role !== 'admin') return; $('sectorModalTitle').textContent = 'Nuevo Sector'; $('sectorOriginalName').value = ''; $('sectorNameInput').value = ''; openModal('sectorModal'); }
 function openEditSectorModal(s) { if (currentUser.role !== 'admin') return; $('sectorModalTitle').textContent = 'Editar Sector'; $('sectorOriginalName').value = s; $('sectorNameInput').value = s; openModal('sectorModal'); }
 function saveSector(e) {
@@ -1864,7 +2034,6 @@ function removeSector(sn) {
   });
 }
 
-/* CRUD CUADRILLAS — usa modales */
 function openEditSquadNameModal(id) {
   if (currentUser.role !== 'admin') return;
   var sq = null; for (var i = 0; i < squadsData.length; i++) if (squadsData[i].id === id) { sq = squadsData[i]; break; }
@@ -1882,13 +2051,9 @@ function saveSquadName(e) {
   if (!nn) return showToast('Nombre requerido.', 'error');
   var sq = null; for (var i = 0; i < squadsData.length; i++) if (squadsData[i].id === id) { sq = squadsData[i]; break; }
   if (!sq) return;
-  var old = sq.name;
-  sq.name = nn;
-  saveData();
-  logHistory('Cuadrilla renombrada', old + ' → ' + nn, 'warn');
-  renderSquads();
-  closeModal('editSquadNameModal');
-  showToast('Renombrada ✓');
+  var old = sq.name; sq.name = nn;
+  saveData(); logHistory('Cuadrilla renombrada', old + ' → ' + nn, 'warn');
+  renderSquads(); closeModal('editSquadNameModal'); showToast('Renombrada ✓');
 }
 
 function openEditModal(id, i) {
@@ -1896,10 +2061,8 @@ function openEditModal(id, i) {
   var sq = null; for (var j = 0; j < squadsData.length; j++) if (squadsData[j].id === id) { sq = squadsData[j]; break; }
   if (!sq || !sq.members[i]) return;
   var m = sq.members[i];
-  $('editSquadId').value = id;
-  $('editMemberIndex').value = i;
-  $('editMemberName').value = m.name;
-  $('editMemberRole').value = m.role;
+  $('editSquadId').value = id; $('editMemberIndex').value = i;
+  $('editMemberName').value = m.name; $('editMemberRole').value = m.role;
   $('editMemberPhone').value = m.phone || '';
   openModal('editMemberModal');
 }
@@ -1918,11 +2081,8 @@ function saveMemberEdit(e) {
   sq.members[i].name = nn;
   sq.members[i].role = nr || sq.members[i].role;
   sq.members[i].phone = np ? normalizePhone(np) : '';
-  saveData();
-  logHistory('Técnico editado', old + ' → ' + nn, 'warn');
-  renderSquads();
-  closeModal('editMemberModal');
-  showToast('Actualizado ✓');
+  saveData(); logHistory('Técnico editado', old + ' → ' + nn, 'warn');
+  renderSquads(); closeModal('editMemberModal'); showToast('Actualizado ✓');
 }
 
 function openAddModal(id) {
@@ -1932,9 +2092,7 @@ function openAddModal(id) {
   if (sq.members.length >= 6) return showToast('Máximo 6 integrantes.', 'error');
   $('addMemberSquadId').value = id;
   $('addMemberSquadName').textContent = sq.name;
-  $('addMemberName').value = '';
-  $('addMemberRole').value = '';
-  $('addMemberPhone').value = '';
+  $('addMemberName').value = ''; $('addMemberRole').value = ''; $('addMemberPhone').value = '';
   openModal('addMemberModal');
 }
 function saveNewMember(e) {
@@ -1949,11 +2107,8 @@ function saveNewMember(e) {
   if (!sq) return;
   if (sq.members.length >= 6) return showToast('Máximo 6 integrantes.', 'error');
   sq.members.push({ name: n, role: r, status: 'Presente', phone: p ? normalizePhone(p) : '' });
-  saveData();
-  logHistory('Técnico agregado', sq.name + ': ' + n, 'ok');
-  renderSquads();
-  closeModal('addMemberModal');
-  showToast(n + ' agregado ✓');
+  saveData(); logHistory('Técnico agregado', sq.name + ': ' + n, 'ok');
+  renderSquads(); closeModal('addMemberModal'); showToast(n + ' agregado ✓');
 }
 
 function removeMember(id, i) {
@@ -1979,9 +2134,8 @@ function updateMemberStatus(id, i, ns) {
     saveData();
     logHistory('Estado técnico', m.name + ': ' + old + ' → ' + ns, ns === 'Presente' ? 'ok' : 'warn');
     renderSquads(); renderInlineReport();
-    // Notify admin if someone marked absent
     if (ns === 'Ausente' && currentUser.role === 'admin') {
-      pushNotification('ausencia', '⚠️ Técnico ausente', m.name + ' fue marcado ausente en la cuadrilla ' + sq.name + ' (' + sq.sector + ')', 'alta');
+      pushNotification('ausencia', '⚠️ Técnico ausente', m.name + ' fue marcado ausente en ' + sq.name + ' (' + sq.sector + ')', 'alta');
     }
   }
 }
@@ -2007,6 +2161,7 @@ function renderInlineReport() {
 }
 
 function exportCSV() {
+  if (currentUser.role !== 'admin') return showToast('Solo admin puede exportar.', 'error');
   $('exportWrap').classList.remove('open');
   var rows = [['Cuadrilla','Sector','Integrante','Rol','Teléfono','Asistencia']];
   squadsData.forEach(function(sq) { sq.members.forEach(function(m) { rows.push([sq.name, sq.sector, m.name, m.role, m.phone ? formatPhoneDisplay(m.phone) : '—', m.status]); }); });
@@ -2015,6 +2170,7 @@ function exportCSV() {
   showToast('CSV exportado ✓');
 }
 function printReport() {
+  if (currentUser.role !== 'admin') return showToast('Solo admin.', 'error');
   $('exportWrap').classList.remove('open');
   var rows = squadsData.map(function(sq) {
     var total = sq.members.length;
@@ -2079,6 +2235,7 @@ function showConfirm(text, cb) { $('confirmText').textContent = text; openModal(
 $('confirmOk').addEventListener('click', function() { closeModal('confirmModal'); if (confirmCallback) confirmCallback(); confirmCallback = null; });
 $('confirmCancel').addEventListener('click', function() { closeModal('confirmModal'); confirmCallback = null; });
 
+/* ============ DOMContentLoaded ============ */
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 Inicio');
   var splash = document.getElementById('appSplash');
@@ -2087,13 +2244,18 @@ document.addEventListener('DOMContentLoaded', function() {
   var safety = setTimeout(function() { hideSplash(); var lg = document.getElementById('loginScreen'); var ap = document.getElementById('appContainer'); if (lg && ap && ap.classList.contains('hidden') && lg.style.display !== 'flex') lg.style.display = 'flex'; }, 2500);
   try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); loadNotifications(); } catch(e) { console.error(e); }
   initMapsDB().catch(function(){});
+
+  // Sesión persistente: se mantiene hasta que el usuario finalice turno o cierre sesión
   var restored = false;
   try {
     var raw = localStorage.getItem(LS_SESSION);
     if (raw) {
       var sess = JSON.parse(raw);
       var u = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === sess.username) { u = usersData[i]; break; }
-      if (u) { currentUser = { username:u.username, role:u.role, label:u.label || getRoleLabel(u.role), fullName:u.fullName || u.username, area:u.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [], sectorActual: u.sectorActual || '', companeroActual: u.companeroActual || '' }; entrarApp(); restored = true; } else localStorage.removeItem(LS_SESSION);
+      if (u) {
+        currentUser = { username:u.username, role:u.role, label:u.label || getRoleLabel(u.role), fullName:u.fullName || u.username, area:u.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [], sectorActual: u.sectorActual || '', companeroActual: u.companeroActual || '' };
+        entrarApp(); restored = true;
+      } else localStorage.removeItem(LS_SESSION);
     }
   } catch(e) { localStorage.removeItem(LS_SESSION); }
   if (!restored) { var lg2 = document.getElementById('loginScreen'); if (lg2) lg2.style.display = 'flex'; }
@@ -2109,14 +2271,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (Array.isArray(res[6])) { notificationsData = res[6]; localStorage.setItem(LS_NOTIF, JSON.stringify(res[6])); }
     if (Array.isArray(res[7]) && res[7].length) { var cut = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000; localStorage.setItem(LS_HISTORY, JSON.stringify(res[7].filter(function(h) { return h.ts >= cut; }).sort(function(a,b) { return a.ts - b.ts; }))); }
     setCloudStatus(true);
-    if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); updateNotificationUI(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome(); } catch(e) {} }
+    if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); updateNotificationUI(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { renderTecnicoHome(); setTimeout(checkMyResolutions, 1500); } } catch(e) {} }
   }).catch(function(e) { setCloudStatus(false); });
 
   try {
     fbListen('users', function(d) { if (Array.isArray(d) && currentUser) { usersData = d; try { if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList(); renderSquads(); } catch(e){} } });
     fbListen('squads', function(d) { if (Array.isArray(d) && currentUser) { squadsData = d; try { renderSquads(); renderTecnicoHome(); } catch(e){} } });
     fbListen('sectors', function(d) { if (Array.isArray(d) && currentUser) { sectorsData = d; try { refreshAllSectorSelects(); renderSectorsList(); } catch(e){} } });
-    fbListen('solicitudes', function(d) { if (Array.isArray(d) && currentUser) { solicitudesData = d; try { renderSolicitudes(); } catch(e){} } });
+    fbListen('solicitudes', function(d) { if (Array.isArray(d) && currentUser) { solicitudesData = d; try { renderSolicitudes(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') checkMyResolutions(); } catch(e){} } });
     fbListen('notifications', function(d) { if (Array.isArray(d) && currentUser && currentUser.role === 'admin') { notificationsData = d; try { updateNotificationUI(); } catch(e){} } });
   } catch(e) {}
 });
@@ -2127,12 +2289,13 @@ document.addEventListener('keydown', function(e) {
     for (var i = 0; i < modals.length; i++) modals[i].classList.remove('open');
     document.body.style.overflow = '';
     $('exportWrap').classList.remove('open');
+    closeResolutionPopup();
   }
 });
 </script>
 
 <script>
-/* Solo registro de Service Worker — sin botón de instalar */
+/* Service Worker */
 (function() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
