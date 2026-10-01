@@ -159,6 +159,123 @@ body.light-theme .notif-badge { border-color:#fff; }
 .status-badge-pill.permiso { background:rgba(245,158,11,.2); color:#fcd34d; border:1px solid rgba(245,158,11,.4); }
 .status-badge-pill.reemplazo { background:rgba(6,182,212,.2); color:#67e8f9; border:1px solid rgba(6,182,212,.4); }
 
+/* ============ ON-SHIFT BANNER ============ */
+.on-shift-banner {
+  background: linear-gradient(135deg,rgba(16,185,129,.18),rgba(6,182,212,.08));
+  border: 2px solid rgba(16,185,129,.5);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: shiftGlow 2.5s ease-in-out infinite;
+}
+.on-shift-banner::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 20% 50%, rgba(16,185,129,.15), transparent 60%);
+  pointer-events:none;
+}
+@keyframes shiftGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.4), 0 8px 32px rgba(16,185,129,.15); }
+  50% { box-shadow: 0 0 0 8px rgba(16,185,129,0), 0 8px 40px rgba(16,185,129,.35); }
+}
+.on-shift-banner.empty { display:none; }
+.on-shift-banner .osb-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 12px; gap:10px; flex-wrap:wrap;
+  position:relative; z-index:1;
+}
+.on-shift-banner .osb-title {
+  display:flex; align-items:center; gap:10px;
+  font-weight:800; color:#a7f3d0; font-size:.85rem;
+  text-transform:uppercase; letter-spacing:.5px;
+}
+.on-shift-banner .osb-title .osb-icon {
+  width:36px; height:36px; border-radius:10px;
+  background: linear-gradient(135deg,#10b981,#059669);
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-size:1rem; flex-shrink:0;
+  box-shadow: 0 4px 16px rgba(16,185,129,.5);
+}
+.on-shift-banner .osb-count {
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 6px 12px; border-radius: 20px;
+  background: rgba(16,185,129,.25);
+  border: 1px solid rgba(16,185,129,.5);
+  color: #6ee7b7; font-weight: 800; font-size:.75rem;
+}
+.on-shift-banner .osb-count .dot {
+  width:8px; height:8px; border-radius:50%;
+  background:#10b981;
+  animation: pulseDot 1.4s infinite;
+}
+.on-shift-users-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  position:relative; z-index:1;
+}
+.on-shift-user-mini {
+  display:flex; align-items:center; gap:10px;
+  padding: 10px 12px;
+  background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));
+  border: 1.5px solid rgba(16,185,129,.4);
+  border-radius: 12px;
+  transition: all .25s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.on-shift-user-mini::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background: linear-gradient(180deg,#10b981,#06b6d4);
+}
+.on-shift-user-mini:hover {
+  border-color: rgba(16,185,129,.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16,185,129,.3);
+}
+.on-shift-user-mini .osu-avatar {
+  width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:.85rem;
+  background: linear-gradient(135deg,rgba(16,185,129,.5),rgba(6,182,212,.35));
+  border: 2px solid rgba(16,185,129,.7);
+  color: #d1fae5; flex-shrink:0;
+  position: relative;
+}
+.on-shift-user-mini .osu-avatar::after {
+  content:''; position:absolute; bottom:-2px; right:-2px;
+  width:12px; height:12px; border-radius:50%;
+  background:#10b981; border:2px solid #0b0f19;
+  animation: pulseDot 1.4s infinite;
+}
+.on-shift-user-mini .osu-name {
+  font-size:.78rem; font-weight:700; color:#f8fafc;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.on-shift-user-mini .osu-role {
+  font-size:.65rem; color:#6ee7b7; font-weight:700;
+  display:flex; align-items:center; gap:4px; margin-top:2px;
+}
+.on-shift-user-mini .osu-phone {
+  width:32px; height:32px; border-radius:10px;
+  background: rgba(16,185,129,.2);
+  border: 1px solid rgba(16,185,129,.5);
+  color: #6ee7b7; font-size:.75rem;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  cursor: pointer;
+}
+.on-shift-user-mini .osu-phone:active { transform: scale(.92); }
+
+.nav-item .nav-badge.shift-badge {
+  background: linear-gradient(135deg,#10b981,#059669) !important;
+  animation: shiftGlow 2s infinite;
+}
+
 /* LIGHT THEME */
 body.light-theme { background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 45%,#dbeafe 100%); color:#0f172a; }
 body.light-theme::before { opacity:.06; }
@@ -222,6 +339,13 @@ body.light-theme #loginScreen { background:linear-gradient(135deg,#eff3ff 0%,#db
 body.light-theme .login-card { background:rgba(255,255,255,.95); border-color:rgba(15,23,42,.1); }
 body.light-theme .login-input { background:rgba(248,250,252,.95); border-color:rgba(15,23,42,.12); color:#0f172a; }
 body.light-theme .brand-logo-login { background:linear-gradient(135deg,rgba(79,70,229,.15),rgba(6,182,212,.15)); border-color:rgba(99,102,241,.35); }
+body.light-theme .on-shift-banner { background: linear-gradient(135deg,rgba(16,185,129,.14),rgba(6,182,212,.06)); }
+body.light-theme .on-shift-user-mini { background: rgba(255,255,255,.95); }
+body.light-theme .on-shift-user-mini .osu-name { color:#0f172a; }
+body.light-theme .on-shift-user-mini .osu-avatar { border-color: rgba(16,185,129,.5); color:#047857; }
+body.light-theme .on-shift-user-mini .osu-avatar::after { border-color:#fff; }
+body.light-theme .on-shift-banner .osb-title { color:#047857; }
+body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(16,185,129,.15); }
 
 .phone-btn { width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background:rgba(16,185,129,.15); color:#6ee7b7; border:1px solid rgba(16,185,129,.35); cursor:pointer; font-size:.78rem; flex-shrink:0; }
 .phone-btn.disabled { background:rgba(100,116,139,.1); border-color:rgba(100,116,139,.2); color:#64748b; cursor:not-allowed; }
@@ -552,6 +676,10 @@ button, select, input, textarea { touch-action:manipulation; }
       </select>
     </div>
   </div>
+
+  <!-- 🟢 BANNER DE PERSONAL EN TURNO -->
+  <div id="onShiftBanner" class="on-shift-banner empty"></div>
+
   <div id="squadsContainer"></div>
 </section>
 
@@ -1012,6 +1140,7 @@ var revisarSolCtx = { id:'' };
 var logRange = '1d';
 var isFirstNotifLoad = true;
 var notifListenerAttached = false;
+var usersListenerAttached = false;
 
 /* === RENDIMIENTO: renders agrupados en RAF === */
 var _renderQueue = {};
@@ -1041,7 +1170,6 @@ function showAssignmentPopup(title, msg, extraHtml) {
 }
 function closeAssignmentPopup() { var el = $('assignmentPopup'); if (el) el.classList.remove('open'); }
 
-/* === Cerrar popups con Escape global === */
 function closeAllPopups() {
   closeResolutionPopup();
   closeAssignmentPopup();
@@ -1375,6 +1503,7 @@ function entrarApp() {
   requestPushPermission();
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
   attachNotifListener();
+  attachUsersListener();
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
   setInterval(function() {
     if (!currentUser) return;
@@ -1439,6 +1568,24 @@ function attachNotifListener() {
   });
 }
 
+/* 🟢 Listener de usuarios → actualiza banner en tiempo real */
+function attachUsersListener() {
+  if (!fdb || usersListenerAttached) return;
+  usersListenerAttached = true;
+  fdb.ref('likenet/users').on('value', function(snap) {
+    if (!snap.exists()) return;
+    var arr = snap.val();
+    if (!Array.isArray(arr)) return;
+    usersData = arr;
+    try { localStorage.setItem(LS_USERS, JSON.stringify(arr)); } catch(e) {}
+    scheduleRender(renderSquads);
+    scheduleRender(updateShiftUI);
+    scheduleRender(renderUsersList);
+    var viewActive = document.querySelector('#view-squads.active');
+    if (viewActive) renderOnShiftBanner();
+  });
+}
+
 function logout() {
   var idx = -1; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { idx = i; break; }
   if (idx >= 0 && usersData[idx].onShift) { usersData[idx].onShift = false; usersData[idx].confirmado = false; saveUsers(); }
@@ -1457,7 +1604,18 @@ function toggleMyShift() {
   updateShiftUI(); renderSquads();
   if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderUsersList();
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome();
-  vibrate(40); showToast(on ? '🟢 Estás en turno' : '🔴 Saliste de turno', on ? 'ok' : 'info');
+  renderOnShiftBanner();
+  vibrate(on ? [80,40,80] : 40);
+  showToast(on ? '🟢 Estás en turno' : '🔴 Saliste de turno', on ? 'ok' : 'info');
+  if (on) {
+    setTimeout(function() {
+      var extraH = '<div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">' +
+        '<p class="text-sm font-bold text-white">' + esc(currentUser.fullName || currentUser.username) + '</p>' +
+        '<p class="text-[10px] text-emerald-300/80 mt-1">' + getRoleEmoji(currentUser.role) + ' ' + esc(getRoleLabel(currentUser.role)) + (currentUser.area ? ' · 📍 ' + esc(currentUser.area) : '') + '</p>' +
+      '</div>';
+      showAssignmentPopup('🟢 Ahora estás en turno', 'Tu estado ya es visible para todos', extraH);
+    }, 400);
+  }
 }
 function toggleUserShift(username) {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) return;
@@ -1467,7 +1625,7 @@ function toggleUserShift(username) {
   if (!usersData[idx].onShift) usersData[idx].confirmado = false;
   saveUsers();
   logHistory(usersData[idx].onShift ? 'Usuario en turno' : 'Usuario fuera', usersData[idx].fullName, 'info');
-  renderUsersList(); renderSquads();
+  renderUsersList(); renderSquads(); renderOnShiftBanner();
   if (username === currentUser.username) updateShiftUI();
   vibrate(30);
 }
@@ -1478,6 +1636,66 @@ function updateShiftUI() {
   if (on) { btn.classList.add('on'); txt.textContent = 'En turno'; } else { btn.classList.remove('on'); txt.textContent = 'Fuera'; }
 }
 function getOnShiftUsers() { return usersData.filter(function(u) { return u.onShift; }); }
+
+/* ============ BANNER DE PERSONAL EN TURNO ============ */
+function renderOnShiftBanner() {
+  var banner = $('onShiftBanner');
+  if (!banner) return;
+  var onShift = getOnShiftUsers();
+  if (!onShift.length) {
+    banner.classList.add('empty');
+    banner.innerHTML = '';
+    return;
+  }
+  banner.classList.remove('empty');
+  var order = { tecnico: 1, recorridos: 2, soporte: 3, admin: 4, viewer: 5 };
+  onShift.sort(function(a, b) { return (order[a.role] || 99) - (order[b.role] || 99); });
+  var usersHTML = '';
+  onShift.forEach(function(u) {
+    var init = (u.fullName || u.username).charAt(0).toUpperCase();
+    var phoneOk = hasPhone(u.phone);
+    var roleIcon = getRoleEmoji(u.role);
+    var roleLabel = getRoleLabel(u.role);
+    var extraInfo = '';
+    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) {
+      extraInfo = ' · ' + u.nodosAsignados.length + ' nodos';
+    } else if ((u.role === 'recorridos' || u.role === 'tecnico') && u.sectorActual) {
+      extraInfo = ' · 📍 ' + u.sectorActual;
+    }
+    var phoneBtn = phoneOk
+      ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(roleLabel) + '\',\'' + esc(u.area) + '\')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
+      : '';
+    usersHTML +=
+      '<div class="on-shift-user-mini" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
+        '<div class="osu-avatar">' + init + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="osu-name">' + esc(u.fullName || u.username) + '</p>' +
+          '<p class="osu-role">' + roleIcon + ' ' + esc(roleLabel) + esc(extraInfo) + '</p>' +
+        '</div>' +
+        phoneBtn +
+      '</div>';
+  });
+  banner.innerHTML =
+    '<div class="osb-header">' +
+      '<div class="osb-title">' +
+        '<span class="osb-icon"><i class="fa-solid fa-bolt"></i></span>' +
+        '<span>Personal en Turno</span>' +
+      '</div>' +
+      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + '</span>' +
+    '</div>' +
+    '<div class="on-shift-users-grid">' + usersHTML + '</div>';
+}
+
+function openShiftUserPanel(username) {
+  var u = null;
+  for (var i = 0; i < usersData.length; i++) if (usersData[i].username === username) { u = usersData[i]; break; }
+  if (!u) return;
+  if (hasPhone(u.phone)) {
+    openPhoneModal(u.phone, u.fullName || u.username, getRoleLabel(u.role), u.area);
+  } else {
+    showToast('@' + u.username + ' · ' + getRoleLabel(u.role), 'info');
+  }
+}
 
 function openOnShiftModal() {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) { showToast('Solo admin/soporte puede ver el detalle', 'info'); return; }
@@ -1566,6 +1784,7 @@ function switchView(viewId) {
   if (viewId === 'view-sectors') renderSectorsList();
   if (viewId === 'view-maps') { refreshMapSelects(); renderMaps(); }
   if (viewId === 'view-solicitudes') renderSolicitudes(true);
+  if (viewId === 'view-squads') renderOnShiftBanner();
   if (viewId === 'view-log') { renderLogFilters(); renderLog(); }
   if (viewId === 'view-tecnico-home') renderTecnicoHome();
   window.scrollTo({ top:0, behavior:'smooth' });
@@ -1622,6 +1841,7 @@ function renderSquads() {
       shown++;
     });
   }
+  renderOnShiftBanner();
   var onShiftC = getOnShiftUsers().length;
   $('statTotalSquads').innerText = squadsData.length; $('statTotalSquadsM').innerText = squadsData.length;
   $('statOperative').innerText = cO; $('statOperativeM').innerText = cO;
@@ -1757,7 +1977,7 @@ function confirmarTurno(e) {
   else { for (var j = 0; j < squadsData.length; j++) { for (var k = 0; k < squadsData[j].members.length; k++) if (squadsData[j].members[k].name === me.fullName || squadsData[j].members[k].name === me.username) { sector = squadsData[j].sector; break; } if (sector) break; } var compSel = $('confirmCompanero'); if (compSel) { companero = compSel.value || ''; if (!companero) return showToast('Selecciona compañero.', 'error'); } }
   me.onShift = true; me.confirmado = true; me.sectorActual = sector; me.companeroActual = companero; me.tsConfirmacion = Date.now();
   saveUsers(); logHistory('Turno confirmado', me.fullName + ' · ' + sector, 'ok');
-  updateShiftUI(); renderSquads(); renderTecnicoHome(); renderUsersList();
+  updateShiftUI(); renderSquads(); renderTecnicoHome(); renderUsersList(); renderOnShiftBanner();
   vibrate(60); showToast('✅ Turno activado', 'ok');
   setTimeout(function() { $('filterSector').value = sector; renderSquads(); switchView('view-squads'); }, 700);
 }
@@ -1827,7 +2047,6 @@ function saveCambiarNodo() {
   vibrate(40); showToast('✅ Solicitud enviada', 'ok');
 }
 
-/* ============ RENDER SOLICITUDES ============ */
 function renderSolicitudes(force) {
   var c = $('solicitudesContainer'); if (!c) return;
   var fEst = $('solFilterEstado').value, fTip = $('solFilterTipo').value;
@@ -2620,7 +2839,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var hidden = false;
   function hideSplash() { if (hidden || !splash) return; hidden = true; splash.classList.add('hide'); setTimeout(function() { try { splash.remove(); } catch(e){} }, 500); }
   var safety = setTimeout(function() { hideSplash(); var lg = document.getElementById('loginScreen'); var ap = document.getElementById('appContainer'); if (lg && ap && ap.classList.contains('hidden') && lg.style.display !== 'flex') lg.style.display = 'flex'; }, 3000);
-  /* FIX: remover splash pase lo que pase */
   window.addEventListener('load', function() { setTimeout(hideSplash, 800); });
   setTimeout(hideSplash, 2500);
 
