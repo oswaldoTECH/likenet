@@ -408,7 +408,7 @@ button, select, input, textarea { touch-action:manipulation; }
 <body>
 
 <div id="appSplash">
-  <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+  <img src="likenet.jpg" alt="Likenet">
   <div class="splash-text">Likenet</div>
   <div class="splash-spinner"></div>
 </div>
@@ -426,7 +426,7 @@ button, select, input, textarea { touch-action:manipulation; }
 <div id="loginScreen">
   <div class="login-card">
     <div class="brand-logo-login">
-      <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+      <img src="likenet.jpg" alt="Likenet">
     </div>
     <h1 class="text-2xl font-bold text-center text-indigo-200">LIKENET</h1>
     <p class="text-center text-xs text-slate-400 mt-1 mb-6">Te Conecta al Mundo · Control de Personal</p>
@@ -445,7 +445,7 @@ button, select, input, textarea { touch-action:manipulation; }
   <div class="glass-panel rounded-2xl p-3 flex justify-between items-center gap-2">
     <div class="flex items-center gap-3 min-w-0 flex-1">
       <div class="brand-logo-full">
-        <img src="likenet2.jpg" alt="Likenet" onerror="this.onerror=null; this.src='likenet.jpg';">
+        <img src="likenet.jpg" alt="Likenet">
       </div>
       <div class="min-w-0 flex-1">
         <p class="text-[11px] text-indigo-300/90 font-bold truncate" id="headerSubtitle">Likenet</p>
@@ -1008,6 +1008,7 @@ var phoneCtx = { phone:'', name:'', role:'' };
 var revisarSolCtx = { id:'' };
 var logRange = '1d';
 var isFirstNotifLoad = true;
+var notifListenerAttached = false;
 
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -2533,47 +2534,97 @@ function showConfirm(text, cb) { $('confirmText').textContent = text; openModal(
 $('confirmOk').addEventListener('click', function() { closeModal('confirmModal'); if (confirmCallback) confirmCallback(); confirmCallback = null; });
 $('confirmCancel').addEventListener('click', function() { closeModal('confirmModal'); confirmCallback = null; });
 
-/* ============ DOMContentLoaded ============ */
+/* ============ DOMContentLoaded (SESIÓN PERSISTENTE) ============ */
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 Inicio');
   loadTheme();
   var splash = document.getElementById('appSplash');
   var hidden = false;
   function hideSplash() { if (hidden || !splash) return; hidden = true; splash.classList.add('hide'); setTimeout(function() { try { splash.remove(); } catch(e){} }, 500); }
-  var safety = setTimeout(function() { hideSplash(); var lg = document.getElementById('loginScreen'); var ap = document.getElementById('appContainer'); if (lg && ap && ap.classList.contains('hidden') && lg.style.display !== 'flex') lg.style.display = 'flex'; }, 2500);
+  var safety = setTimeout(function() { hideSplash(); var lg = document.getElementById('loginScreen'); var ap = document.getElementById('appContainer'); if (lg && ap && ap.classList.contains('hidden') && lg.style.display !== 'flex') lg.style.display = 'flex'; }, 3000);
+
   try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); loadNotifications(); } catch(e) { console.error(e); }
   initMapsDB().catch(function(){});
-
-  // Setup de modales
   setupModalBackdropClose();
   setTimeout(autoInjectCloseButtons, 700);
 
+  // ⚡ RESTAURAR SESIÓN (PRIORIDAD MÁXIMA)
   var restored = false;
-  try {
-    var raw = localStorage.getItem(LS_SESSION);
-    if (raw) {
-      var sess = JSON.parse(raw);
-      var u = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === sess.username) { u = usersData[i]; break; }
+  var sessionRaw = null;
+  try { sessionRaw = localStorage.getItem(LS_SESSION); } catch(e) {}
+  if (sessionRaw) {
+    try {
+      var sess = JSON.parse(sessionRaw);
+      var u = null;
+      for (var i = 0; i < usersData.length; i++) if (usersData[i].username === sess.username) { u = usersData[i]; break; }
+      // Si no está en usersData, usamos los datos de la sesión directamente (evita logout al recargar)
+      if (!u && sess.username && sess.role) {
+        u = {
+          username: sess.username, role: sess.role, label: sess.label || sess.role,
+          fullName: sess.fullName || sess.username, area: sess.area || 'OFICINA BIBLIAN',
+          nodosAsignados: Array.isArray(sess.nodosAsignados) ? sess.nodosAsignados : [],
+          sectorActual: sess.sectorActual || '', companeroActual: sess.companeroActual || '',
+          onShift: true, confirmado: true
+        };
+      }
       if (u) {
-        currentUser = { username:u.username, role:u.role, label:u.label || getRoleLabel(u.role), fullName:u.fullName || u.username, area:u.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [], sectorActual: u.sectorActual || '', companeroActual: u.companeroActual || '' };
-        entrarApp(); restored = true;
-      } else localStorage.removeItem(LS_SESSION);
+        currentUser = {
+          username: u.username, role: u.role,
+          label: u.label || getRoleLabel(u.role),
+          fullName: u.fullName || u.username,
+          area: u.area || 'OFICINA BIBLIAN',
+          nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [],
+          sectorActual: u.sectorActual || '',
+          companeroActual: u.companeroActual || ''
+        };
+        try {
+          entrarApp();
+          restored = true;
+          console.log('✅ Sesión restaurada:', currentUser.username);
+        } catch(err) {
+          console.error('❌ Error entrarApp:', err);
+          try { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('appContainer').classList.remove('hidden'); } catch(e2){}
+          restored = true;
+        }
+      } else {
+        console.warn('⚠️ Sesión con datos inválidos, limpiando');
+        try { localStorage.removeItem(LS_SESSION); } catch(e) {}
+      }
+    } catch(e) {
+      console.error('❌ Error parseando sesión:', e);
+      try { localStorage.removeItem(LS_SESSION); } catch(e2) {}
     }
-  } catch(e) { localStorage.removeItem(LS_SESSION); }
-  if (!restored) { var lg2 = document.getElementById('loginScreen'); if (lg2) lg2.style.display = 'flex'; }
-  clearTimeout(safety); hideSplash();
+  }
 
+  if (!restored) {
+    var lg2 = document.getElementById('loginScreen');
+    if (lg2) lg2.style.display = 'flex';
+  }
+  clearTimeout(safety);
+  hideSplash();
+
+  // Sync Firebase (no bloquea UI)
   Promise.all([fbLoad('users'), fbLoad('sectors'), fbLoad('squads'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta'), fbLoadNotifications(), fbLoadHistory()]).then(function(res) {
-    if (Array.isArray(res[0]) && res[0].length) { usersData = res[0]; localStorage.setItem(LS_USERS, JSON.stringify(res[0])); }
-    if (Array.isArray(res[1]) && res[1].length) { sectorsData = res[1]; localStorage.setItem(LS_SECTORS, JSON.stringify(res[1])); }
-    if (Array.isArray(res[2]) && res[2].length) { squadsData = res[2]; localStorage.setItem(LS_KEY, JSON.stringify(res[2])); }
-    if (Array.isArray(res[3]) && res[3].length) { rolesData = res[3]; localStorage.setItem(LS_ROLES, JSON.stringify(res[3])); }
-    if (Array.isArray(res[4])) { solicitudesData = res[4]; localStorage.setItem(LS_SOLICITUDES, JSON.stringify(res[4])); }
-    if (Array.isArray(res[5])) { mapsMeta = res[5]; localStorage.setItem(LS_MAPS, JSON.stringify(res[5])); }
-    if (Array.isArray(res[6])) { notificationsData = res[6].filter(function(n) { return n && !n._empty && n.id; }); localStorage.setItem(LS_NOTIF, JSON.stringify(notificationsData)); }
-    if (Array.isArray(res[7]) && res[7].length) { var cut = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000; localStorage.setItem(LS_HISTORY, JSON.stringify(res[7].filter(function(h) { return h.ts >= cut; }).sort(function(a,b) { return a.ts - b.ts; }))); }
+    if (Array.isArray(res[0]) && res[0].length) { usersData = res[0]; try { localStorage.setItem(LS_USERS, JSON.stringify(res[0])); } catch(e){} }
+    if (Array.isArray(res[1]) && res[1].length) { sectorsData = res[1]; try { localStorage.setItem(LS_SECTORS, JSON.stringify(res[1])); } catch(e){} }
+    if (Array.isArray(res[2]) && res[2].length) { squadsData = res[2]; try { localStorage.setItem(LS_KEY, JSON.stringify(res[2])); } catch(e){} }
+    if (Array.isArray(res[3]) && res[3].length) { rolesData = res[3]; try { localStorage.setItem(LS_ROLES, JSON.stringify(res[3])); } catch(e){} }
+    if (Array.isArray(res[4])) { solicitudesData = res[4]; try { localStorage.setItem(LS_SOLICITUDES, JSON.stringify(res[4])); } catch(e){} }
+    if (Array.isArray(res[5])) { mapsMeta = res[5]; try { localStorage.setItem(LS_MAPS, JSON.stringify(res[5])); } catch(e){} }
+    if (Array.isArray(res[6])) { notificationsData = res[6].filter(function(n) { return n && !n._empty && n.id; }); try { localStorage.setItem(LS_NOTIF, JSON.stringify(notificationsData)); } catch(e){} }
+    if (Array.isArray(res[7]) && res[7].length) { var cut = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000; try { localStorage.setItem(LS_HISTORY, JSON.stringify(res[7].filter(function(h) { return h.ts >= cut; }).sort(function(a,b) { return a.ts - b.ts; }))); } catch(e){} }
     setCloudStatus(true);
-    if (currentUser) { try { renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList(); renderMaps(); renderInlineReport(); updateNotificationUI(); if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { renderTecnicoHome(); setTimeout(checkMyResolutions, 1500); } attachNotifListener(); } catch(e) {} }
+    if (currentUser) {
+      try {
+        renderSquads(); renderUsersList(); renderSolicitudes(); renderSectorsList();
+        renderMaps(); renderInlineReport(); updateNotificationUI(); updateShiftUI();
+        if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') {
+          renderTecnicoHome();
+          setTimeout(checkMyResolutions, 1500);
+        }
+        attachNotifListener();
+      } catch(e) { console.warn('re-render:', e); }
+    }
   }).catch(function(e) { setCloudStatus(false); });
 
   setTimeout(function() { isFirstNotifLoad = false; }, 3000);
