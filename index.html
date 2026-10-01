@@ -271,10 +271,123 @@ body.light-theme .notif-badge { border-color:#fff; }
 }
 .on-shift-user-mini .osu-phone:active { transform: scale(.92); }
 
-.nav-item .nav-badge.shift-badge {
-  background: linear-gradient(135deg,#10b981,#059669) !important;
-  animation: shiftGlow 2s infinite;
+/* ============ SQUAD SHIFT CARDS (modal) ============ */
+.squad-shift-card {
+  background: linear-gradient(180deg,rgba(15,23,42,.7),rgba(15,23,42,.5));
+  border: 1px solid rgba(16,185,129,.3);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
 }
+.squad-shift-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg,#10b981,#06b6d4);
+}
+.squad-shift-card.special::before {
+  background: linear-gradient(180deg,#8b5cf6,#6366f1);
+}
+.squad-shift-card.special { border-color: rgba(139,92,246,.3); }
+
+.ssc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.ssc-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.ssc-badge {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(16,185,129,.25);
+  border: 1.5px solid rgba(16,185,129,.5);
+  color: #6ee7b7;
+  font-weight: 800;
+  font-size: .8rem;
+  flex-shrink: 0;
+}
+.ssc-badge.special {
+  background: rgba(139,92,246,.25);
+  border-color: rgba(139,92,246,.5);
+  color: #c4b5fd;
+}
+.ssc-title h4 {
+  font-size: .85rem;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.1;
+}
+.ssc-title p {
+  font-size: .65rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+.ssc-stats { flex-shrink: 0; }
+.ssc-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(16,185,129,.2);
+  color: #6ee7b7;
+  font-weight: 800;
+  font-size: .7rem;
+  border: 1px solid rgba(16,185,129,.4);
+}
+.squad-shift-card.special .ssc-count {
+  background: rgba(139,92,246,.2);
+  color: #c4b5fd;
+  border-color: rgba(139,92,246,.4);
+}
+
+.ssc-members { display: flex; flex-direction: column; gap: 6px; }
+.ssc-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(2,6,23,.4);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.05);
+}
+.ssc-avatar {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg,rgba(16,185,129,.4),rgba(6,182,212,.3));
+  border: 1.5px solid rgba(16,185,129,.6);
+  color: #d1fae5;
+  font-weight: 800;
+  font-size: .75rem;
+  flex-shrink: 0;
+}
+.ssc-name { font-size: .78rem; font-weight: 700; color: #f8fafc; }
+.ssc-role { font-size: .62rem; color: #94a3b8; margin-top: 1px; }
+.ssc-phone {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: rgba(16,185,129,.2);
+  border: 1px solid rgba(16,185,129,.45);
+  color: #6ee7b7;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: .8rem;
+  flex-shrink: 0;
+}
+.ssc-phone:active { transform: scale(.92); }
 
 /* LIGHT THEME */
 body.light-theme { background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 45%,#dbeafe 100%); color:#0f172a; }
@@ -346,6 +459,11 @@ body.light-theme .on-shift-user-mini .osu-avatar { border-color: rgba(16,185,129
 body.light-theme .on-shift-user-mini .osu-avatar::after { border-color:#fff; }
 body.light-theme .on-shift-banner .osb-title { color:#047857; }
 body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(16,185,129,.15); }
+body.light-theme .squad-shift-card { background: linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,252,.9)); }
+body.light-theme .ssc-member { background: rgba(248,250,252,.8); }
+body.light-theme .ssc-name { color: #0f172a; }
+body.light-theme .ssc-title h4 { color: #0f172a; }
+body.light-theme .ssc-title p { color: #64748b; }
 
 .phone-btn { width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background:rgba(16,185,129,.15); color:#6ee7b7; border:1px solid rgba(16,185,129,.35); cursor:pointer; font-size:.78rem; flex-shrink:0; }
 .phone-btn.disabled { background:rgba(100,116,139,.1); border-color:rgba(100,116,139,.2); color:#64748b; cursor:not-allowed; }
@@ -827,8 +945,8 @@ button, select, input, textarea { touch-action:manipulation; }
 
 <div id="onShiftModal" class="modal-sheet" onclick="if(event.target === this) closeModal('onShiftModal')"><div class="modal-sheet-content" style="max-width:520px">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Personal en Turno</h3>
-  <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 activos</p>
+  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Cuadrillas Activas</h3>
+  <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 cuadrillas</p>
   <div id="onShiftList" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
 
@@ -1568,7 +1686,6 @@ function attachNotifListener() {
   });
 }
 
-/* 🟢 Listener de usuarios → actualiza banner en tiempo real */
 function attachUsersListener() {
   if (!fdb || usersListenerAttached) return;
   usersListenerAttached = true;
@@ -1697,24 +1814,139 @@ function openShiftUserPanel(username) {
   }
 }
 
+/* ============ MODAL: CUADRILLAS ACTIVAS ============ */
 function openOnShiftModal() {
-  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) { showToast('Solo admin/soporte puede ver el detalle', 'info'); return; }
-  var list = getOnShiftUsers();
-  $('onShiftSub').textContent = list.length + ' activo' + (list.length === 1 ? '' : 's');
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) {
+    showToast('Solo admin/soporte puede ver el detalle', 'info');
+    return;
+  }
+  var onShift = getOnShiftUsers();
   var c = $('onShiftList');
-  if (!list.length) { c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bed"></i><p>Nadie en turno</p></div>'; openModal('onShiftModal'); return; }
-  var html = '';
-  list.forEach(function(u) {
-    var init = (u.fullName || u.username).charAt(0).toUpperCase();
-    var phoneOk = hasPhone(u.phone);
-    var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(u.area) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '';
-    var extra = '';
-    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) extra = '<div class="flex flex-wrap gap-1 mt-1">' + u.nodosAsignados.map(function(n){ return '<span class="nodo-chip">' + esc(n) + '</span>'; }).join('') + '</div>';
-    if (u.role === 'recorridos' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + '</span>';
-    if (u.role === 'tecnico' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + (u.companeroActual ? ' · ' + esc(u.companeroActual) : '') + '</span>';
-    html += '<div class="user-card on-shift"><div class="user-avatar ' + u.role + '">' + init + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm truncate">' + esc(u.fullName || u.username) + '</p><p class="text-xs text-slate-400 truncate mb-1">@' + esc(u.username) + (phoneOk ? ' · ' + esc(formatPhoneDisplay(u.phone)) : '') + '</p><div class="flex items-center gap-1.5 flex-wrap"><span class="user-role-pill ' + u.role + '">' + getRoleEmoji(u.role) + ' ' + getRoleLabel(u.role) + '</span><span class="user-role-pill" style="background:rgba(16,185,129,.25);color:#6ee7b7">🟢 En turno</span></div>' + extra + '</div>' + phoneBtn + '</div>';
+
+  if (!onShift.length) {
+    $('onShiftSub').textContent = '0 cuadrillas activas';
+    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bed"></i><p>Nadie en turno</p></div>';
+    openModal('onShiftModal');
+    return;
+  }
+
+  var squadsMap = {};
+  var noSquad = [];
+
+  onShift.forEach(function(u) {
+    var mySquad = null;
+    for (var i = 0; i < squadsData.length; i++) {
+      var sq = squadsData[i];
+      if (sq.members.some(function(m) {
+        return m.name === u.fullName || m.name === u.username;
+      })) {
+        mySquad = sq;
+        break;
+      }
+    }
+    if (mySquad) {
+      if (!squadsMap[mySquad.id]) squadsMap[mySquad.id] = { squad: mySquad, members: [] };
+      squadsMap[mySquad.id].members.push(u);
+    } else {
+      noSquad.push(u);
+    }
   });
-  c.innerHTML = html; openModal('onShiftModal');
+
+  var squadIds = Object.keys(squadsMap).map(function(k) { return parseInt(k); });
+  squadIds.sort(function(a, b) { return a - b; });
+
+  var html = '';
+
+  squadIds.forEach(function(sid) {
+    var info = squadsMap[sid];
+    var sq = info.squad;
+    var members = info.members;
+    var totalMembers = sq.members.length;
+    var presentCount = sq.members.filter(function(m) {
+      return m.status === 'Presente' || m.status === 'Reemplazo';
+    }).length;
+    var activeOnShift = members.length;
+
+    var statusLabel = presentCount >= 2 || (totalMembers === 1 && presentCount === 1)
+      ? 'Operativa'
+      : presentCount === 1 ? 'Incompleta' : 'Inactiva';
+
+    html += '<div class="squad-shift-card">' +
+      '<div class="ssc-header">' +
+        '<div class="ssc-title">' +
+          '<span class="ssc-badge">' + sid + '</span>' +
+          '<div>' +
+            '<h4>' + esc(sq.name) + ' · ' + statusLabel + '</h4>' +
+            '<p>📍 ' + esc(sq.sector || 'Sin sector') + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ssc-stats"><span class="ssc-count">' + activeOnShift + '/' + totalMembers + '</span></div>' +
+      '</div>' +
+      '<div class="ssc-members">';
+
+    members.forEach(function(u) {
+      var phoneOk = hasPhone(u.phone);
+      var phoneBtn = phoneOk
+        ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(sq.name) + '\')" class="ssc-phone"><i class="fa-solid fa-phone"></i></button>'
+        : '';
+      var init = (u.fullName || u.username).charAt(0).toUpperCase();
+      var compInfo = (u.companeroActual && u.companeroActual !== u.fullName) ? ' · 👥 ' + u.companeroActual : '';
+      html += '<div class="ssc-member">' +
+        '<div class="ssc-avatar">' + init + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="ssc-name">' + esc(u.fullName || u.username) + '</p>' +
+          '<p class="ssc-role">' + getRoleEmoji(u.role) + ' ' + esc(getRoleLabel(u.role)) + esc(compInfo) + '</p>' +
+        '</div>' +
+        phoneBtn +
+      '</div>';
+    });
+
+    html += '</div></div>';
+  });
+
+  if (noSquad.length) {
+    html += '<div class="squad-shift-card special">' +
+      '<div class="ssc-header">' +
+        '<div class="ssc-title">' +
+          '<span class="ssc-badge special"><i class="fa-solid fa-star"></i></span>' +
+          '<div>' +
+            '<h4>Personal Especial</h4>' +
+            '<p>Soporte · Recorridos · Admin</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ssc-stats"><span class="ssc-count">' + noSquad.length + '</span></div>' +
+      '</div>' +
+      '<div class="ssc-members">';
+
+    noSquad.forEach(function(u) {
+      var phoneOk = hasPhone(u.phone);
+      var phoneBtn = phoneOk
+        ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(u.area) + '\')" class="ssc-phone"><i class="fa-solid fa-phone"></i></button>'
+        : '';
+      var init = (u.fullName || u.username).charAt(0).toUpperCase();
+      var extra = '';
+      if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) {
+        extra = ' · ' + u.nodosAsignados.length + ' nodos';
+      } else if (u.sectorActual) {
+        extra = ' · 📍 ' + u.sectorActual;
+      }
+      html += '<div class="ssc-member">' +
+        '<div class="ssc-avatar">' + init + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="ssc-name">' + esc(u.fullName || u.username) + '</p>' +
+          '<p class="ssc-role">' + getRoleEmoji(u.role) + ' ' + esc(getRoleLabel(u.role)) + esc(extra) + '</p>' +
+        '</div>' +
+        phoneBtn +
+      '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  var squadCount = squadIds.length + (noSquad.length ? 1 : 0);
+  $('onShiftSub').textContent = squadCount + ' cuadrilla' + (squadCount === 1 ? '' : 's') + ' activa' + (squadCount === 1 ? '' : 's') + ' · ' + onShift.length + ' persona' + (onShift.length === 1 ? '' : 's');
+
+  c.innerHTML = html;
+  openModal('onShiftModal');
 }
 
 function initData() {
