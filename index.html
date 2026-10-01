@@ -271,6 +271,86 @@ body.light-theme .notif-badge { border-color:#fff; }
 }
 .on-shift-user-mini .osu-phone:active { transform: scale(.92); }
 
+/* Variantes avatar */
+.on-shift-user-mini .osu-avatar.osu-avatar-squad {
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .3px;
+  background: linear-gradient(135deg,rgba(16,185,129,.55),rgba(6,182,212,.4));
+  border-color: rgba(16,185,129,.8);
+}
+.on-shift-user-mini .osu-avatar.osu-avatar-special {
+  background: linear-gradient(135deg,rgba(139,92,246,.5),rgba(99,102,241,.35));
+  border-color: rgba(139,92,246,.8);
+}
+.on-shift-user-mini.special::before {
+  background: linear-gradient(180deg,#8b5cf6,#6366f1);
+}
+.on-shift-user-mini.special {
+  border-color: rgba(139,92,246,.4);
+  background: linear-gradient(135deg,rgba(139,92,246,.15),rgba(99,102,241,.08));
+}
+.on-shift-user-mini.special:hover {
+  border-color: rgba(139,92,246,.8);
+  box-shadow: 0 8px 24px rgba(139,92,246,.3);
+}
+
+.osu-dots { display: flex; gap: 3px; margin-top: 4px; }
+.osu-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 2px rgba(16,185,129,.25);
+  animation: pulseDot 1.6s infinite;
+}
+.osu-dot:nth-child(2) { animation-delay: .3s; }
+.osu-dot:nth-child(3) { animation-delay: .6s; }
+.osu-dot:nth-child(4) { animation-delay: .9s; }
+.osu-dot:nth-child(5) { animation-delay: 1.2s; }
+
+/* ============ SELECTOR DE TELÉFONO DE CUADRILLA ============ */
+.squad-phone-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; margin-bottom: 8px;
+  background: linear-gradient(135deg, rgba(16,185,129,.1), rgba(6,182,212,.05));
+  border: 1.5px solid rgba(16,185,129,.35);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.squad-phone-item::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg,#10b981,#06b6d4);
+}
+.squad-phone-item:hover {
+  border-color: rgba(16,185,129,.7);
+  transform: translateX(2px);
+  box-shadow: 0 6px 20px rgba(16,185,129,.25);
+}
+.squad-phone-item .spi-avatar {
+  width: 42px; height: 42px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(16,185,129,.45), rgba(6,182,212,.3));
+  border: 2px solid rgba(16,185,129,.65);
+  color: #d1fae5; font-weight: 800; font-size: .95rem;
+  flex-shrink: 0;
+}
+.squad-phone-item .spi-name { font-size: .85rem; font-weight: 700; color: #f8fafc; }
+.squad-phone-item .spi-role { font-size: .7rem; color: #94a3b8; margin-top: 3px; }
+.squad-phone-item .spi-phone {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(16,185,129,.4);
+}
+.squad-phone-item:active .spi-phone { transform: scale(.92); }
+body.light-theme .squad-phone-item { background: rgba(255,255,255,.95); border-color: rgba(16,185,129,.4); }
+body.light-theme .squad-phone-item .spi-name { color: #0f172a; }
+
 /* ============ SQUAD SHIFT CARDS (modal) ============ */
 .squad-shift-card {
   background: linear-gradient(180deg,rgba(15,23,42,.7),rgba(15,23,42,.5));
@@ -287,36 +367,22 @@ body.light-theme .notif-badge { border-color:#fff; }
   left: 0; top: 0; bottom: 0; width: 3px;
   background: linear-gradient(180deg,#10b981,#06b6d4);
 }
-.squad-shift-card.special::before {
-  background: linear-gradient(180deg,#8b5cf6,#6366f1);
-}
+.squad-shift-card.special::before { background: linear-gradient(180deg,#8b5cf6,#6366f1); }
 .squad-shift-card.special { border-color: rgba(139,92,246,.3); }
 
 .ssc-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
-.ssc-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  flex: 1;
-}
+.ssc-title { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
 .ssc-badge {
-  width: 34px; height: 34px;
-  border-radius: 9px;
+  width: 34px; height: 34px; border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   background: rgba(16,185,129,.25);
   border: 1.5px solid rgba(16,185,129,.5);
-  color: #6ee7b7;
-  font-weight: 800;
-  font-size: .8rem;
+  color: #6ee7b7; font-weight: 800; font-size: .8rem;
   flex-shrink: 0;
 }
 .ssc-badge.special {
@@ -324,27 +390,14 @@ body.light-theme .notif-badge { border-color:#fff; }
   border-color: rgba(139,92,246,.5);
   color: #c4b5fd;
 }
-.ssc-title h4 {
-  font-size: .85rem;
-  font-weight: 800;
-  color: #f8fafc;
-  line-height: 1.1;
-}
-.ssc-title p {
-  font-size: .65rem;
-  color: #94a3b8;
-  margin-top: 2px;
-}
+.ssc-title h4 { font-size: .85rem; font-weight: 800; color: #f8fafc; line-height: 1.1; }
+.ssc-title p { font-size: .65rem; color: #94a3b8; margin-top: 2px; }
 .ssc-stats { flex-shrink: 0; }
 .ssc-count {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 20px;
+  display: inline-flex; align-items: center;
+  padding: 4px 10px; border-radius: 20px;
   background: rgba(16,185,129,.2);
-  color: #6ee7b7;
-  font-weight: 800;
-  font-size: .7rem;
+  color: #6ee7b7; font-weight: 800; font-size: .7rem;
   border: 1px solid rgba(16,185,129,.4);
 }
 .squad-shift-card.special .ssc-count {
@@ -352,40 +405,31 @@ body.light-theme .notif-badge { border-color:#fff; }
   color: #c4b5fd;
   border-color: rgba(139,92,246,.4);
 }
-
 .ssc-members { display: flex; flex-direction: column; gap: 6px; }
 .ssc-member {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: flex; align-items: center; gap: 10px;
   padding: 8px 10px;
   background: rgba(2,6,23,.4);
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,.05);
 }
 .ssc-avatar {
-  width: 32px; height: 32px;
-  border-radius: 9px;
+  width: 32px; height: 32px; border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg,rgba(16,185,129,.4),rgba(6,182,212,.3));
   border: 1.5px solid rgba(16,185,129,.6);
-  color: #d1fae5;
-  font-weight: 800;
-  font-size: .75rem;
+  color: #d1fae5; font-weight: 800; font-size: .75rem;
   flex-shrink: 0;
 }
 .ssc-name { font-size: .78rem; font-weight: 700; color: #f8fafc; }
 .ssc-role { font-size: .62rem; color: #94a3b8; margin-top: 1px; }
 .ssc-phone {
-  width: 34px; height: 34px;
-  border-radius: 10px;
+  width: 34px; height: 34px; border-radius: 10px;
   background: rgba(16,185,129,.2);
   border: 1px solid rgba(16,185,129,.45);
   color: #6ee7b7;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: .8rem;
-  flex-shrink: 0;
+  cursor: pointer; font-size: .8rem; flex-shrink: 0;
 }
 .ssc-phone:active { transform: scale(.92); }
 
@@ -950,6 +994,20 @@ button, select, input, textarea { touch-action:manipulation; }
   <div id="onShiftList" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
 
+<!-- MODAL: SELECTOR DE TELÉFONO POR CUADRILLA -->
+<div id="squadPhoneModal" class="modal-sheet" onclick="if(event.target === this) closeModal('squadPhoneModal')">
+  <div class="modal-sheet-content" style="max-width:480px">
+    <div class="modal-handle"></div>
+    <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+      <i class="fa-solid fa-address-book text-emerald-400"></i>
+      <span id="squadPhoneTitle">Contactos</span>
+    </h3>
+    <p class="text-xs text-slate-400 mb-4" id="squadPhoneSub">Elige a quién llamar</p>
+    <div id="squadPhoneList" style="max-height:60vh; overflow-y:auto; padding-right:4px;"></div>
+    <button onclick="closeModal('squadPhoneModal')" class="w-full mt-4 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
+  </div>
+</div>
+
 <div id="helpModal" class="modal-sheet" onclick="if(event.target === this) closeModal('helpModal')"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-tower-broadcast text-rose-400"></i> Solicitar Ayuda</h3>
@@ -1259,6 +1317,7 @@ var logRange = '1d';
 var isFirstNotifLoad = true;
 var notifListenerAttached = false;
 var usersListenerAttached = false;
+var _squadPhoneCtx = [];
 
 /* === RENDIMIENTO: renders agrupados en RAF === */
 var _renderQueue = {};
@@ -1754,7 +1813,7 @@ function updateShiftUI() {
 }
 function getOnShiftUsers() { return usersData.filter(function(u) { return u.onShift; }); }
 
-/* ============ BANNER DE PERSONAL EN TURNO ============ */
+/* ============ BANNER DE PERSONAL EN TURNO (POR CUADRILLA) ============ */
 function renderOnShiftBanner() {
   var banner = $('onShiftBanner');
   if (!banner) return;
@@ -1765,10 +1824,62 @@ function renderOnShiftBanner() {
     return;
   }
   banner.classList.remove('empty');
-  var order = { tecnico: 1, recorridos: 2, soporte: 3, admin: 4, viewer: 5 };
-  onShift.sort(function(a, b) { return (order[a.role] || 99) - (order[b.role] || 99); });
-  var usersHTML = '';
+
+  var squadsMap = {};
+  var noSquad = [];
+
   onShift.forEach(function(u) {
+    var mySquad = null;
+    for (var i = 0; i < squadsData.length; i++) {
+      var sq = squadsData[i];
+      if (sq.members.some(function(m) {
+        return m.name === u.fullName || m.name === u.username;
+      })) { mySquad = sq; break; }
+    }
+    if (mySquad) {
+      if (!squadsMap[mySquad.id]) squadsMap[mySquad.id] = { squad: mySquad, members: [] };
+      squadsMap[mySquad.id].members.push(u);
+    } else {
+      noSquad.push(u);
+    }
+  });
+
+  var squadIds = Object.keys(squadsMap).map(function(k) { return parseInt(k); });
+  squadIds.sort(function(a, b) { return a - b; });
+
+  var cardsHTML = '';
+
+  squadIds.forEach(function(sid) {
+    var info = squadsMap[sid];
+    var sq = info.squad;
+    var activeOnShift = info.members.length;
+    var totalMembers = sq.members.length;
+
+    var withPhone = info.members.filter(function(u) { return hasPhone(u.phone); });
+    var phoneOk = withPhone.length > 0;
+
+    var phoneBtn = phoneOk
+      ? '<button onclick="event.stopPropagation();openSquadPhoneSelector(' + sid + ')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
+      : '';
+
+    var dotsHTML = '';
+    info.members.forEach(function() {
+      dotsHTML += '<span class="osu-dot"></span>';
+    });
+
+    cardsHTML +=
+      '<div class="on-shift-user-mini" onclick="openOnShiftModal()">' +
+        '<div class="osu-avatar osu-avatar-squad">' + esc(sq.name) + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="osu-name">Cuadrilla ' + esc(sq.name) + '</p>' +
+          '<p class="osu-role">📍 ' + esc(sq.sector || 'Sin sector') + ' · 👥 ' + activeOnShift + '/' + totalMembers + '</p>' +
+          '<div class="osu-dots">' + dotsHTML + '</div>' +
+        '</div>' +
+        phoneBtn +
+      '</div>';
+  });
+
+  noSquad.forEach(function(u) {
     var init = (u.fullName || u.username).charAt(0).toUpperCase();
     var phoneOk = hasPhone(u.phone);
     var roleIcon = getRoleEmoji(u.role);
@@ -1782,9 +1893,10 @@ function renderOnShiftBanner() {
     var phoneBtn = phoneOk
       ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(roleLabel) + '\',\'' + esc(u.area) + '\')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
       : '';
-    usersHTML +=
-      '<div class="on-shift-user-mini" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
-        '<div class="osu-avatar">' + init + '</div>' +
+
+    cardsHTML +=
+      '<div class="on-shift-user-mini special" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
+        '<div class="osu-avatar osu-avatar-special">' + init + '</div>' +
         '<div class="flex-1 min-w-0">' +
           '<p class="osu-name">' + esc(u.fullName || u.username) + '</p>' +
           '<p class="osu-role">' + roleIcon + ' ' + esc(roleLabel) + esc(extraInfo) + '</p>' +
@@ -1792,15 +1904,83 @@ function renderOnShiftBanner() {
         phoneBtn +
       '</div>';
   });
+
+  var totalItems = squadIds.length + noSquad.length;
+
   banner.innerHTML =
     '<div class="osb-header">' +
       '<div class="osb-title">' +
         '<span class="osb-icon"><i class="fa-solid fa-bolt"></i></span>' +
         '<span>Personal en Turno</span>' +
       '</div>' +
-      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + '</span>' +
+      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + ' · ' + totalItems + ' grupo' + (totalItems === 1 ? '' : 's') + '</span>' +
     '</div>' +
-    '<div class="on-shift-users-grid">' + usersHTML + '</div>';
+    '<div class="on-shift-users-grid">' + cardsHTML + '</div>';
+}
+
+/* ============ SELECTOR DE TELÉFONO DE CUADRILLA ============ */
+function openSquadPhoneSelector(squadId) {
+  var sq = null;
+  for (var i = 0; i < squadsData.length; i++) if (squadsData[i].id === squadId) { sq = squadsData[i]; break; }
+  if (!sq) return;
+
+  var onShift = getOnShiftUsers();
+  var candidates = [];
+  onShift.forEach(function(u) {
+    var isInSquad = sq.members.some(function(m) {
+      return m.name === u.fullName || m.name === u.username;
+    });
+    if (isInSquad && hasPhone(u.phone)) candidates.push(u);
+  });
+
+  if (!candidates.length) return showToast('Ningún técnico de la cuadrilla tiene teléfono.', 'error');
+
+  if (candidates.length === 1) {
+    var u1 = candidates[0];
+    openPhoneModal(u1.phone, u1.fullName || u1.username, getRoleLabel(u1.role), sq.name);
+    return;
+  }
+
+  _squadPhoneCtx = candidates;
+  var c = $('squadPhoneList');
+  if (!c) return;
+
+  var html = '';
+  candidates.forEach(function(u) {
+    var init = (u.fullName || u.username).charAt(0).toUpperCase();
+    var roleLbl = getRoleLabel(u.role);
+    var phoneFmt = formatPhoneDisplay(u.phone);
+    html +=
+      '<div class="squad-phone-item" onclick="chooseSquadPhone(\'' + esc(u.username) + '\')">' +
+        '<div class="spi-avatar">' + init + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="spi-name">' + esc(u.fullName || u.username) + '</p>' +
+          '<p class="spi-role">' + getRoleEmoji(u.role) + ' ' + esc(roleLbl) + ' · ' + esc(phoneFmt) + '</p>' +
+        '</div>' +
+        '<div class="spi-phone"><i class="fa-solid fa-phone"></i></div>' +
+      '</div>';
+  });
+
+  $('squadPhoneTitle').textContent = 'Cuadrilla ' + sq.name + ' · ' + candidates.length + ' contactos';
+  $('squadPhoneSub').textContent = '📍 ' + (sq.sector || 'Sin sector');
+  c.innerHTML = html;
+  openModal('squadPhoneModal');
+}
+
+function chooseSquadPhone(username) {
+  closeModal('squadPhoneModal');
+  var u = null;
+  for (var i = 0; i < _squadPhoneCtx.length; i++) if (_squadPhoneCtx[i].username === username) { u = _squadPhoneCtx[i]; break; }
+  if (!u) return;
+  var squadName = '';
+  for (var j = 0; j < squadsData.length; j++) {
+    var sq = squadsData[j];
+    if (sq.members.some(function(m) { return m.name === u.fullName || m.name === u.username; })) {
+      squadName = sq.name;
+      break;
+    }
+  }
+  openPhoneModal(u.phone, u.fullName || u.username, getRoleLabel(u.role), squadName || u.area);
 }
 
 function openShiftUserPanel(username) {
