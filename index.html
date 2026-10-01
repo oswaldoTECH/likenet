@@ -92,7 +92,6 @@ body.r-viewer .auth-only { display:revert !important; }
 .login-msg.error { color:#f87171; }
 .login-msg.ok { color:#4ade80; }
 
-.role-badge { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:20px; font-size:.7rem; font-weight:700; }
 .area-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:8px; font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.3px; background:rgba(139,92,246,.15); color:#c4b5fd; border:1px solid rgba(139,92,246,.25); }
 .nodo-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:8px; font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.3px; background:rgba(6,182,212,.15); color:#67e8f9; border:1px solid rgba(6,182,212,.35); white-space:nowrap; }
 .cloud-status { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:8px; font-size:.6rem; font-weight:800; background:rgba(100,116,139,.2); color:#94a3b8; border:1px solid rgba(100,116,139,.3); }
@@ -217,7 +216,6 @@ body.light-theme .shift-toggle { background:rgba(100,116,139,.15); color:#475569
 body.light-theme .cloud-status { background:rgba(100,116,139,.15); color:#475569; }
 body.light-theme .cloud-status.online { background:rgba(16,185,129,.15); color:#047857; }
 body.light-theme .brand-logo-full { background:rgba(255,255,255,.9); border:1px solid rgba(15,23,42,.08); }
-body.light-theme .squad-pick { background:rgba(255,255,255,.95); border-color:rgba(15,23,42,.08); }
 body.light-theme .nodo-picker { background:rgba(248,250,252,.8); }
 body.light-theme .nodo-check { background:rgba(255,255,255,.95); border-color:rgba(15,23,42,.1); color:#334155; }
 body.light-theme #loginScreen { background:linear-gradient(135deg,#eff3ff 0%,#dbeafe 40%,#c7d2fe 100%); }
@@ -423,7 +421,7 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </div>
 
-<div id="assignmentPopup">
+<div id="assignmentPopup" onclick="if(event.target === this) closeAssignmentPopup()">
   <div class="resolution-card aprobada" style="border-color:rgba(6,182,212,.5);box-shadow:0 0 60px rgba(6,182,212,.3)">
     <div class="resolution-icon" style="background:linear-gradient(135deg,rgba(6,182,212,.25),rgba(14,116,144,.15));color:#67e8f9;border:3px solid rgba(6,182,212,.5)">
       <i class="fa-solid fa-people-carry-box"></i>
@@ -563,13 +561,13 @@ button, select, input, textarea { touch-action:manipulation; }
       <div class="page-title"><div class="icon-box" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.1));color:#fcd34d"><i class="fa-solid fa-clipboard-list"></i></div><div><h2>Solicitudes</h2><p id="solSubtitle">Gestión de solicitudes</p></div></div>
     </div>
     <div class="toolbar two">
-      <select id="solFilterEstado" onchange="renderSolicitudes()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
+      <select id="solFilterEstado" onchange="renderSolicitudes(true)" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
         <option value="ALL">📋 Todos los estados</option>
         <option value="pendiente" selected>⏳ Pendientes</option>
         <option value="aprobada">✅ Aprobadas</option>
         <option value="rechazada">❌ Rechazadas</option>
       </select>
-      <select id="solFilterTipo" onchange="renderSolicitudes()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
+      <select id="solFilterTipo" onchange="renderSolicitudes(true)" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
         <option value="ALL">🎯 Todos los tipos</option>
         <option value="solicitud_ayuda">🆘 Petición de ayuda</option>
         <option value="cambio_nodo_self">🛣️ Cambio de nodo</option>
@@ -681,7 +679,6 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </nav>
 
-<!-- MODAL: NOTIFICACIONES -->
 <div id="notifModal" class="modal-sheet" onclick="if(event.target === this) closeModal('notifModal')">
   <div class="modal-sheet-content" style="max-width:560px">
     <div class="modal-handle"></div>
@@ -690,21 +687,13 @@ button, select, input, textarea { touch-action:manipulation; }
         <i class="fa-solid fa-bell text-amber-400"></i> Notificaciones
       </h3>
       <div class="flex gap-2 items-center">
-        <button onclick="markAllNotifRead()" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2.5 py-1.5 rounded-lg border border-emerald-500/30">
-          <i class="fa-solid fa-check-double"></i> Leídas
-        </button>
-        <button onclick="clearAllNotif()" class="text-[10px] font-bold text-rose-300 bg-rose-500/15 px-2.5 py-1.5 rounded-lg border border-rose-500/30">
-          <i class="fa-solid fa-trash"></i> Limpiar
-        </button>
-        <button onclick="closeModal('notifModal')" class="w-8 h-8 rounded-lg bg-white/5 border border-white/15 text-slate-300 flex items-center justify-center active:scale-95" title="Cerrar">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <button onclick="markAllNotifRead()" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2.5 py-1.5 rounded-lg border border-emerald-500/30"><i class="fa-solid fa-check-double"></i> Leídas</button>
+        <button onclick="clearAllNotif()" class="text-[10px] font-bold text-rose-300 bg-rose-500/15 px-2.5 py-1.5 rounded-lg border border-rose-500/30"><i class="fa-solid fa-trash"></i> Limpiar</button>
+        <button onclick="closeModal('notifModal')" class="w-8 h-8 rounded-lg bg-white/5 border border-white/15 text-slate-300 flex items-center justify-center active:scale-95"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
     <div id="notifContainer" style="max-height:65vh; overflow-y:auto; padding-right:4px;"></div>
-    <button onclick="closeModal('notifModal')" class="w-full mt-4 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">
-      Cerrar
-    </button>
+    <button onclick="closeModal('notifModal')" class="w-full mt-4 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cerrar</button>
   </div>
 </div>
 
@@ -1041,7 +1030,6 @@ function scheduleRender(fn) {
 }
 
 /* === POPUP DE ASIGNACIÓN === */
-var _lastSolSignature = '';
 function showAssignmentPopup(title, msg, extraHtml) {
   var t = $('assignmentTitle'), m = $('assignmentMsg'), e = $('assignmentExtra');
   if (!t || !m || !e) return;
@@ -1052,6 +1040,12 @@ function showAssignmentPopup(title, msg, extraHtml) {
   try { vibrate([200,100,200]); playNotificationSound(); } catch(x) {}
 }
 function closeAssignmentPopup() { var el = $('assignmentPopup'); if (el) el.classList.remove('open'); }
+
+/* === Cerrar popups con Escape global === */
+function closeAllPopups() {
+  closeResolutionPopup();
+  closeAssignmentPopup();
+}
 
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -1375,13 +1369,21 @@ function entrarApp() {
   updateHeaderSubtitle();
   initData(); renderSquads(); refreshAllSectorSelects(); refreshAreaSelects();
   renderInlineReport(); updateShiftUI(); renderMaps(); refreshMapSelects();
-  renderSolicitudes(); renderUsersList(); renderSectorsList();
+  renderSolicitudes(true); renderUsersList(); renderSectorsList();
   loadNotifications(); updateNotificationUI();
   if (currentUser.role === 'admin') checkStatusChanges();
   requestPushPermission();
   if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
   attachNotifListener();
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
+  /* Auto-render cada 5s si está en vista solicitudes (respaldo) */
+  setInterval(function() {
+    if (!currentUser) return;
+    var solView = document.getElementById('view-solicitudes');
+    if (solView && solView.classList.contains('active')) {
+      renderSolicitudes(true);
+    }
+  }, 5000);
 }
 
 function updateHeaderSubtitle() {
@@ -1428,7 +1430,6 @@ function attachNotifListener() {
         if (isForMe && !n.read && seenIds.indexOf(n.id) < 0) {
           markNotifSeen(n.id); playNotificationSound(); showToast(n.title, 'info');
           sendPushNotification(n.title, n.message, { tag: 'likenet-' + n.id });
-          /* ✅ Popup de asignación para la cuadrilla ayudante */
           if (n.type === 'help_assigned') {
             var extraH = '<div class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30"><p class="text-xs text-slate-200">' + esc(n.message) + '</p></div>';
             showAssignmentPopup('🚨 Apoyo Asignado', 'Administrador ha asignado asistencia al que necesita ayuda', extraH);
@@ -1565,7 +1566,7 @@ function switchView(viewId) {
   if (viewId === 'view-users') renderUsersList();
   if (viewId === 'view-sectors') renderSectorsList();
   if (viewId === 'view-maps') { refreshMapSelects(); renderMaps(); }
-  if (viewId === 'view-solicitudes') renderSolicitudes();
+  if (viewId === 'view-solicitudes') renderSolicitudes(true);
   if (viewId === 'view-log') { renderLogFilters(); renderLog(); }
   if (viewId === 'view-tecnico-home') renderTecnicoHome();
   window.scrollTo({ top:0, behavior:'smooth' });
@@ -1798,7 +1799,7 @@ function saveSolicitudAyuda(e) {
   var lastNotif = notificationsData[notificationsData.length - 1];
   if (lastNotif) { lastNotif.solId = sol.id; fbSaveNotif(lastNotif); }
   sendPushNotification('🆘 Nueva petición de ayuda', currentUser.fullName + ' solicita: ' + (tipoMap[tipo]||tipo), { tag: 'help-' + sol.id, data: { openSolicitud: true, solId: sol.id } });
-  closeModal('helpModal'); renderSolicitudes();
+  closeModal('helpModal'); renderSolicitudes(true);
   vibrate(60); showToast('✅ Solicitud enviada al administrador', 'ok');
 }
 
@@ -1823,11 +1824,12 @@ function saveCambiarNodo() {
   var sol = { id: 'sol_' + Date.now() + '_' + Math.random().toString(36).slice(2,6), tipo: 'cambio_nodo_self', motivo: motivo, solicitanteUser: currentUser.username, solicitanteNombre: currentUser.fullName || currentUser.username, solicitanteArea: currentUser.area, sectorActual: actual, sectorNuevo: nuevo, cuadrillaOrigenId: mySquad ? mySquad.id : null, cuadrillaOrigenNombre: mySquad ? mySquad.name : '—', estado: 'pendiente', ts: Date.now(), revisadoPor: '', revisadoTs: null, comentarioAdmin: '' };
   solicitudesData.push(sol); saveSolicitudes();
   logHistory('Cambio de nodo', currentUser.fullName + ': "' + actual + '" → "' + nuevo + '"', 'solicitud');
-  closeModal('changeNodoModal'); renderSolicitudes();
+  closeModal('changeNodoModal'); renderSolicitudes(true);
   vibrate(40); showToast('✅ Solicitud enviada', 'ok');
 }
 
-function renderSolicitudes() {
+/* ============ RENDER SOLICITUDES (sin cache, siempre renderiza) ============ */
+function renderSolicitudes(force) {
   var c = $('solicitudesContainer'); if (!c) return;
   var fEst = $('solFilterEstado').value, fTip = $('solFilterTipo').value;
   var list = solicitudesData.slice();
@@ -1835,12 +1837,6 @@ function renderSolicitudes() {
   if (fEst !== 'ALL') list = list.filter(function(s) { return s.estado === fEst; });
   if (fTip !== 'ALL') list = list.filter(function(s) { return s.tipo === fTip; });
   list.sort(function(a,b) { return b.ts - a.ts; });
-
-  /* ✅ CACHE: si nada cambió, no re-renderizar */
-  var sig = fEst + '|' + fTip + '|' + currentUser.username + '|' +
-    list.map(function(s){ return s.id + s.estado + (s.equipoAyudaNombre||'') + (s.comentarioAdmin||'').length + (s.revisadoTs||''); }).join(',');
-  if (sig === _lastSolSignature) return;
-  _lastSolSignature = sig;
 
   var pending = solicitudesData.filter(function(s) { return s.estado === 'pendiente'; }).length;
   var sub = $('solSubtitle'); if (sub) sub.textContent = pending + ' pendiente' + (pending === 1 ? '' : 's') + ' · ' + solicitudesData.length + ' total';
@@ -1872,23 +1868,26 @@ function renderSolicitudes() {
     var fecha = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
     html += '<div class="solicitud-card ' + s.estado + '"><div class="flex items-start justify-between gap-2 mb-2 flex-wrap"><div class="flex items-center gap-2 flex-wrap"><span class="sol-type-badge ' + clase + '">' + tipoInfo + '</span><span class="sol-badge ' + s.estado + '">' + s.estado + '</span></div><span class="text-[10px] text-slate-500 font-semibold">' + esc(fecha) + '</span></div><div class="mb-2"><p class="text-xs text-slate-300"><strong>' + esc(s.solicitanteNombre) + '</strong></p></div><div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2">' + detalle + '</div><p class="text-xs italic text-slate-400 mb-2">"' + esc(s.motivo) + '"</p>' + extraRespuesta;
     if (s.comentarioAdmin && !extraRespuesta) html += '<div class="mt-2 p-2 rounded-lg bg-slate-900/50 border border-white/5"><p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Comentario del admin</p><p class="text-xs text-slate-300">"' + esc(s.comentarioAdmin) + '"</p></div>';
+    /* Botón para pendientes */
     if (canResolve && s.estado === 'pendiente') html += '<button onclick="openRevisarSol(\'' + esc(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold"><i class="fa-solid fa-gavel"></i> Revisar solicitud</button>';
+    /* Botón para reasignar aprobadas (solo solicitud_ayuda) */
+    if (canResolve && s.estado === 'aprobada' && s.tipo === 'solicitud_ayuda') html += '<button onclick="openRevisarSol(\'' + esc(s.id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-rotate"></i> Cambiar asignación</button>';
     html += '</div>';
   });
   c.innerHTML = html;
 }
 
 function openRevisarSol(id) {
-  if (currentUser.role !== 'admin' && currentUser.role !== 'soporte') return;
+  if (currentUser.role !== 'admin' && currentUser.role !== 'soporte') return showToast('Sin permiso para revisar.', 'error');
   var s = null; for (var i = 0; i < solicitudesData.length; i++) if (solicitudesData[i].id === id) { s = solicitudesData[i]; break; }
-  if (!s) return;
-  revisarSolCtx = { id:id }; $('revComentario').value = '';
+  if (!s) return showToast('Solicitud no encontrada.', 'error');
+  revisarSolCtx = { id:id }; $('revComentario').value = s.comentarioAdmin || '';
   var detalle = ''; var showAsignar = false;
   if (s.tipo === 'solicitud_ayuda') {
-    detalle = '<div class="space-y-2"><p><strong>Tipo:</strong> ' + esc(s.subtipoLabel || 'Ayuda') + '</p><p><strong>Prioridad:</strong> <span class="priority-badge ' + (s.prioridad || 'normal') + '">' + (s.prioridad || 'normal').toUpperCase() + '</span></p><p><strong>Cuadrilla:</strong> ' + esc(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Sector:</strong> ' + esc(s.cuadrillaOrigenSector || '—') + '</p></div>';
+    detalle = '<div class="space-y-2"><p><strong>Tipo:</strong> ' + esc(s.subtipoLabel || 'Ayuda') + '</p><p><strong>Prioridad:</strong> <span class="priority-badge ' + (s.prioridad || 'normal') + '">' + (s.prioridad || 'normal').toUpperCase() + '</span></p><p><strong>Cuadrilla:</strong> ' + esc(s.cuadrillaOrigenNombre || '—') + '</p><p><strong>Sector:</strong> ' + esc(s.cuadrillaOrigenSector || '—') + '</p>' + (s.equipoAyudaNombre ? '<p><strong>Asignada actualmente a:</strong> <span class="text-emerald-300">' + esc(s.equipoAyudaNombre) + '</span></p>' : '') + '</div>';
     showAsignar = true;
     var opts = '<option value="">— Selecciona cuadrilla —</option>';
-    squadsData.forEach(function(sq) { if (sq.id === s.cuadrillaOrigenId) return; var present = sq.members.filter(function(m){ return m.status === 'Presente' || m.status === 'Reemplazo'; }).length; var total = sq.members.length; opts += '<option value="' + sq.id + '">' + esc(sq.name) + ' · ' + esc(sq.sector) + ' (' + present + '/' + total + ')</option>'; });
+    squadsData.forEach(function(sq) { if (sq.id === s.cuadrillaOrigenId) return; var present = sq.members.filter(function(m){ return m.status === 'Presente' || m.status === 'Reemplazo'; }).length; var total = sq.members.length; opts += '<option value="' + sq.id + '"' + (sq.id === s.equipoAyudaId ? ' selected' : '') + '>' + esc(sq.name) + ' · ' + esc(sq.sector) + ' (' + present + '/' + total + ')</option>'; });
     $('revAsignarSquad').innerHTML = opts;
   } else if (s.tipo === 'cambio_nodo_self' || s.tipo === 'cambio_sector') {
     detalle = '<p>Actual: ' + esc(s.sectorActual || '—') + '</p><p>Nuevo: <strong class="text-emerald-300">' + esc(s.sectorNuevo) + '</strong></p>';
@@ -1899,72 +1898,79 @@ function openRevisarSol(id) {
   $('revAsignarSquadField').classList.toggle('hidden', !showAsignar);
   openModal('revisarSolModal');
 }
-function resolveSolicitud(estado) {
-  if (currentUser.role !== 'admin' && currentUser.role !== 'soporte') return;
-  var s = null; for (var i = 0; i < solicitudesData.length; i++) if (solicitudesData[i].id === revisarSolCtx.id) { s = solicitudesData[i]; break; }
-  if (!s) return;
-  var comentario = $('revComentario').value.trim();
-  var equipoAyudaId = null, equipoAyudaNombre = '', equipoAyudaSector = '', helpingSquad = null;
-  if (s.tipo === 'solicitud_ayuda' && estado === 'aprobada') {
-    var selVal = $('revAsignarSquad').value;
-    if (!selVal) return showToast('Selecciona la cuadrilla que ayudará.', 'error');
-    equipoAyudaId = parseInt(selVal);
-    for (var k = 0; k < squadsData.length; k++) if (squadsData[k].id === equipoAyudaId) { helpingSquad = squadsData[k]; break; }
-    if (!helpingSquad) return showToast('Cuadrilla no encontrada.', 'error');
-    equipoAyudaNombre = helpingSquad.name; equipoAyudaSector = helpingSquad.sector;
-  }
-  if (estado === 'aprobada') {
-    if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') {
-      var sq = null; for (var j = 0; j < squadsData.length; j++) if (squadsData[j].id === s.cuadrillaOrigenId) { sq = squadsData[j]; break; }
-      if (sq) { sq.sector = s.sectorNuevo; saveData(); logHistory('Nodo cambiado', sq.name + ': → ' + s.sectorNuevo, 'warn'); }
-      var u = null; for (var k2 = 0; k2 < usersData.length; k2++) if (usersData[k2].username === s.solicitanteUser) { u = usersData[k2]; break; }
-      if (u && s.tipo === 'cambio_nodo_self') {
-        u.sectorActual = s.sectorNuevo; u.area = s.sectorNuevo; saveUsers();
-        if (u.username === currentUser.username) { currentUser.sectorActual = s.sectorNuevo; currentUser.area = s.sectorNuevo; localStorage.setItem(LS_SESSION, JSON.stringify(currentUser)); updateHeaderSubtitle(); }
-      }
-    } else if (s.tipo === 'solicitud_ayuda') {
-      s.equipoAyudaId = equipoAyudaId; s.equipoAyudaNombre = equipoAyudaNombre; s.equipoAyudaSector = equipoAyudaSector;
-    }
-  }
-  s.estado = estado; s.revisadoPor = currentUser.fullName || currentUser.username; s.revisadoTs = Date.now(); s.comentarioAdmin = comentario;
-  saveSolicitudes();
-  logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
-  if (estado === 'aprobada' && s.equipoAyudaNombre) {
-    pushNotification('resolved', '✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', 'alta', [s.solicitanteUser]);
-  } else if (estado === 'rechazada') {
-    pushNotification('resolved', '❌ Solicitud Rechazada', comentario || 'El administrador revisó tu solicitud', 'normal', [s.solicitanteUser]);
-  }
-  if (estado === 'aprobada' && s.tipo === 'solicitud_ayuda' && helpingSquad) {
-    var helpingUsernames = [];
-    helpingSquad.members.forEach(function(m) { if (m.name && m.name !== '—') { var uname = m.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'.').replace(/[^a-z0-9.]/g,'').slice(0,20); helpingUsernames.push(uname); } });
-    var msg = 'El admin te solicita apoyar a la cuadrilla ' + s.cuadrillaOrigenNombre + ' (' + s.cuadrillaOrigenSector + ') por: ' + (s.subtipoLabel || 'ayuda') + '. Detalle: ' + s.motivo;
-    pushNotification('help_assigned', '🚨 Apoyo asignado a tu cuadrilla', msg, s.prioridad === 'urgente' ? 'alta' : 'normal', helpingUsernames);
-    helpingUsernames.forEach(function(un) { sendPushNotification('🚨 Apoyo asignado', 'Debes apoyar a ' + s.cuadrillaOrigenNombre + ' - ' + (s.subtipoLabel || 'ayuda'), { tag: 'assigned-' + s.id + '-' + un }); });
-  }
-  closeModal('revisarSolModal');
-  scheduleRender(renderSolicitudes);
-  scheduleRender(renderSquads);
-  scheduleRender(renderInlineReport);
-  vibrate(40);
 
-  if (estado === 'aprobada' && s.tipo === 'solicitud_ayuda' && helpingSquad) {
-    var fechaA = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
-    var extraHtml =
-      '<div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 mb-3">' +
-        '<p class="text-[10px] text-cyan-300 uppercase font-bold mb-1">Solicitante que recibe ayuda</p>' +
-        '<p class="text-sm font-bold text-white">' + esc(s.solicitanteNombre) + '</p>' +
-        '<p class="text-[10px] text-slate-400">' + esc(s.cuadrillaOrigenNombre || '—') + ' · ' + esc(s.cuadrillaOrigenSector || '—') + '</p>' +
-        '<p class="text-[10px] text-slate-500 mt-1">' + esc(fechaA) + '</p>' +
-      '</div>' +
-      '<div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">' +
-        '<p class="text-[10px] text-emerald-300 uppercase font-bold mb-1">Asistencia asignada a</p>' +
-        '<p class="text-sm font-bold text-white">' + esc(helpingSquad.name) + '</p>' +
-        '<p class="text-[10px] text-emerald-300/80">📍 ' + esc(helpingSquad.sector) + '</p>' +
-      '</div>';
-    showAssignmentPopup('✅ Asignación Realizada', 'Administrador ha asignado asistencia al que necesita ayuda', extraHtml);
-    showToast('✓ Aprobada y notificada', 'ok');
-  } else {
-    showToast(estado === 'aprobada' ? '✓ Aprobada y notificada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
+function resolveSolicitud(estado) {
+  try {
+    if (currentUser.role !== 'admin' && currentUser.role !== 'soporte') return showToast('Sin permiso.', 'error');
+    var s = null; for (var i = 0; i < solicitudesData.length; i++) if (solicitudesData[i].id === revisarSolCtx.id) { s = solicitudesData[i]; break; }
+    if (!s) return showToast('Solicitud no encontrada.', 'error');
+    var comentario = $('revComentario').value.trim();
+    var equipoAyudaId = null, equipoAyudaNombre = '', equipoAyudaSector = '', helpingSquad = null;
+    if (s.tipo === 'solicitud_ayuda' && estado === 'aprobada') {
+      var selVal = $('revAsignarSquad').value;
+      if (!selVal) return showToast('Selecciona la cuadrilla que ayudará.', 'error');
+      equipoAyudaId = parseInt(selVal);
+      for (var k = 0; k < squadsData.length; k++) if (squadsData[k].id === equipoAyudaId) { helpingSquad = squadsData[k]; break; }
+      if (!helpingSquad) return showToast('Cuadrilla no encontrada.', 'error');
+      equipoAyudaNombre = helpingSquad.name; equipoAyudaSector = helpingSquad.sector;
+    }
+    if (estado === 'aprobada') {
+      if (s.tipo === 'cambio_sector' || s.tipo === 'cambio_nodo_self') {
+        var sq = null; for (var j = 0; j < squadsData.length; j++) if (squadsData[j].id === s.cuadrillaOrigenId) { sq = squadsData[j]; break; }
+        if (sq) { sq.sector = s.sectorNuevo; saveData(); logHistory('Nodo cambiado', sq.name + ': → ' + s.sectorNuevo, 'warn'); }
+        var u = null; for (var k2 = 0; k2 < usersData.length; k2++) if (usersData[k2].username === s.solicitanteUser) { u = usersData[k2]; break; }
+        if (u && s.tipo === 'cambio_nodo_self') {
+          u.sectorActual = s.sectorNuevo; u.area = s.sectorNuevo; saveUsers();
+          if (u.username === currentUser.username) { currentUser.sectorActual = s.sectorNuevo; currentUser.area = s.sectorNuevo; localStorage.setItem(LS_SESSION, JSON.stringify(currentUser)); updateHeaderSubtitle(); }
+        }
+      } else if (s.tipo === 'solicitud_ayuda') {
+        s.equipoAyudaId = equipoAyudaId; s.equipoAyudaNombre = equipoAyudaNombre; s.equipoAyudaSector = equipoAyudaSector;
+      }
+    }
+    s.estado = estado; s.revisadoPor = currentUser.fullName || currentUser.username; s.revisadoTs = Date.now(); s.comentarioAdmin = comentario;
+    saveSolicitudes();
+    logHistory(estado === 'aprobada' ? 'Solicitud aprobada' : 'Solicitud rechazada', s.tipo + ' · ' + s.solicitanteNombre, estado === 'aprobada' ? 'ok' : 'danger');
+    if (estado === 'aprobada' && s.equipoAyudaNombre) {
+      pushNotification('resolved', '✅ Solicitud Aprobada', s.equipoAyudaNombre + ' TE AYUDA', 'alta', [s.solicitanteUser]);
+    } else if (estado === 'rechazada') {
+      pushNotification('resolved', '❌ Solicitud Rechazada', comentario || 'El administrador revisó tu solicitud', 'normal', [s.solicitanteUser]);
+    }
+    if (estado === 'aprobada' && s.tipo === 'solicitud_ayuda' && helpingSquad) {
+      var helpingUsernames = [];
+      helpingSquad.members.forEach(function(m) { if (m.name && m.name !== '—') { var uname = m.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'.').replace(/[^a-z0-9.]/g,'').slice(0,20); helpingUsernames.push(uname); } });
+      var msg = 'El admin te solicita apoyar a la cuadrilla ' + s.cuadrillaOrigenNombre + ' (' + s.cuadrillaOrigenSector + ') por: ' + (s.subtipoLabel || 'ayuda') + '. Detalle: ' + s.motivo;
+      pushNotification('help_assigned', '🚨 Apoyo asignado a tu cuadrilla', msg, s.prioridad === 'urgente' ? 'alta' : 'normal', helpingUsernames);
+      helpingUsernames.forEach(function(un) { sendPushNotification('🚨 Apoyo asignado', 'Debes apoyar a ' + s.cuadrillaOrigenNombre + ' - ' + (s.subtipoLabel || 'ayuda'), { tag: 'assigned-' + s.id + '-' + un }); });
+    }
+    closeModal('revisarSolModal');
+    /* Forzar re-render inmediato (no usar scheduleRender aquí para que sea visible al instante) */
+    renderSolicitudes(true);
+    renderSquads();
+    renderInlineReport();
+    vibrate(40);
+
+    if (estado === 'aprobada' && s.tipo === 'solicitud_ayuda' && helpingSquad) {
+      var fechaA = new Date(s.ts).toLocaleString('es-EC', { dateStyle:'short', timeStyle:'short' });
+      var extraHtml =
+        '<div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 mb-3">' +
+          '<p class="text-[10px] text-cyan-300 uppercase font-bold mb-1">Solicitante que recibe ayuda</p>' +
+          '<p class="text-sm font-bold text-white">' + esc(s.solicitanteNombre) + '</p>' +
+          '<p class="text-[10px] text-slate-400">' + esc(s.cuadrillaOrigenNombre || '—') + ' · ' + esc(s.cuadrillaOrigenSector || '—') + '</p>' +
+          '<p class="text-[10px] text-slate-500 mt-1">' + esc(fechaA) + '</p>' +
+        '</div>' +
+        '<div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">' +
+          '<p class="text-[10px] text-emerald-300 uppercase font-bold mb-1">Asistencia asignada a</p>' +
+          '<p class="text-sm font-bold text-white">' + esc(helpingSquad.name) + '</p>' +
+          '<p class="text-[10px] text-emerald-300/80">📍 ' + esc(helpingSquad.sector) + '</p>' +
+        '</div>';
+      showAssignmentPopup('✅ Asignación Realizada', 'Administrador ha asignado asistencia al que necesita ayuda', extraHtml);
+      showToast('✓ Aprobada y notificada', 'ok');
+    } else {
+      showToast(estado === 'aprobada' ? '✓ Aprobada y notificada' : 'Rechazada', estado === 'aprobada' ? 'ok' : 'info');
+    }
+  } catch(err) {
+    console.error('❌ resolveSolicitud error:', err);
+    showToast('Error: ' + err.message, 'error');
   }
 }
 
@@ -2581,7 +2587,6 @@ function closeModal(id) { var el = $(id); if (el) { el.classList.remove('open');
 function toggleExportMenu(e) { e.stopPropagation(); $('exportWrap').classList.toggle('open'); vibrate(10); }
 document.addEventListener('click', function(e) { if (!e.target.closest('#exportWrap')) $('exportWrap').classList.remove('open'); });
 
-/* Click afuera para cerrar modales (una sola vez) */
 function setupModalBackdropClose() {
   document.querySelectorAll('.modal-sheet').forEach(function(sheet) {
     if (sheet.dataset.tapClose === '1') return;
@@ -2591,7 +2596,6 @@ function setupModalBackdropClose() {
     });
   });
 }
-/* Auto-inyectar botón X */
 function autoInjectCloseButtons() {
   document.querySelectorAll('.modal-sheet-content').forEach(function(content) {
     if (content.querySelector('.modal-auto-close')) return;
@@ -2626,7 +2630,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setupModalBackdropClose();
   setTimeout(autoInjectCloseButtons, 700);
 
-  // ⚡ RESTAURAR SESIÓN (PRIORIDAD MÁXIMA)
   var restored = false;
   var sessionRaw = null;
   try { sessionRaw = localStorage.getItem(LS_SESSION); } catch(e) {}
@@ -2680,7 +2683,6 @@ document.addEventListener('DOMContentLoaded', function() {
   clearTimeout(safety);
   hideSplash();
 
-  // Sync Firebase (no bloquea UI)
   Promise.all([fbLoad('users'), fbLoad('sectors'), fbLoad('squads'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta'), fbLoadNotifications(), fbLoadHistory()]).then(function(res) {
     if (Array.isArray(res[0]) && res[0].length) { usersData = res[0]; try { localStorage.setItem(LS_USERS, JSON.stringify(res[0])); } catch(e){} }
     if (Array.isArray(res[1]) && res[1].length) { sectorsData = res[1]; try { localStorage.setItem(LS_SECTORS, JSON.stringify(res[1])); } catch(e){} }
@@ -2693,16 +2695,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setCloudStatus(true);
     if (currentUser) {
       try {
-        scheduleRender(renderSquads);
-        scheduleRender(renderUsersList);
-        scheduleRender(renderSolicitudes);
-        scheduleRender(renderSectorsList);
-        scheduleRender(renderMaps);
-        scheduleRender(renderInlineReport);
-        scheduleRender(updateNotificationUI);
-        scheduleRender(updateShiftUI);
+        renderSquads();
+        renderUsersList();
+        renderSolicitudes(true);
+        renderSectorsList();
+        renderMaps();
+        renderInlineReport();
+        updateNotificationUI();
+        updateShiftUI();
         if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') {
-          scheduleRender(renderTecnicoHome);
+          renderTecnicoHome();
           setTimeout(checkMyResolutions, 1500);
         }
         attachNotifListener();
@@ -2719,8 +2721,7 @@ document.addEventListener('keydown', function(e) {
     for (var i = 0; i < modals.length; i++) modals[i].classList.remove('open');
     document.body.style.overflow = '';
     $('exportWrap').classList.remove('open');
-    closeResolutionPopup();
-    closeAssignmentPopup();
+    closeAllPopups();
   }
 });
 </script>
