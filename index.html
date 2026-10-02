@@ -68,6 +68,7 @@ body > * { position:relative; z-index:1; }
 .btn-violet { background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(109,40,217,.15)); border-color:rgba(139,92,246,.4); color:#c4b5fd; }
 .btn-amber { background:linear-gradient(135deg,rgba(245,158,11,.25),rgba(217,119,6,.15)); border-color:rgba(245,158,11,.4); color:#fcd34d; }
 .btn-rose { background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(190,24,93,.15)); border-color:rgba(239,68,68,.4); color:#fca5a5; }
+.btn-cyan { background:linear-gradient(135deg,rgba(6,182,212,.25),rgba(8,145,178,.15)); border-color:rgba(6,182,212,.4); color:#67e8f9; }
 
 .admin-only,.soporte-only,.tecnico-only,.auth-only,.recorridos-only { display:none !important; }
 body.r-admin .admin-only,body.r-admin .soporte-only,body.r-admin .tecnico-only,body.r-admin .auth-only,body.r-admin .recorridos-only { display:revert !important; }
@@ -159,281 +160,26 @@ body.light-theme .notif-badge { border-color:#fff; }
 .status-badge-pill.permiso { background:rgba(245,158,11,.2); color:#fcd34d; border:1px solid rgba(245,158,11,.4); }
 .status-badge-pill.reemplazo { background:rgba(6,182,212,.2); color:#67e8f9; border:1px solid rgba(6,182,212,.4); }
 
-/* ============ ON-SHIFT BANNER ============ */
-.on-shift-banner {
-  background: linear-gradient(135deg,rgba(16,185,129,.18),rgba(6,182,212,.08));
-  border: 2px solid rgba(16,185,129,.5);
-  border-radius: 18px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-  position: relative;
-  overflow: hidden;
-  animation: shiftGlow 2.5s ease-in-out infinite;
-}
-.on-shift-banner::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at 20% 50%, rgba(16,185,129,.15), transparent 60%);
-  pointer-events:none;
-}
-@keyframes shiftGlow {
-  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.4), 0 8px 32px rgba(16,185,129,.15); }
-  50% { box-shadow: 0 0 0 8px rgba(16,185,129,0), 0 8px 40px rgba(16,185,129,.35); }
-}
+.on-shift-banner { background: linear-gradient(135deg,rgba(16,185,129,.18),rgba(6,182,212,.08)); border: 2px solid rgba(16,185,129,.5); border-radius: 18px; padding: 14px 16px; margin-bottom: 16px; position: relative; overflow: hidden; animation: shiftGlow 2.5s ease-in-out infinite; }
+.on-shift-banner::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 20% 50%, rgba(16,185,129,.15), transparent 60%); pointer-events:none; }
+@keyframes shiftGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.4), 0 8px 32px rgba(16,185,129,.15); } 50% { box-shadow: 0 0 0 8px rgba(16,185,129,0), 0 8px 40px rgba(16,185,129,.35); } }
 .on-shift-banner.empty { display:none; }
-.on-shift-banner .osb-header {
-  display:flex; align-items:center; justify-content:space-between;
-  margin-bottom: 12px; gap:10px; flex-wrap:wrap;
-  position:relative; z-index:1;
-}
-.on-shift-banner .osb-title {
-  display:flex; align-items:center; gap:10px;
-  font-weight:800; color:#a7f3d0; font-size:.85rem;
-  text-transform:uppercase; letter-spacing:.5px;
-}
-.on-shift-banner .osb-title .osb-icon {
-  width:36px; height:36px; border-radius:10px;
-  background: linear-gradient(135deg,#10b981,#059669);
-  display:flex; align-items:center; justify-content:center;
-  color:white; font-size:1rem; flex-shrink:0;
-  box-shadow: 0 4px 16px rgba(16,185,129,.5);
-}
-.on-shift-banner .osb-count {
-  display:inline-flex; align-items:center; gap:6px;
-  padding: 6px 12px; border-radius: 20px;
-  background: rgba(16,185,129,.25);
-  border: 1px solid rgba(16,185,129,.5);
-  color: #6ee7b7; font-weight: 800; font-size:.75rem;
-}
-.on-shift-banner .osb-count .dot {
-  width:8px; height:8px; border-radius:50%;
-  background:#10b981;
-  animation: pulseDot 1.4s infinite;
-}
-.on-shift-users-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  position:relative; z-index:1;
-}
-.on-shift-user-mini {
-  display:flex; align-items:center; gap:10px;
-  padding: 10px 12px;
-  background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));
-  border: 1.5px solid rgba(16,185,129,.4);
-  border-radius: 12px;
-  transition: all .25s;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.on-shift-user-mini::before {
-  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-  background: linear-gradient(180deg,#10b981,#06b6d4);
-}
-.on-shift-user-mini:hover {
-  border-color: rgba(16,185,129,.8);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(16,185,129,.3);
-}
-.on-shift-user-mini .osu-avatar {
-  width:38px; height:38px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-weight:800; font-size:.85rem;
-  background: linear-gradient(135deg,rgba(16,185,129,.5),rgba(6,182,212,.35));
-  border: 2px solid rgba(16,185,129,.7);
-  color: #d1fae5; flex-shrink:0;
-  position: relative;
-}
-.on-shift-user-mini .osu-avatar::after {
-  content:''; position:absolute; bottom:-2px; right:-2px;
-  width:12px; height:12px; border-radius:50%;
-  background:#10b981; border:2px solid #0b0f19;
-  animation: pulseDot 1.4s infinite;
-}
-.on-shift-user-mini .osu-name {
-  font-size:.78rem; font-weight:700; color:#f8fafc;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-.on-shift-user-mini .osu-role {
-  font-size:.65rem; color:#6ee7b7; font-weight:700;
-  display:flex; align-items:center; gap:4px; margin-top:2px;
-}
-.on-shift-user-mini .osu-phone {
-  width:32px; height:32px; border-radius:10px;
-  background: rgba(16,185,129,.2);
-  border: 1px solid rgba(16,185,129,.5);
-  color: #6ee7b7; font-size:.75rem;
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-  cursor: pointer;
-}
+.on-shift-banner .osb-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; gap:10px; flex-wrap:wrap; position:relative; z-index:1; }
+.on-shift-banner .osb-title { display:flex; align-items:center; gap:10px; font-weight:800; color:#a7f3d0; font-size:.85rem; text-transform:uppercase; letter-spacing:.5px; }
+.on-shift-banner .osb-title .osb-icon { width:36px; height:36px; border-radius:10px; background: linear-gradient(135deg,#10b981,#059669); display:flex; align-items:center; justify-content:center; color:white; font-size:1rem; flex-shrink:0; box-shadow: 0 4px 16px rgba(16,185,129,.5); }
+.on-shift-banner .osb-count { display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; border-radius: 20px; background: rgba(16,185,129,.25); border: 1px solid rgba(16,185,129,.5); color: #6ee7b7; font-weight: 800; font-size:.75rem; }
+.on-shift-banner .osb-count .dot { width:8px; height:8px; border-radius:50%; background:#10b981; animation: pulseDot 1.4s infinite; }
+.on-shift-users-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; position:relative; z-index:1; }
+.on-shift-user-mini { display:flex; align-items:center; gap:10px; padding: 10px 12px; background: linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08)); border: 1.5px solid rgba(16,185,129,.4); border-radius: 12px; transition: all .25s; cursor: pointer; position: relative; overflow: hidden; }
+.on-shift-user-mini::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background: linear-gradient(180deg,#10b981,#06b6d4); }
+.on-shift-user-mini:hover { border-color: rgba(16,185,129,.8); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,.3); }
+.on-shift-user-mini .osu-avatar { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.85rem; background: linear-gradient(135deg,rgba(16,185,129,.5),rgba(6,182,212,.35)); border: 2px solid rgba(16,185,129,.7); color: #d1fae5; flex-shrink:0; position: relative; }
+.on-shift-user-mini .osu-avatar::after { content:''; position:absolute; bottom:-2px; right:-2px; width:12px; height:12px; border-radius:50%; background:#10b981; border:2px solid #0b0f19; animation: pulseDot 1.4s infinite; }
+.on-shift-user-mini .osu-name { font-size:.78rem; font-weight:700; color:#f8fafc; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.on-shift-user-mini .osu-role { font-size:.65rem; color:#6ee7b7; font-weight:700; display:flex; align-items:center; gap:4px; margin-top:2px; }
+.on-shift-user-mini .osu-phone { width:32px; height:32px; border-radius:10px; background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.5); color: #6ee7b7; font-size:.75rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; cursor: pointer; }
 .on-shift-user-mini .osu-phone:active { transform: scale(.92); }
 
-/* Variantes avatar */
-.on-shift-user-mini .osu-avatar.osu-avatar-squad {
-  font-size: .75rem;
-  font-weight: 900;
-  letter-spacing: .3px;
-  background: linear-gradient(135deg,rgba(16,185,129,.55),rgba(6,182,212,.4));
-  border-color: rgba(16,185,129,.8);
-}
-.on-shift-user-mini .osu-avatar.osu-avatar-special {
-  background: linear-gradient(135deg,rgba(139,92,246,.5),rgba(99,102,241,.35));
-  border-color: rgba(139,92,246,.8);
-}
-.on-shift-user-mini.special::before {
-  background: linear-gradient(180deg,#8b5cf6,#6366f1);
-}
-.on-shift-user-mini.special {
-  border-color: rgba(139,92,246,.4);
-  background: linear-gradient(135deg,rgba(139,92,246,.15),rgba(99,102,241,.08));
-}
-.on-shift-user-mini.special:hover {
-  border-color: rgba(139,92,246,.8);
-  box-shadow: 0 8px 24px rgba(139,92,246,.3);
-}
-
-.osu-dots { display: flex; gap: 3px; margin-top: 4px; }
-.osu-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 0 2px rgba(16,185,129,.25);
-  animation: pulseDot 1.6s infinite;
-}
-.osu-dot:nth-child(2) { animation-delay: .3s; }
-.osu-dot:nth-child(3) { animation-delay: .6s; }
-.osu-dot:nth-child(4) { animation-delay: .9s; }
-.osu-dot:nth-child(5) { animation-delay: 1.2s; }
-
-/* ============ SELECTOR DE TELÉFONO DE CUADRILLA ============ */
-.squad-phone-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px; margin-bottom: 8px;
-  background: linear-gradient(135deg, rgba(16,185,129,.1), rgba(6,182,212,.05));
-  border: 1.5px solid rgba(16,185,129,.35);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all .2s;
-  position: relative;
-  overflow: hidden;
-}
-.squad-phone-item::before {
-  content: ''; position: absolute;
-  left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg,#10b981,#06b6d4);
-}
-.squad-phone-item:hover {
-  border-color: rgba(16,185,129,.7);
-  transform: translateX(2px);
-  box-shadow: 0 6px 20px rgba(16,185,129,.25);
-}
-.squad-phone-item .spi-avatar {
-  width: 42px; height: 42px; border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(16,185,129,.45), rgba(6,182,212,.3));
-  border: 2px solid rgba(16,185,129,.65);
-  color: #d1fae5; font-weight: 800; font-size: .95rem;
-  flex-shrink: 0;
-}
-.squad-phone-item .spi-name { font-size: .85rem; font-weight: 700; color: #f8fafc; }
-.squad-phone-item .spi-role { font-size: .7rem; color: #94a3b8; margin-top: 3px; }
-.squad-phone-item .spi-phone {
-  width: 40px; height: 40px; border-radius: 12px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(16,185,129,.4);
-}
-.squad-phone-item:active .spi-phone { transform: scale(.92); }
-body.light-theme .squad-phone-item { background: rgba(255,255,255,.95); border-color: rgba(16,185,129,.4); }
-body.light-theme .squad-phone-item .spi-name { color: #0f172a; }
-
-/* ============ SQUAD SHIFT CARDS (modal) ============ */
-.squad-shift-card {
-  background: linear-gradient(180deg,rgba(15,23,42,.7),rgba(15,23,42,.5));
-  border: 1px solid rgba(16,185,129,.3);
-  border-radius: 14px;
-  padding: 12px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.squad-shift-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg,#10b981,#06b6d4);
-}
-.squad-shift-card.special::before { background: linear-gradient(180deg,#8b5cf6,#6366f1); }
-.squad-shift-card.special { border-color: rgba(139,92,246,.3); }
-
-.ssc-header {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 10px; margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.ssc-title { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-.ssc-badge {
-  width: 34px; height: 34px; border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(16,185,129,.25);
-  border: 1.5px solid rgba(16,185,129,.5);
-  color: #6ee7b7; font-weight: 800; font-size: .8rem;
-  flex-shrink: 0;
-}
-.ssc-badge.special {
-  background: rgba(139,92,246,.25);
-  border-color: rgba(139,92,246,.5);
-  color: #c4b5fd;
-}
-.ssc-title h4 { font-size: .85rem; font-weight: 800; color: #f8fafc; line-height: 1.1; }
-.ssc-title p { font-size: .65rem; color: #94a3b8; margin-top: 2px; }
-.ssc-stats { flex-shrink: 0; }
-.ssc-count {
-  display: inline-flex; align-items: center;
-  padding: 4px 10px; border-radius: 20px;
-  background: rgba(16,185,129,.2);
-  color: #6ee7b7; font-weight: 800; font-size: .7rem;
-  border: 1px solid rgba(16,185,129,.4);
-}
-.squad-shift-card.special .ssc-count {
-  background: rgba(139,92,246,.2);
-  color: #c4b5fd;
-  border-color: rgba(139,92,246,.4);
-}
-.ssc-members { display: flex; flex-direction: column; gap: 6px; }
-.ssc-member {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px;
-  background: rgba(2,6,23,.4);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.05);
-}
-.ssc-avatar {
-  width: 32px; height: 32px; border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg,rgba(16,185,129,.4),rgba(6,182,212,.3));
-  border: 1.5px solid rgba(16,185,129,.6);
-  color: #d1fae5; font-weight: 800; font-size: .75rem;
-  flex-shrink: 0;
-}
-.ssc-name { font-size: .78rem; font-weight: 700; color: #f8fafc; }
-.ssc-role { font-size: .62rem; color: #94a3b8; margin-top: 1px; }
-.ssc-phone {
-  width: 34px; height: 34px; border-radius: 10px;
-  background: rgba(16,185,129,.2);
-  border: 1px solid rgba(16,185,129,.45);
-  color: #6ee7b7;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: .8rem; flex-shrink: 0;
-}
-.ssc-phone:active { transform: scale(.92); }
-
-/* LIGHT THEME */
 body.light-theme { background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 45%,#dbeafe 100%); color:#0f172a; }
 body.light-theme::before { opacity:.06; }
 body.light-theme::after { background:radial-gradient(ellipse at center, transparent 0%, rgba(241,245,249,.5) 100%); }
@@ -503,11 +249,6 @@ body.light-theme .on-shift-user-mini .osu-avatar { border-color: rgba(16,185,129
 body.light-theme .on-shift-user-mini .osu-avatar::after { border-color:#fff; }
 body.light-theme .on-shift-banner .osb-title { color:#047857; }
 body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(16,185,129,.15); }
-body.light-theme .squad-shift-card { background: linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,252,.9)); }
-body.light-theme .ssc-member { background: rgba(248,250,252,.8); }
-body.light-theme .ssc-name { color: #0f172a; }
-body.light-theme .ssc-title h4 { color: #0f172a; }
-body.light-theme .ssc-title p { color: #64748b; }
 
 .phone-btn { width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background:rgba(16,185,129,.15); color:#6ee7b7; border:1px solid rgba(16,185,129,.35); cursor:pointer; font-size:.78rem; flex-shrink:0; }
 .phone-btn.disabled { background:rgba(100,116,139,.1); border-color:rgba(100,116,139,.2); color:#64748b; cursor:not-allowed; }
@@ -769,6 +510,8 @@ button, select, input, textarea { touch-action:manipulation; }
           <button class="dropdown-item" onclick="switchView('view-tecnico-home')"><i class="fa-solid fa-house text-emerald-400"></i> Mi inicio</button>
           <button class="dropdown-item" onclick="switchView('view-squads')"><i class="fa-solid fa-users text-indigo-400"></i> Cuadrillas</button>
           <button class="dropdown-item" onclick="switchView('view-solicitudes')"><i class="fa-solid fa-clipboard-list text-amber-400"></i> Solicitudes</button>
+          <button class="dropdown-item admin-only soporte-only" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket text-cyan-400"></i> Tickets</button>
+          <button class="dropdown-item admin-only soporte-only" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book text-violet-400"></i> Clientes</button>
           <button class="dropdown-item" onclick="switchView('view-maps')"><i class="fa-solid fa-map text-cyan-400"></i> Mapas</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-log')"><i class="fa-solid fa-list-check text-rose-400"></i> Log auditoría</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-sectors')"><i class="fa-solid fa-map-location-dot text-violet-400"></i> Sectores</button>
@@ -839,7 +582,6 @@ button, select, input, textarea { touch-action:manipulation; }
     </div>
   </div>
 
-  <!-- 🟢 BANNER DE PERSONAL EN TURNO -->
   <div id="onShiftBanner" class="on-shift-banner empty"></div>
 
   <div id="squadsContainer"></div>
@@ -864,6 +606,47 @@ button, select, input, textarea { touch-action:manipulation; }
       </select>
     </div>
     <div id="solicitudesContainer" class="space-y-3"></div>
+  </div>
+</section>
+
+<!-- ========== TICKETS ========== -->
+<section id="view-tickets" class="view-panel">
+  <div class="glass-panel rounded-2xl p-4 mb-4">
+    <div class="page-header">
+      <div class="page-title">
+        <div class="icon-box" style="background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(14,116,144,.1));color:#67e8f9"><i class="fa-solid fa-ticket"></i></div>
+        <div><h2>Tickets de Soporte</h2><p id="ticketsSubtitle">Cargando...</p></div>
+      </div>
+      <button onclick="loadTickets()" class="btn-primary btn-cyan"><i class="fa-solid fa-sync"></i> Actualizar</button>
+    </div>
+    <div class="toolbar two">
+      <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="searchTickets" oninput="renderTickets(filterTickets())" placeholder="Buscar por cliente, asunto o ID..." class="glass-input w-full rounded-xl text-xs px-3 py-2.5"></div>
+      <select id="filterTicketEstado" onchange="renderTickets(filterTickets())" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
+        <option value="ALL">📋 Todos los estados</option>
+        <option value="abierto">🔵 Abiertos</option>
+        <option value="en_proceso">🟡 En proceso</option>
+        <option value="resuelto">🟢 Resueltos</option>
+        <option value="cerrado">⚪ Cerrados</option>
+      </select>
+    </div>
+    <div id="ticketsContainer" class="space-y-3"></div>
+  </div>
+</section>
+
+<!-- ========== CLIENTES ========== -->
+<section id="view-clientes" class="view-panel">
+  <div class="glass-panel rounded-2xl p-4 mb-4">
+    <div class="page-header">
+      <div class="page-title">
+        <div class="icon-box" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(109,40,217,.1));color:#c4b5fd"><i class="fa-solid fa-address-book"></i></div>
+        <div><h2>Clientes</h2><p id="clientesSubtitle">Cargando...</p></div>
+      </div>
+      <button onclick="loadClientes()" class="btn-primary btn-violet"><i class="fa-solid fa-sync"></i> Actualizar</button>
+    </div>
+    <div class="toolbar">
+      <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="searchClientes" oninput="renderClientes(filterClientes())" placeholder="Buscar por nombre, usuario o email..." class="glass-input w-full rounded-xl text-xs px-3 py-2.5"></div>
+    </div>
+    <div id="clientesContainer" class="space-y-3"></div>
   </div>
 </section>
 
@@ -963,6 +746,8 @@ button, select, input, textarea { touch-action:manipulation; }
     <button class="nav-item active" data-view="view-tecnico-home" onclick="switchView('view-tecnico-home')"><i class="fa-solid fa-house"></i><span class="nav-label">Inicio</span></button>
     <button class="nav-item" data-view="view-squads" onclick="switchView('view-squads')"><i class="fa-solid fa-users"></i><span class="nav-label">Cuadrillas</span></button>
     <button class="nav-item" data-view="view-solicitudes" onclick="switchView('view-solicitudes')" style="position:relative"><i class="fa-solid fa-clipboard-list"></i><span class="nav-label">Solicitudes</span><span class="nav-badge soporte-only" id="navSolBadge" style="display:none"></span></button>
+    <button class="nav-item admin-only soporte-only" data-view="view-tickets" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket"></i><span class="nav-label">Tickets</span></button>
+    <button class="nav-item admin-only soporte-only" data-view="view-clientes" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book"></i><span class="nav-label">Clientes</span></button>
     <button class="nav-item" data-view="view-reports" onclick="switchView('view-reports')"><i class="fa-solid fa-chart-pie"></i><span class="nav-label">Reportes</span></button>
     <button class="nav-item" data-view="view-maps" onclick="switchView('view-maps')"><i class="fa-solid fa-map"></i><span class="nav-label">Mapas</span></button>
     <button class="nav-item soporte-only" data-view="view-users" onclick="switchView('view-users')"><i class="fa-solid fa-users-gear"></i><span class="nav-label">Usuarios</span></button>
@@ -989,24 +774,10 @@ button, select, input, textarea { touch-action:manipulation; }
 
 <div id="onShiftModal" class="modal-sheet" onclick="if(event.target === this) closeModal('onShiftModal')"><div class="modal-sheet-content" style="max-width:520px">
   <div class="modal-handle"></div>
-  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Cuadrillas Activas</h3>
-  <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 cuadrillas</p>
+  <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Personal en Turno</h3>
+  <p class="text-xs text-slate-400 mb-4" id="onShiftSub">0 activos</p>
   <div id="onShiftList" style="max-height:65vh; overflow-y:auto;"></div>
 </div></div>
-
-<!-- MODAL: SELECTOR DE TELÉFONO POR CUADRILLA -->
-<div id="squadPhoneModal" class="modal-sheet" onclick="if(event.target === this) closeModal('squadPhoneModal')">
-  <div class="modal-sheet-content" style="max-width:480px">
-    <div class="modal-handle"></div>
-    <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
-      <i class="fa-solid fa-address-book text-emerald-400"></i>
-      <span id="squadPhoneTitle">Contactos</span>
-    </h3>
-    <p class="text-xs text-slate-400 mb-4" id="squadPhoneSub">Elige a quién llamar</p>
-    <div id="squadPhoneList" style="max-height:60vh; overflow-y:auto; padding-right:4px;"></div>
-    <button onclick="closeModal('squadPhoneModal')" class="w-full mt-4 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
-  </div>
-</div>
 
 <div id="helpModal" class="modal-sheet" onclick="if(event.target === this) closeModal('helpModal')"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
@@ -1251,6 +1022,11 @@ var OFFICES = ["OFICINA CAÑAR","OFICINA BIBLIAN","OFICINA AZOGUES"];
 var SOPORTE_AREA = "SOPORTE TÉCNICO";
 var RECORRIDOS_AREA = "RECORRIDOS";
 var AREAS_ESPECIALES = OFFICES.concat([SOPORTE_AREA, RECORRIDOS_AREA]);
+
+/* ============ WISPHUB API ============ */
+var WISPHUB_BASE_URL = 'https://TU-SUBDOMINIO.wisphub.net';   // ← CAMBIA ESTO
+var WISPHUB_API_KEY  = 'TU_API_KEY_AQUI';                     // ← CAMBIA ESTO
+
 var DEFAULT_SECTORS = ["DELEG","CHUQUIPATA","AZOGUES","RICAURTE","CAÑAR","DESCANSO","BIBLIAN","SAN PEDRO","MIRAFLORES","JADAN","PAN","PAUTE"];
 var DEFAULT_ROLES = [
   { id:"admin", label:"Administrador", icon:"fa-user-shield", emoji:"👑", color:"indigo", base:true, permissions:["all"] },
@@ -1317,7 +1093,8 @@ var logRange = '1d';
 var isFirstNotifLoad = true;
 var notifListenerAttached = false;
 var usersListenerAttached = false;
-var _squadPhoneCtx = [];
+var ticketsData = [];
+var clientesData = [];
 
 /* === RENDIMIENTO: renders agrupados en RAF === */
 var _renderQueue = {};
@@ -1813,7 +1590,7 @@ function updateShiftUI() {
 }
 function getOnShiftUsers() { return usersData.filter(function(u) { return u.onShift; }); }
 
-/* ============ BANNER DE PERSONAL EN TURNO (POR CUADRILLA) ============ */
+/* ============ BANNER DE PERSONAL EN TURNO ============ */
 function renderOnShiftBanner() {
   var banner = $('onShiftBanner');
   if (!banner) return;
@@ -1824,62 +1601,10 @@ function renderOnShiftBanner() {
     return;
   }
   banner.classList.remove('empty');
-
-  var squadsMap = {};
-  var noSquad = [];
-
+  var order = { tecnico: 1, recorridos: 2, soporte: 3, admin: 4, viewer: 5 };
+  onShift.sort(function(a, b) { return (order[a.role] || 99) - (order[b.role] || 99); });
+  var usersHTML = '';
   onShift.forEach(function(u) {
-    var mySquad = null;
-    for (var i = 0; i < squadsData.length; i++) {
-      var sq = squadsData[i];
-      if (sq.members.some(function(m) {
-        return m.name === u.fullName || m.name === u.username;
-      })) { mySquad = sq; break; }
-    }
-    if (mySquad) {
-      if (!squadsMap[mySquad.id]) squadsMap[mySquad.id] = { squad: mySquad, members: [] };
-      squadsMap[mySquad.id].members.push(u);
-    } else {
-      noSquad.push(u);
-    }
-  });
-
-  var squadIds = Object.keys(squadsMap).map(function(k) { return parseInt(k); });
-  squadIds.sort(function(a, b) { return a - b; });
-
-  var cardsHTML = '';
-
-  squadIds.forEach(function(sid) {
-    var info = squadsMap[sid];
-    var sq = info.squad;
-    var activeOnShift = info.members.length;
-    var totalMembers = sq.members.length;
-
-    var withPhone = info.members.filter(function(u) { return hasPhone(u.phone); });
-    var phoneOk = withPhone.length > 0;
-
-    var phoneBtn = phoneOk
-      ? '<button onclick="event.stopPropagation();openSquadPhoneSelector(' + sid + ')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
-      : '';
-
-    var dotsHTML = '';
-    info.members.forEach(function() {
-      dotsHTML += '<span class="osu-dot"></span>';
-    });
-
-    cardsHTML +=
-      '<div class="on-shift-user-mini" onclick="openOnShiftModal()">' +
-        '<div class="osu-avatar osu-avatar-squad">' + esc(sq.name) + '</div>' +
-        '<div class="flex-1 min-w-0">' +
-          '<p class="osu-name">Cuadrilla ' + esc(sq.name) + '</p>' +
-          '<p class="osu-role">📍 ' + esc(sq.sector || 'Sin sector') + ' · 👥 ' + activeOnShift + '/' + totalMembers + '</p>' +
-          '<div class="osu-dots">' + dotsHTML + '</div>' +
-        '</div>' +
-        phoneBtn +
-      '</div>';
-  });
-
-  noSquad.forEach(function(u) {
     var init = (u.fullName || u.username).charAt(0).toUpperCase();
     var phoneOk = hasPhone(u.phone);
     var roleIcon = getRoleEmoji(u.role);
@@ -1893,10 +1618,9 @@ function renderOnShiftBanner() {
     var phoneBtn = phoneOk
       ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(roleLabel) + '\',\'' + esc(u.area) + '\')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
       : '';
-
-    cardsHTML +=
-      '<div class="on-shift-user-mini special" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
-        '<div class="osu-avatar osu-avatar-special">' + init + '</div>' +
+    usersHTML +=
+      '<div class="on-shift-user-mini" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
+        '<div class="osu-avatar">' + init + '</div>' +
         '<div class="flex-1 min-w-0">' +
           '<p class="osu-name">' + esc(u.fullName || u.username) + '</p>' +
           '<p class="osu-role">' + roleIcon + ' ' + esc(roleLabel) + esc(extraInfo) + '</p>' +
@@ -1904,83 +1628,15 @@ function renderOnShiftBanner() {
         phoneBtn +
       '</div>';
   });
-
-  var totalItems = squadIds.length + noSquad.length;
-
   banner.innerHTML =
     '<div class="osb-header">' +
       '<div class="osb-title">' +
         '<span class="osb-icon"><i class="fa-solid fa-bolt"></i></span>' +
         '<span>Personal en Turno</span>' +
       '</div>' +
-      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + ' · ' + totalItems + ' grupo' + (totalItems === 1 ? '' : 's') + '</span>' +
+      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + '</span>' +
     '</div>' +
-    '<div class="on-shift-users-grid">' + cardsHTML + '</div>';
-}
-
-/* ============ SELECTOR DE TELÉFONO DE CUADRILLA ============ */
-function openSquadPhoneSelector(squadId) {
-  var sq = null;
-  for (var i = 0; i < squadsData.length; i++) if (squadsData[i].id === squadId) { sq = squadsData[i]; break; }
-  if (!sq) return;
-
-  var onShift = getOnShiftUsers();
-  var candidates = [];
-  onShift.forEach(function(u) {
-    var isInSquad = sq.members.some(function(m) {
-      return m.name === u.fullName || m.name === u.username;
-    });
-    if (isInSquad && hasPhone(u.phone)) candidates.push(u);
-  });
-
-  if (!candidates.length) return showToast('Ningún técnico de la cuadrilla tiene teléfono.', 'error');
-
-  if (candidates.length === 1) {
-    var u1 = candidates[0];
-    openPhoneModal(u1.phone, u1.fullName || u1.username, getRoleLabel(u1.role), sq.name);
-    return;
-  }
-
-  _squadPhoneCtx = candidates;
-  var c = $('squadPhoneList');
-  if (!c) return;
-
-  var html = '';
-  candidates.forEach(function(u) {
-    var init = (u.fullName || u.username).charAt(0).toUpperCase();
-    var roleLbl = getRoleLabel(u.role);
-    var phoneFmt = formatPhoneDisplay(u.phone);
-    html +=
-      '<div class="squad-phone-item" onclick="chooseSquadPhone(\'' + esc(u.username) + '\')">' +
-        '<div class="spi-avatar">' + init + '</div>' +
-        '<div class="flex-1 min-w-0">' +
-          '<p class="spi-name">' + esc(u.fullName || u.username) + '</p>' +
-          '<p class="spi-role">' + getRoleEmoji(u.role) + ' ' + esc(roleLbl) + ' · ' + esc(phoneFmt) + '</p>' +
-        '</div>' +
-        '<div class="spi-phone"><i class="fa-solid fa-phone"></i></div>' +
-      '</div>';
-  });
-
-  $('squadPhoneTitle').textContent = 'Cuadrilla ' + sq.name + ' · ' + candidates.length + ' contactos';
-  $('squadPhoneSub').textContent = '📍 ' + (sq.sector || 'Sin sector');
-  c.innerHTML = html;
-  openModal('squadPhoneModal');
-}
-
-function chooseSquadPhone(username) {
-  closeModal('squadPhoneModal');
-  var u = null;
-  for (var i = 0; i < _squadPhoneCtx.length; i++) if (_squadPhoneCtx[i].username === username) { u = _squadPhoneCtx[i]; break; }
-  if (!u) return;
-  var squadName = '';
-  for (var j = 0; j < squadsData.length; j++) {
-    var sq = squadsData[j];
-    if (sq.members.some(function(m) { return m.name === u.fullName || m.name === u.username; })) {
-      squadName = sq.name;
-      break;
-    }
-  }
-  openPhoneModal(u.phone, u.fullName || u.username, getRoleLabel(u.role), squadName || u.area);
+    '<div class="on-shift-users-grid">' + usersHTML + '</div>';
 }
 
 function openShiftUserPanel(username) {
@@ -1994,139 +1650,24 @@ function openShiftUserPanel(username) {
   }
 }
 
-/* ============ MODAL: CUADRILLAS ACTIVAS ============ */
 function openOnShiftModal() {
-  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) {
-    showToast('Solo admin/soporte puede ver el detalle', 'info');
-    return;
-  }
-  var onShift = getOnShiftUsers();
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) { showToast('Solo admin/soporte puede ver el detalle', 'info'); return; }
+  var list = getOnShiftUsers();
+  $('onShiftSub').textContent = list.length + ' activo' + (list.length === 1 ? '' : 's');
   var c = $('onShiftList');
-
-  if (!onShift.length) {
-    $('onShiftSub').textContent = '0 cuadrillas activas';
-    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bed"></i><p>Nadie en turno</p></div>';
-    openModal('onShiftModal');
-    return;
-  }
-
-  var squadsMap = {};
-  var noSquad = [];
-
-  onShift.forEach(function(u) {
-    var mySquad = null;
-    for (var i = 0; i < squadsData.length; i++) {
-      var sq = squadsData[i];
-      if (sq.members.some(function(m) {
-        return m.name === u.fullName || m.name === u.username;
-      })) {
-        mySquad = sq;
-        break;
-      }
-    }
-    if (mySquad) {
-      if (!squadsMap[mySquad.id]) squadsMap[mySquad.id] = { squad: mySquad, members: [] };
-      squadsMap[mySquad.id].members.push(u);
-    } else {
-      noSquad.push(u);
-    }
-  });
-
-  var squadIds = Object.keys(squadsMap).map(function(k) { return parseInt(k); });
-  squadIds.sort(function(a, b) { return a - b; });
-
+  if (!list.length) { c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bed"></i><p>Nadie en turno</p></div>'; openModal('onShiftModal'); return; }
   var html = '';
-
-  squadIds.forEach(function(sid) {
-    var info = squadsMap[sid];
-    var sq = info.squad;
-    var members = info.members;
-    var totalMembers = sq.members.length;
-    var presentCount = sq.members.filter(function(m) {
-      return m.status === 'Presente' || m.status === 'Reemplazo';
-    }).length;
-    var activeOnShift = members.length;
-
-    var statusLabel = presentCount >= 2 || (totalMembers === 1 && presentCount === 1)
-      ? 'Operativa'
-      : presentCount === 1 ? 'Incompleta' : 'Inactiva';
-
-    html += '<div class="squad-shift-card">' +
-      '<div class="ssc-header">' +
-        '<div class="ssc-title">' +
-          '<span class="ssc-badge">' + sid + '</span>' +
-          '<div>' +
-            '<h4>' + esc(sq.name) + ' · ' + statusLabel + '</h4>' +
-            '<p>📍 ' + esc(sq.sector || 'Sin sector') + '</p>' +
-          '</div>' +
-        '</div>' +
-        '<div class="ssc-stats"><span class="ssc-count">' + activeOnShift + '/' + totalMembers + '</span></div>' +
-      '</div>' +
-      '<div class="ssc-members">';
-
-    members.forEach(function(u) {
-      var phoneOk = hasPhone(u.phone);
-      var phoneBtn = phoneOk
-        ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(sq.name) + '\')" class="ssc-phone"><i class="fa-solid fa-phone"></i></button>'
-        : '';
-      var init = (u.fullName || u.username).charAt(0).toUpperCase();
-      var compInfo = (u.companeroActual && u.companeroActual !== u.fullName) ? ' · 👥 ' + u.companeroActual : '';
-      html += '<div class="ssc-member">' +
-        '<div class="ssc-avatar">' + init + '</div>' +
-        '<div class="flex-1 min-w-0">' +
-          '<p class="ssc-name">' + esc(u.fullName || u.username) + '</p>' +
-          '<p class="ssc-role">' + getRoleEmoji(u.role) + ' ' + esc(getRoleLabel(u.role)) + esc(compInfo) + '</p>' +
-        '</div>' +
-        phoneBtn +
-      '</div>';
-    });
-
-    html += '</div></div>';
+  list.forEach(function(u) {
+    var init = (u.fullName || u.username).charAt(0).toUpperCase();
+    var phoneOk = hasPhone(u.phone);
+    var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(u.area) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '';
+    var extra = '';
+    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) extra = '<div class="flex flex-wrap gap-1 mt-1">' + u.nodosAsignados.map(function(n){ return '<span class="nodo-chip">' + esc(n) + '</span>'; }).join('') + '</div>';
+    if (u.role === 'recorridos' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + '</span>';
+    if (u.role === 'tecnico' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + (u.companeroActual ? ' · ' + esc(u.companeroActual) : '') + '</span>';
+    html += '<div class="user-card on-shift"><div class="user-avatar ' + u.role + '">' + init + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm truncate">' + esc(u.fullName || u.username) + '</p><p class="text-xs text-slate-400 truncate mb-1">@' + esc(u.username) + (phoneOk ? ' · ' + esc(formatPhoneDisplay(u.phone)) : '') + '</p><div class="flex items-center gap-1.5 flex-wrap"><span class="user-role-pill ' + u.role + '">' + getRoleEmoji(u.role) + ' ' + getRoleLabel(u.role) + '</span><span class="user-role-pill" style="background:rgba(16,185,129,.25);color:#6ee7b7">🟢 En turno</span></div>' + extra + '</div>' + phoneBtn + '</div>';
   });
-
-  if (noSquad.length) {
-    html += '<div class="squad-shift-card special">' +
-      '<div class="ssc-header">' +
-        '<div class="ssc-title">' +
-          '<span class="ssc-badge special"><i class="fa-solid fa-star"></i></span>' +
-          '<div>' +
-            '<h4>Personal Especial</h4>' +
-            '<p>Soporte · Recorridos · Admin</p>' +
-          '</div>' +
-        '</div>' +
-        '<div class="ssc-stats"><span class="ssc-count">' + noSquad.length + '</span></div>' +
-      '</div>' +
-      '<div class="ssc-members">';
-
-    noSquad.forEach(function(u) {
-      var phoneOk = hasPhone(u.phone);
-      var phoneBtn = phoneOk
-        ? '<button onclick="openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(getRoleLabel(u.role)) + '\',\'' + esc(u.area) + '\')" class="ssc-phone"><i class="fa-solid fa-phone"></i></button>'
-        : '';
-      var init = (u.fullName || u.username).charAt(0).toUpperCase();
-      var extra = '';
-      if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) {
-        extra = ' · ' + u.nodosAsignados.length + ' nodos';
-      } else if (u.sectorActual) {
-        extra = ' · 📍 ' + u.sectorActual;
-      }
-      html += '<div class="ssc-member">' +
-        '<div class="ssc-avatar">' + init + '</div>' +
-        '<div class="flex-1 min-w-0">' +
-          '<p class="ssc-name">' + esc(u.fullName || u.username) + '</p>' +
-          '<p class="ssc-role">' + getRoleEmoji(u.role) + ' ' + esc(getRoleLabel(u.role)) + esc(extra) + '</p>' +
-        '</div>' +
-        phoneBtn +
-      '</div>';
-    });
-    html += '</div></div>';
-  }
-
-  var squadCount = squadIds.length + (noSquad.length ? 1 : 0);
-  $('onShiftSub').textContent = squadCount + ' cuadrilla' + (squadCount === 1 ? '' : 's') + ' activa' + (squadCount === 1 ? '' : 's') + ' · ' + onShift.length + ' persona' + (onShift.length === 1 ? '' : 's');
-
-  c.innerHTML = html;
-  openModal('onShiftModal');
+  c.innerHTML = html; openModal('onShiftModal');
 }
 
 function initData() {
@@ -2199,6 +1740,8 @@ function switchView(viewId) {
   if (viewId === 'view-squads') renderOnShiftBanner();
   if (viewId === 'view-log') { renderLogFilters(); renderLog(); }
   if (viewId === 'view-tecnico-home') renderTecnicoHome();
+  if (viewId === 'view-tickets') loadTickets();
+  if (viewId === 'view-clientes') loadClientes();
   window.scrollTo({ top:0, behavior:'smooth' });
   vibrate(10);
 }
@@ -3206,6 +2749,236 @@ function downloadTemplateTecnicos() {
   XLSX.utils.book_append_sheet(wb, ws, 'Cuadrillas');
   XLSX.writeFile(wb, 'plantilla_tecnicos_likenet.xlsx');
   showToast('📋 Plantilla descargada', 'ok');
+}
+
+/* ============================================================
+   WISPHUB · TICKETS
+   ============================================================ */
+async function loadTickets() {
+  if (!currentUser) return;
+  if (!WISPHUB_API_KEY || WISPHUB_API_KEY === 'TU_API_KEY_AQUI') {
+    showToast('Configura tu API Key de Wisphub primero.', 'error');
+    var c = $('ticketsContainer');
+    if (c) c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
+    var sub = $('ticketsSubtitle'); if (sub) sub.textContent = 'Sin configurar';
+    return;
+  }
+  var cont = $('ticketsContainer'); if (!cont) return;
+  var subtitle = $('ticketsSubtitle');
+  cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando tickets...</p></div>';
+  if (subtitle) subtitle.textContent = 'Cargando...';
+
+  try {
+    var url = WISPHUB_BASE_URL + '/api/soporte/tickets';
+    var res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + WISPHUB_API_KEY,
+        'Accept': 'application/json'
+      }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    ticketsData = Array.isArray(data) ? data : (data.data || data.tickets || []);
+    renderTickets(ticketsData);
+    logHistory('Tickets cargados', ticketsData.length + ' registros', 'info');
+  } catch (e) {
+    console.error('Error tickets:', e);
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica tu URL base y API Key. Revisa la consola (F12) para más detalles.</p></div>';
+    if (subtitle) subtitle.textContent = 'Error';
+  }
+}
+
+function filterTickets() {
+  var q = ($('searchTickets') ? $('searchTickets').value : '').trim().toLowerCase();
+  var f = $('filterTicketEstado') ? $('filterTicketEstado').value : 'ALL';
+  var list = ticketsData.slice();
+  if (f !== 'ALL') list = list.filter(function(t) {
+    var est = (t.estado || t.status || '').toLowerCase().replace(/ /g, '_');
+    return est.indexOf(f) >= 0 || f.indexOf(est) >= 0;
+  });
+  if (q) list = list.filter(function(t) {
+    var txt = [(t.id || ''), (t.asunto || t.subject || ''), (t.cliente || t.client || t.cliente_nombre || ''),
+               (t.descripcion || t.description || ''), (t.tecnico || t.assigned_to || '')].join(' ').toLowerCase();
+    return txt.indexOf(q) >= 0;
+  });
+  return list;
+}
+
+function renderTickets(list) {
+  var c = $('ticketsContainer'); if (!c) return;
+  var sub = $('ticketsSubtitle');
+  if (!list || !list.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-ticket"></i><p>No hay tickets para mostrar</p></div>';
+    if (sub) sub.textContent = '0 tickets';
+    return;
+  }
+  if (sub) sub.textContent = list.length + ' tickets';
+
+  var abiertos = 0, resueltos = 0;
+  ticketsData.forEach(function(t) {
+    var e = (t.estado || t.status || '').toLowerCase();
+    if (e.indexOf('abierto') >= 0 || e.indexOf('open') >= 0 || e.indexOf('pendiente') >= 0) abiertos++;
+    if (e.indexOf('resuelto') >= 0 || e.indexOf('resolved') >= 0 || e.indexOf('cerrado') >= 0 || e.indexOf('closed') >= 0) resueltos++;
+  });
+
+  var html = '';
+  html += '<div class="grid grid-cols-3 gap-2 mb-4">' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Total</p><p class="stat-value text-white" style="font-size:1.3rem">' + ticketsData.length + '</p></div>' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Abiertos</p><p class="stat-value text-amber-400" style="font-size:1.3rem">' + abiertos + '</p></div>' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Resueltos</p><p class="stat-value text-emerald-400" style="font-size:1.3rem">' + resueltos + '</p></div>' +
+  '</div>';
+
+  list.forEach(function(t) {
+    var id = t.id || t.ticket_id || '—';
+    var asunto = t.asunto || t.subject || t.titulo || 'Sin asunto';
+    var cliente = t.cliente || t.client || t.cliente_nombre || '—';
+    var estado = (t.estado || t.status || 'abierto').toLowerCase();
+    var prioridad = (t.prioridad || t.priority || 'normal').toLowerCase();
+    var tecnico = t.tecnico || t.assigned_to || t.responsable || t.tecnico_asignado || '—';
+    var fecha = t.fecha || t.created_at || t.fecha_creacion || '';
+    var fechaFmt = fecha ? new Date(fecha).toLocaleString('es-EC', {dateStyle:'short', timeStyle:'short'}) : '—';
+
+    var estadoCls = (estado.indexOf('resuelto') >= 0 || estado.indexOf('cerrado') >= 0) ? 'aprobada' :
+                    (estado.indexOf('proceso') >= 0 || estado.indexOf('open') >= 0 || estado.indexOf('abierto') >= 0) ? 'pendiente' : 'pendiente';
+    var estadoIcon = estado.indexOf('resuelto') >= 0 ? '✅' : estado.indexOf('cerrado') >= 0 ? '⚪' :
+                     estado.indexOf('proceso') >= 0 ? '🟡' : '🔵';
+
+    html += '<div class="solicitud-card ' + estadoCls + '">' +
+      '<div class="flex items-start justify-between gap-2 mb-2 flex-wrap">' +
+        '<div class="flex items-center gap-2 flex-wrap">' +
+          '<span class="sol-type-badge" style="background:rgba(6,182,212,.18);color:#67e8f9;border-color:rgba(6,182,212,.4)">#' + esc(id) + '</span>' +
+          '<span class="priority-badge ' + prioridad + '">' + prioridad.toUpperCase() + '</span>' +
+          '<span class="sol-badge ' + estadoCls + '">' + estadoIcon + ' ' + esc(estado) + '</span>' +
+        '</div>' +
+        '<span class="text-[10px] text-slate-500 font-semibold">' + esc(fechaFmt) + '</span>' +
+      '</div>' +
+      '<p class="text-sm font-bold text-slate-100 mb-1">' + esc(asunto) + '</p>' +
+      '<p class="text-xs text-slate-400">👤 Cliente: <strong>' + esc(cliente) + '</strong></p>' +
+      '<p class="text-xs text-slate-400">🔧 Técnico: ' + esc(tecnico) + '</p>' +
+    '</div>';
+  });
+
+  c.innerHTML = html;
+}
+
+/* ============================================================
+   WISPHUB · CLIENTES
+   ============================================================ */
+async function loadClientes() {
+  if (!currentUser) return;
+  if (!WISPHUB_API_KEY || WISPHUB_API_KEY === 'TU_API_KEY_AQUI') {
+    showToast('Configura tu API Key de Wisphub primero.', 'error');
+    var c = $('clientesContainer');
+    if (c) c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
+    var sub = $('clientesSubtitle'); if (sub) sub.textContent = 'Sin configurar';
+    return;
+  }
+  var cont = $('clientesContainer'); if (!cont) return;
+  var subtitle = $('clientesSubtitle');
+  cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando clientes...</p></div>';
+  if (subtitle) subtitle.textContent = 'Cargando...';
+
+  try {
+    var url = WISPHUB_BASE_URL + '/api/clientes';
+    var res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + WISPHUB_API_KEY,
+        'Accept': 'application/json'
+      }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    clientesData = Array.isArray(data) ? data : (data.data || data.clientes || []);
+    renderClientes(clientesData);
+    logHistory('Clientes cargados', clientesData.length + ' registros', 'info');
+  } catch (e) {
+    console.error('Error clientes:', e);
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica tu URL base y API Key. Revisa la consola (F12) para más detalles.</p></div>';
+    if (subtitle) subtitle.textContent = 'Error';
+  }
+}
+
+function filterClientes() {
+  var q = ($('searchClientes') ? $('searchClientes').value : '').trim().toLowerCase();
+  if (!q) return clientesData;
+  return clientesData.filter(function(c) {
+    var txt = [(c.nombre || c.name || ''), (c.usuario || c.username || ''),
+               (c.email || ''), (c.telefono || c.phone || ''),
+               (c.plan || c.plan_name || c.servicio || '')].join(' ').toLowerCase();
+    return txt.indexOf(q) >= 0;
+  });
+}
+
+function renderClientes(list) {
+  var c = $('clientesContainer'); if (!c) return;
+  var sub = $('clientesSubtitle');
+  if (!list || !list.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-users-slash"></i><p>No hay clientes para mostrar</p></div>';
+    if (sub) sub.textContent = '0 clientes';
+    return;
+  }
+  if (sub) sub.textContent = list.length + ' clientes';
+
+  var activos = 0;
+  clientesData.forEach(function(cl) {
+    var e = (cl.estado || cl.status || '').toLowerCase();
+    if (e.indexOf('activo') >= 0 || e.indexOf('active') >= 0) activos++;
+  });
+
+  var html = '';
+  html += '<div class="grid grid-cols-2 gap-2 mb-4">' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Total Clientes</p><p class="stat-value text-white" style="font-size:1.3rem">' + clientesData.length + '</p></div>' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Activos</p><p class="stat-value text-emerald-400" style="font-size:1.3rem">' + activos + '</p></div>' +
+  '</div>';
+
+  list.forEach(function(cl) {
+    var nombre = cl.nombre || cl.name || cl.cliente || 'Sin nombre';
+    var usuario = cl.usuario || cl.username || '—';
+    var telefono = cl.telefono || cl.phone || cl.celular || '';
+    var plan = cl.plan || cl.plan_name || cl.servicio || '—';
+    var estado = (cl.estado || cl.status || 'activo').toLowerCase();
+    var saldo = cl.saldo !== undefined ? cl.saldo : (cl.adeudo !== undefined ? cl.adeudo : null);
+    var initial = nombre.charAt(0).toUpperCase();
+
+    var estadoCls = estado.indexOf('activo') >= 0 ? 'viewer' :
+                    estado.indexOf('suspend') >= 0 ? 'tecnico' : 'viewer';
+
+    var phoneBtn = hasPhone(telefono)
+      ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Cliente\',\'' + esc(plan) + '\')" class="row-action-btn call"><i class="fa-solid fa-phone"></i></button>'
+      : '';
+
+    var saldoHtml = '';
+    if (saldo !== null && saldo !== undefined) {
+      var saldoNum = parseFloat(saldo);
+      if (!isNaN(saldoNum)) {
+        var saldoCls = saldoNum > 0 ? 'text-rose-400' : 'text-emerald-400';
+        saldoHtml = '<span class="text-[10px] font-bold ' + saldoCls + '">' +
+                    (saldoNum > 0 ? '⚠️ Debe: $' + saldoNum.toFixed(2) : '✅ Al día') + '</span>';
+      }
+    }
+
+    html += '<div class="user-card">' +
+      '<div class="user-avatar ' + estadoCls + '">' + initial + '</div>' +
+      '<div class="min-w-0 flex-1">' +
+        '<div class="flex items-center gap-2 flex-wrap">' +
+          '<p class="font-bold text-slate-100 text-sm truncate">' + esc(nombre) + '</p>' +
+          (saldoHtml ? saldoHtml : '') +
+        '</div>' +
+        '<p class="text-xs text-slate-400 truncate mb-1.5">@' + esc(usuario) +
+          (hasPhone(telefono) ? ' · ' + esc(formatPhoneDisplay(telefono)) : '') + '</p>' +
+        '<div class="flex items-center gap-1.5 flex-wrap">' +
+          '<span class="user-role-pill viewer">' + esc(plan) + '</span>' +
+          '<span class="user-role-pill ' + (estado.indexOf('activo') >= 0 ? 'soporte' : 'tecnico') + '">' +
+            esc(estado) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="flex flex-col gap-1.5 flex-shrink-0">' + phoneBtn + '</div>' +
+    '</div>';
+  });
+
+  c.innerHTML = html;
 }
 
 /* ============ MODAL UTILS ============ */
