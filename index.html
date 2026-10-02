@@ -510,8 +510,9 @@ button, select, input, textarea { touch-action:manipulation; }
           <button class="dropdown-item" onclick="switchView('view-tecnico-home')"><i class="fa-solid fa-house text-emerald-400"></i> Mi inicio</button>
           <button class="dropdown-item" onclick="switchView('view-squads')"><i class="fa-solid fa-users text-indigo-400"></i> Cuadrillas</button>
           <button class="dropdown-item" onclick="switchView('view-solicitudes')"><i class="fa-solid fa-clipboard-list text-amber-400"></i> Solicitudes</button>
-          <button class="dropdown-item admin-only soporte-only" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket text-cyan-400"></i> Tickets</button>
-          <button class="dropdown-item admin-only soporte-only" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book text-violet-400"></i> Clientes</button>
+          <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket text-cyan-400"></i> Tickets</button>
+          <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book text-violet-400"></i> Clientes</button>
+          <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat text-amber-400"></i> Preinstalaciones</button>
           <button class="dropdown-item" onclick="switchView('view-maps')"><i class="fa-solid fa-map text-cyan-400"></i> Mapas</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-log')"><i class="fa-solid fa-list-check text-rose-400"></i> Log auditoría</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-sectors')"><i class="fa-solid fa-map-location-dot text-violet-400"></i> Sectores</button>
@@ -650,6 +651,31 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </section>
 
+<!-- ========== PREINSTALACIONES ========== -->
+<section id="view-preinstalaciones" class="view-panel">
+  <div class="glass-panel rounded-2xl p-4 mb-4">
+    <div class="page-header">
+      <div class="page-title">
+        <div class="icon-box" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.1));color:#fcd34d"><i class="fa-solid fa-hard-hat"></i></div>
+        <div><h2>Preinstalaciones</h2><p id="preinstalacionesSubtitle">Cargando...</p></div>
+      </div>
+      <button onclick="loadPreinstalaciones()" class="btn-primary btn-amber"><i class="fa-solid fa-sync"></i> Actualizar</button>
+    </div>
+    <div class="toolbar two">
+      <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="searchPreinstalaciones" oninput="renderPreinstalaciones(filterPreinstalaciones())" placeholder="Buscar por nombre, teléfono o dirección..." class="glass-input w-full rounded-xl text-xs px-3 py-2.5"></div>
+      <select id="filterPreinstalacionEstado" onchange="renderPreinstalaciones(filterPreinstalaciones())" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
+        <option value="ALL">📋 Todos los estados</option>
+        <option value="nueva">🆕 Nueva</option>
+        <option value="planificacion">📅 En planificación</option>
+        <option value="progreso">🔄 En progreso</option>
+        <option value="activada">✅ Activada</option>
+        <option value="terminada">🏁 Terminada</option>
+      </select>
+    </div>
+    <div id="preinstalacionesContainer" class="space-y-3"></div>
+  </div>
+</section>
+
 <section id="view-log" class="view-panel">
   <div class="glass-panel rounded-2xl p-4 mb-4">
     <div class="page-header">
@@ -746,8 +772,9 @@ button, select, input, textarea { touch-action:manipulation; }
     <button class="nav-item active" data-view="view-tecnico-home" onclick="switchView('view-tecnico-home')"><i class="fa-solid fa-house"></i><span class="nav-label">Inicio</span></button>
     <button class="nav-item" data-view="view-squads" onclick="switchView('view-squads')"><i class="fa-solid fa-users"></i><span class="nav-label">Cuadrillas</span></button>
     <button class="nav-item" data-view="view-solicitudes" onclick="switchView('view-solicitudes')" style="position:relative"><i class="fa-solid fa-clipboard-list"></i><span class="nav-label">Solicitudes</span><span class="nav-badge soporte-only" id="navSolBadge" style="display:none"></span></button>
-    <button class="nav-item admin-only soporte-only" data-view="view-tickets" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket"></i><span class="nav-label">Tickets</span></button>
-    <button class="nav-item admin-only soporte-only" data-view="view-clientes" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book"></i><span class="nav-label">Clientes</span></button>
+    <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-tickets" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket"></i><span class="nav-label">Tickets</span></button>
+    <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-clientes" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book"></i><span class="nav-label">Clientes</span></button>
+    <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-preinstalaciones" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat"></i><span class="nav-label">Preinst.</span></button>
     <button class="nav-item" data-view="view-reports" onclick="switchView('view-reports')"><i class="fa-solid fa-chart-pie"></i><span class="nav-label">Reportes</span></button>
     <button class="nav-item" data-view="view-maps" onclick="switchView('view-maps')"><i class="fa-solid fa-map"></i><span class="nav-label">Mapas</span></button>
     <button class="nav-item soporte-only" data-view="view-users" onclick="switchView('view-users')"><i class="fa-solid fa-users-gear"></i><span class="nav-label">Usuarios</span></button>
@@ -1095,6 +1122,7 @@ var notifListenerAttached = false;
 var usersListenerAttached = false;
 var ticketsData = [];
 var clientesData = [];
+var preinstalacionesData = [];
 
 /* === RENDIMIENTO: renders agrupados en RAF === */
 var _renderQueue = {};
@@ -1742,6 +1770,7 @@ function switchView(viewId) {
   if (viewId === 'view-tecnico-home') renderTecnicoHome();
   if (viewId === 'view-tickets') loadTickets();
   if (viewId === 'view-clientes') loadClientes();
+  if (viewId === 'view-preinstalaciones') loadPreinstalaciones();
   window.scrollTo({ top:0, behavior:'smooth' });
   vibrate(10);
 }
@@ -2752,39 +2781,68 @@ function downloadTemplateTecnicos() {
 }
 
 /* ============================================================
+   WISPHUB · HELPERS
+   ============================================================ */
+function getSectorDeTecnico(username) {
+  var user = null;
+  for (var i = 0; i < usersData.length; i++) if (usersData[i].username === username) { user = usersData[i]; break; }
+  if (!user) return null;
+  var mySquad = null;
+  for (var j = 0; j < squadsData.length; j++) {
+    var squad = squadsData[j];
+    for (var k = 0; k < squad.members.length; k++) {
+      var m = squad.members[k];
+      if (m.name === user.fullName || m.name === user.username) { mySquad = squad; break; }
+    }
+    if (mySquad) break;
+  }
+  return mySquad ? mySquad.sector : (user.sectorActual || user.area || null);
+}
+
+function wisphubHeaders() {
+  return {
+    'Authorization': 'Bearer ' + WISPHUB_API_KEY,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+}
+
+function wisphubConfigured() {
+  return WISPHUB_API_KEY && WISPHUB_API_KEY !== 'TU_API_KEY_AQUI' && WISPHUB_BASE_URL && WISPHUB_BASE_URL.indexOf('TU-SUBDOMINIO') < 0;
+}
+
+/* ============================================================
    WISPHUB · TICKETS
    ============================================================ */
 async function loadTickets() {
   if (!currentUser) return;
-  if (!WISPHUB_API_KEY || WISPHUB_API_KEY === 'TU_API_KEY_AQUI') {
-    showToast('Configura tu API Key de Wisphub primero.', 'error');
-    var c = $('ticketsContainer');
-    if (c) c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
-    var sub = $('ticketsSubtitle'); if (sub) sub.textContent = 'Sin configurar';
-    return;
-  }
   var cont = $('ticketsContainer'); if (!cont) return;
   var subtitle = $('ticketsSubtitle');
+
+  if (!wisphubConfigured()) {
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
+    if (subtitle) subtitle.textContent = 'Sin configurar';
+    return;
+  }
+
   cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando tickets...</p></div>';
   if (subtitle) subtitle.textContent = 'Cargando...';
 
   try {
     var url = WISPHUB_BASE_URL + '/api/soporte/tickets';
-    var res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + WISPHUB_API_KEY,
-        'Accept': 'application/json'
-      }
-    });
+    if (currentUser.role === 'tecnico') {
+      var sector = getSectorDeTecnico(currentUser.username);
+      if (sector) url += '?sectorial__nombre=' + encodeURIComponent(sector);
+    }
+    var res = await fetch(url, { method: 'GET', headers: wisphubHeaders() });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    ticketsData = Array.isArray(data) ? data : (data.data || data.tickets || []);
+    ticketsData = Array.isArray(data) ? data : (data.results || data.data || data.tickets || []);
     renderTickets(ticketsData);
     logHistory('Tickets cargados', ticketsData.length + ' registros', 'info');
   } catch (e) {
     console.error('Error tickets:', e);
-    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica tu URL base y API Key. Revisa la consola (F12) para más detalles.</p></div>';
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica URL/API Key y endpoint.</p></div>';
     if (subtitle) subtitle.textContent = 'Error';
   }
 }
@@ -2839,8 +2897,7 @@ function renderTickets(list) {
     var fecha = t.fecha || t.created_at || t.fecha_creacion || '';
     var fechaFmt = fecha ? new Date(fecha).toLocaleString('es-EC', {dateStyle:'short', timeStyle:'short'}) : '—';
 
-    var estadoCls = (estado.indexOf('resuelto') >= 0 || estado.indexOf('cerrado') >= 0) ? 'aprobada' :
-                    (estado.indexOf('proceso') >= 0 || estado.indexOf('open') >= 0 || estado.indexOf('abierto') >= 0) ? 'pendiente' : 'pendiente';
+    var estadoCls = (estado.indexOf('resuelto') >= 0 || estado.indexOf('cerrado') >= 0) ? 'aprobada' : 'pendiente';
     var estadoIcon = estado.indexOf('resuelto') >= 0 ? '✅' : estado.indexOf('cerrado') >= 0 ? '⚪' :
                      estado.indexOf('proceso') >= 0 ? '🟡' : '🔵';
 
@@ -2867,35 +2924,33 @@ function renderTickets(list) {
    ============================================================ */
 async function loadClientes() {
   if (!currentUser) return;
-  if (!WISPHUB_API_KEY || WISPHUB_API_KEY === 'TU_API_KEY_AQUI') {
-    showToast('Configura tu API Key de Wisphub primero.', 'error');
-    var c = $('clientesContainer');
-    if (c) c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
-    var sub = $('clientesSubtitle'); if (sub) sub.textContent = 'Sin configurar';
-    return;
-  }
   var cont = $('clientesContainer'); if (!cont) return;
   var subtitle = $('clientesSubtitle');
+
+  if (!wisphubConfigured()) {
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
+    if (subtitle) subtitle.textContent = 'Sin configurar';
+    return;
+  }
+
   cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando clientes...</p></div>';
   if (subtitle) subtitle.textContent = 'Cargando...';
 
   try {
     var url = WISPHUB_BASE_URL + '/api/clientes';
-    var res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + WISPHUB_API_KEY,
-        'Accept': 'application/json'
-      }
-    });
+    if (currentUser.role === 'tecnico') {
+      var sector = getSectorDeTecnico(currentUser.username);
+      if (sector) url += '?sectorial__nombre=' + encodeURIComponent(sector);
+    }
+    var res = await fetch(url, { method: 'GET', headers: wisphubHeaders() });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    clientesData = Array.isArray(data) ? data : (data.data || data.clientes || []);
+    clientesData = Array.isArray(data) ? data : (data.results || data.data || data.clientes || []);
     renderClientes(clientesData);
     logHistory('Clientes cargados', clientesData.length + ' registros', 'info');
   } catch (e) {
     console.error('Error clientes:', e);
-    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica tu URL base y API Key. Revisa la consola (F12) para más detalles.</p></div>';
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica URL/API Key y endpoint.</p></div>';
     if (subtitle) subtitle.textContent = 'Error';
   }
 }
@@ -2975,6 +3030,120 @@ function renderClientes(list) {
         '</div>' +
       '</div>' +
       '<div class="flex flex-col gap-1.5 flex-shrink-0">' + phoneBtn + '</div>' +
+    '</div>';
+  });
+
+  c.innerHTML = html;
+}
+
+/* ============================================================
+   WISPHUB · PREINSTALACIONES
+   ============================================================ */
+async function loadPreinstalaciones() {
+  if (!currentUser) return;
+  var cont = $('preinstalacionesContainer'); if (!cont) return;
+  var sub = $('preinstalacionesSubtitle');
+
+  if (!wisphubConfigured()) {
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
+    if (sub) sub.textContent = 'Sin configurar';
+    return;
+  }
+
+  cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando preinstalaciones...</p></div>';
+  if (sub) sub.textContent = 'Cargando...';
+
+  try {
+    var url = WISPHUB_BASE_URL + '/api/clientes/?estado_instalacion=8';
+    if (currentUser.role === 'tecnico') {
+      var sector = getSectorDeTecnico(currentUser.username);
+      if (sector) url += '&sectorial__nombre=' + encodeURIComponent(sector);
+    }
+    var res = await fetch(url, { method: 'GET', headers: wisphubHeaders() });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    preinstalacionesData = Array.isArray(data) ? data : (data.results || data.data || data.clientes || []);
+    renderPreinstalaciones(preinstalacionesData);
+    logHistory('Preinstalaciones cargadas', preinstalacionesData.length + ' registros', 'info');
+  } catch (e) {
+    console.error('Error preinstalaciones:', e);
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica URL/API Key y endpoint.</p></div>';
+    if (sub) sub.textContent = 'Error';
+  }
+}
+
+function filterPreinstalaciones() {
+  var q = ($('searchPreinstalaciones') ? $('searchPreinstalaciones').value : '').trim().toLowerCase();
+  var f = $('filterPreinstalacionEstado') ? $('filterPreinstalacionEstado').value : 'ALL';
+  var list = preinstalacionesData.slice();
+  if (f !== 'ALL') {
+    list = list.filter(function(p) {
+      var est = (p.estado_instalacion || p.estado || '').toString().toLowerCase();
+      return est.indexOf(f) >= 0 || f === est;
+    });
+  }
+  if (q) {
+    list = list.filter(function(p) {
+      var txt = [(p.nombre || ''), (p.apellido || ''), (p.telefono || ''), (p.celular || ''),
+                 (p.direccion || ''), (p.servicio || '')].join(' ').toLowerCase();
+      return txt.indexOf(q) >= 0;
+    });
+  }
+  return list;
+}
+
+function renderPreinstalaciones(list) {
+  var c = $('preinstalacionesContainer'); if (!c) return;
+  var sub = $('preinstalacionesSubtitle');
+  if (!list || !list.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fa-solid fa-hard-hat"></i><p>No hay preinstalaciones para mostrar</p></div>';
+    if (sub) sub.textContent = '0 preinstalaciones';
+    return;
+  }
+  if (sub) sub.textContent = list.length + ' preinstalaciones';
+
+  var nuevas = 0, progreso = 0, terminadas = 0;
+  preinstalacionesData.forEach(function(p) {
+    var e = (p.estado_instalacion || p.estado || '').toString().toLowerCase();
+    if (e.indexOf('nueva') >= 0 || e === '1') nuevas++;
+    else if (e.indexOf('progreso') >= 0 || e === '2') progreso++;
+    else if (e.indexOf('terminada') >= 0 || e === '4') terminadas++;
+  });
+
+  var html = '';
+  html += '<div class="grid grid-cols-3 gap-2 mb-4">' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Total</p><p class="stat-value text-white" style="font-size:1.3rem">' + preinstalacionesData.length + '</p></div>' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Nuevas</p><p class="stat-value text-amber-400" style="font-size:1.3rem">' + nuevas + '</p></div>' +
+    '<div class="stat-card" style="padding:12px"><p class="stat-label">Terminadas</p><p class="stat-value text-emerald-400" style="font-size:1.3rem">' + terminadas + '</p></div>' +
+  '</div>';
+
+  list.forEach(function(p) {
+    var nombre = ((p.nombre || '') + ' ' + (p.apellido || '')).trim() || 'Sin nombre';
+    var telefono = p.telefono || p.celular || '';
+    var direccion = p.direccion || p.coordenadas || '—';
+    var servicio = p.servicio || (p.plan_internet && p.plan_internet.nombre) || '—';
+    var estado = (p.estado_instalacion || p.estado || 'nueva').toString().toLowerCase();
+
+    var estadoCls = (estado.indexOf('terminada') >= 0 || estado === '4') ? 'aprobada' : 'pendiente';
+    var estadoIcon = (estado.indexOf('terminada') >= 0 || estado === '4') ? '✅' :
+                     (estado.indexOf('progreso') >= 0 || estado === '2') ? '🔄' : '🆕';
+
+    var phoneBtn = hasPhone(telefono)
+      ? '<button onclick="openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Preinstalación\',\'' + esc(servicio) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>'
+      : '';
+
+    html += '<div class="solicitud-card ' + estadoCls + '">' +
+      '<div class="flex items-start justify-between gap-2 mb-2 flex-wrap">' +
+        '<div class="flex items-center gap-2 flex-wrap">' +
+          '<span class="sol-type-badge amber">' + estadoIcon + ' ' + esc(estado) + '</span>' +
+          '<span class="nodo-chip">📍 ' + esc(direccion) + '</span>' +
+        '</div>' +
+        '<span class="text-[10px] text-slate-500 font-semibold">' + (p.fecha_instalacion ? new Date(p.fecha_instalacion).toLocaleDateString('es-EC') : '—') + '</span>' +
+      '</div>' +
+      '<p class="text-sm font-bold text-slate-100 mb-1">' + esc(nombre) + '</p>' +
+      '<p class="text-xs text-slate-400">📞 ' + esc(telefono || '—') + '</p>' +
+      '<p class="text-xs text-slate-400">📦 ' + esc(servicio) + '</p>' +
+      '<div class="flex justify-end mt-3">' + phoneBtn + '</div>' +
     '</div>';
   });
 
