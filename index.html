@@ -70,12 +70,13 @@ body > * { position:relative; z-index:1; }
 .btn-rose { background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(190,24,93,.15)); border-color:rgba(239,68,68,.4); color:#fca5a5; }
 .btn-cyan { background:linear-gradient(135deg,rgba(6,182,212,.25),rgba(8,145,178,.15)); border-color:rgba(6,182,212,.4); color:#67e8f9; }
 
-.admin-only,.soporte-only,.tecnico-only,.auth-only,.recorridos-only { display:none !important; }
-body.r-admin .admin-only,body.r-admin .soporte-only,body.r-admin .tecnico-only,body.r-admin .auth-only,body.r-admin .recorridos-only { display:revert !important; }
+.admin-only,.soporte-only,.tecnico-only,.auth-only,.recorridos-only,.vendedor-only { display:none !important; }
+body.r-admin .admin-only,body.r-admin .soporte-only,body.r-admin .tecnico-only,body.r-admin .auth-only,body.r-admin .recorridos-only,body.r-admin .vendedor-only { display:revert !important; }
 body.r-soporte .soporte-only,body.r-soporte .tecnico-only,body.r-soporte .auth-only,body.r-soporte .recorridos-only { display:revert !important; }
 body.r-tecnico .tecnico-only,body.r-tecnico .auth-only { display:revert !important; }
 body.r-recorridos .recorridos-only,body.r-recorridos .auth-only { display:revert !important; }
 body.r-viewer .auth-only { display:revert !important; }
+body.r-vendedor .vendedor-only,body.r-vendedor .tecnico-only,body.r-vendedor .auth-only { display:revert !important; }
 
 .brand-logo-full { height:44px; max-width:160px; display:flex; align-items:center; flex-shrink:0; overflow:hidden; border-radius:10px; }
 .brand-logo-full img { height:100%; width:auto; object-fit:contain; border-radius:10px; }
@@ -266,7 +267,7 @@ body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(1
 .nodo-check.checked .box { background:#06b6d4; border-color:#06b6d4; color:white; }
 
 .dropdown-wrap { position:relative; }
-.dropdown-menu { position:absolute; top:calc(100% + 8px); right:0; min-width:240px; background:rgba(15,23,42,.98); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:14px; box-shadow:0 20px 40px rgba(0,0,0,.5); padding:6px; display:none; z-index:30; max-height:70vh; overflow-y:auto; }
+.dropdown-menu { position:absolute; top:calc(100% + 8px); right:0; min-width:260px; background:rgba(15,23,42,.98); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:14px; box-shadow:0 20px 40px rgba(0,0,0,.5); padding:6px; display:none; z-index:30; max-height:70vh; overflow-y:auto; }
 .dropdown-wrap.open .dropdown-menu { display:block; }
 .dropdown-item { width:100%; padding:12px 14px; border:none; background:transparent; color:#e2e8f0; text-align:left; border-radius:9px; cursor:pointer; font-size:.85rem; font-family:inherit; display:flex; align-items:center; gap:12px; font-weight:500; min-height:46px; }
 .dropdown-item i { width:20px; text-align:center; font-size:1rem; }
@@ -279,7 +280,7 @@ body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(1
 .app-header { position:sticky; top:0; z-index:50; padding-top:calc(10px + var(--safe-top)); margin-bottom:14px; }
 
 .bottom-nav { display:none; position:fixed; bottom:0; left:0; right:0; z-index:60; background:rgba(11,15,25,.95); backdrop-filter:blur(24px); border-top:1px solid rgba(255,255,255,.08); padding:8px 8px calc(8px + var(--safe-bottom)); }
-.bottom-nav-inner { display:flex; justify-content:space-around; align-items:center; max-width:560px; margin:0 auto; gap:4px; }
+.bottom-nav-inner { display:flex; justify-content:space-around; align-items:center; max-width:600px; margin:0 auto; gap:4px; }
 .nav-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:6px 4px; border:none; background:transparent; color:#64748b; font-size:.6rem; font-weight:700; font-family:inherit; cursor:pointer; border-radius:14px; min-height:54px; position:relative; }
 .nav-item i { font-size:1.25rem; }
 .nav-item .nav-label { font-size:.58rem; }
@@ -326,12 +327,14 @@ body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(1
 .user-avatar.tecnico { background:rgba(245,158,11,.2); color:#fcd34d; border-color:rgba(245,158,11,.4); }
 .user-avatar.recorridos { background:rgba(139,92,246,.2); color:#c4b5fd; border-color:rgba(139,92,246,.4); }
 .user-avatar.viewer { background:rgba(6,182,212,.2); color:#67e8f9; border-color:rgba(6,182,212,.4); }
+.user-avatar.vendedor { background:rgba(245,158,11,.2); color:#fcd34d; border-color:rgba(245,158,11,.4); }
 .user-role-pill { display:inline-flex; align-items:center; gap:4px; font-size:.6rem; font-weight:800; padding:3px 8px; border-radius:10px; text-transform:uppercase; letter-spacing:.3px; }
 .user-role-pill.admin { background:rgba(79,70,229,.25); color:#a5b4fc; }
 .user-role-pill.soporte { background:rgba(16,185,129,.25); color:#6ee7b7; }
 .user-role-pill.tecnico { background:rgba(245,158,11,.25); color:#fcd34d; }
 .user-role-pill.recorridos { background:rgba(139,92,246,.25); color:#c4b5fd; }
 .user-role-pill.viewer { background:rgba(6,182,212,.25); color:#67e8f9; }
+.user-role-pill.vendedor { background:rgba(245,158,11,.25); color:#fcd34d; }
 
 .sector-icon-box { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:rgba(139,92,246,.2); color:#c4b5fd; border:2px solid rgba(139,92,246,.4); flex-shrink:0; }
 
@@ -340,6 +343,7 @@ body.light-theme .on-shift-banner .osb-count { color:#047857; background: rgba(1
 .row-action-btn.del { background:rgba(239,68,68,.1); color:#fca5a5; border-color:rgba(239,68,68,.25); }
 .row-action-btn.call { background:rgba(16,185,129,.1); color:#6ee7b7; border-color:rgba(16,185,129,.3); }
 .row-action-btn.dl { background:rgba(6,182,212,.1); color:#67e8f9; border-color:rgba(6,182,212,.3); }
+.row-action-btn.move { background:rgba(6,182,212,.15); color:#67e8f9; border-color:rgba(6,182,212,.3); }
 
 .home-fab { position:fixed; bottom:calc(var(--nav-h) + 20px + var(--safe-bottom)); right:16px; z-index:55; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,#4f46e5,#7c3aed); color:white; border:2px solid rgba(255,255,255,.15); box-shadow:0 12px 32px rgba(79,70,229,.55); display:none; align-items:center; justify-content:center; cursor:pointer; font-size:1.2rem; }
 .home-fab.visible { display:flex; }
@@ -512,7 +516,7 @@ button, select, input, textarea { touch-action:manipulation; }
           <button class="dropdown-item" onclick="switchView('view-solicitudes')"><i class="fa-solid fa-clipboard-list text-amber-400"></i> Solicitudes</button>
           <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket text-cyan-400"></i> Tickets</button>
           <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book text-violet-400"></i> Clientes</button>
-          <button class="dropdown-item admin-only soporte-only tecnico-only" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat text-amber-400"></i> Preinstalaciones</button>
+          <button class="dropdown-item admin-only soporte-only tecnico-only vendedor-only" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat text-amber-400"></i> Preinstalaciones</button>
           <button class="dropdown-item" onclick="switchView('view-maps')"><i class="fa-solid fa-map text-cyan-400"></i> Mapas</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-log')"><i class="fa-solid fa-list-check text-rose-400"></i> Log auditoría</button>
           <button class="dropdown-item admin-only" onclick="switchView('view-sectors')"><i class="fa-solid fa-map-location-dot text-violet-400"></i> Sectores</button>
@@ -610,7 +614,6 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </section>
 
-<!-- ========== TICKETS ========== -->
 <section id="view-tickets" class="view-panel">
   <div class="glass-panel rounded-2xl p-4 mb-4">
     <div class="page-header">
@@ -634,7 +637,6 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </section>
 
-<!-- ========== CLIENTES ========== -->
 <section id="view-clientes" class="view-panel">
   <div class="glass-panel rounded-2xl p-4 mb-4">
     <div class="page-header">
@@ -651,7 +653,6 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </section>
 
-<!-- ========== PREINSTALACIONES ========== -->
 <section id="view-preinstalaciones" class="view-panel">
   <div class="glass-panel rounded-2xl p-4 mb-4">
     <div class="page-header">
@@ -752,7 +753,7 @@ button, select, input, textarea { touch-action:manipulation; }
     <div class="toolbar two">
       <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="searchUsers" oninput="renderUsersList()" placeholder="Buscar..." class="glass-input w-full rounded-xl text-xs px-3 py-2.5"></div>
       <select id="filterUsersRole" onchange="renderUsersList()" class="glass-input rounded-xl text-xs px-3 py-2.5 sector-select">
-        <option value="ALL">👥 Todos</option><option value="admin">👑 Admin</option><option value="soporte">🔧 Soporte</option><option value="tecnico">👷 Técnicos</option><option value="recorridos">🚐 Recorridos</option><option value="viewer">👁️ Viewers</option>
+        <option value="ALL">👥 Todos</option><option value="admin">👑 Admin</option><option value="soporte">🔧 Soporte</option><option value="tecnico">👷 Técnicos</option><option value="recorridos">🚐 Recorridos</option><option value="vendedor">🤝 Vendedores</option><option value="viewer">👁️ Viewers</option>
       </select>
     </div>
     <div id="usersList" class="space-y-3"></div>
@@ -774,7 +775,7 @@ button, select, input, textarea { touch-action:manipulation; }
     <button class="nav-item" data-view="view-solicitudes" onclick="switchView('view-solicitudes')" style="position:relative"><i class="fa-solid fa-clipboard-list"></i><span class="nav-label">Solicitudes</span><span class="nav-badge soporte-only" id="navSolBadge" style="display:none"></span></button>
     <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-tickets" onclick="switchView('view-tickets')"><i class="fa-solid fa-ticket"></i><span class="nav-label">Tickets</span></button>
     <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-clientes" onclick="switchView('view-clientes')"><i class="fa-solid fa-address-book"></i><span class="nav-label">Clientes</span></button>
-    <button class="nav-item admin-only soporte-only tecnico-only" data-view="view-preinstalaciones" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat"></i><span class="nav-label">Preinst.</span></button>
+    <button class="nav-item admin-only soporte-only tecnico-only vendedor-only" data-view="view-preinstalaciones" onclick="switchView('view-preinstalaciones')"><i class="fa-solid fa-hard-hat"></i><span class="nav-label">Preinst.</span></button>
     <button class="nav-item" data-view="view-reports" onclick="switchView('view-reports')"><i class="fa-solid fa-chart-pie"></i><span class="nav-label">Reportes</span></button>
     <button class="nav-item" data-view="view-maps" onclick="switchView('view-maps')"><i class="fa-solid fa-map"></i><span class="nav-label">Mapas</span></button>
     <button class="nav-item soporte-only" data-view="view-users" onclick="switchView('view-users')"><i class="fa-solid fa-users-gear"></i><span class="nav-label">Usuarios</span></button>
@@ -871,6 +872,83 @@ button, select, input, textarea { touch-action:manipulation; }
   </div>
 </div></div>
 
+<div id="asignarTicketModal" class="modal-sheet" onclick="if(event.target === this) closeModal('asignarTicketModal')">
+  <div class="modal-sheet-content">
+    <div class="modal-handle"></div>
+    <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+      <i class="fa-solid fa-user-check text-cyan-400"></i> Asignar Ticket a Técnico
+    </h3>
+    <p class="text-xs text-slate-400 mb-4">Selecciona un técnico. El ticket aparecerá en su panel con todos los datos del cliente.</p>
+    <input type="hidden" id="asignarTicketId">
+    <div id="asignarTicketInfo" class="p-3 rounded-xl bg-slate-900/60 border border-white/10 mb-4 text-xs text-slate-300"></div>
+    <div class="space-y-3">
+      <div>
+        <label class="form-label">Técnico asignado *</label>
+        <select id="asignarTicketTecnico" required class="form-input sector-select">
+          <option value="">— Selecciona técnico —</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Prioridad</label>
+        <select id="asignarTicketPrioridad" class="form-input sector-select">
+          <option value="baja">🟢 Baja</option>
+          <option value="normal" selected>🔵 Normal</option>
+          <option value="alta">🟡 Alta</option>
+          <option value="urgente">🔴 Urgente</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Notas para el técnico</label>
+        <textarea id="asignarTicketNotas" maxlength="200" rows="2" class="form-input form-textarea" placeholder="Instrucciones..."></textarea>
+      </div>
+    </div>
+    <div class="flex gap-3 mt-4">
+      <button onclick="closeModal('asignarTicketModal')" class="flex-1 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
+      <button onclick="guardarAsignacionTicket()" class="flex-1 py-3 rounded-xl text-sm font-bold bg-cyan-600 text-white shadow-lg">
+        <i class="fa-solid fa-check mr-1"></i> Asignar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="moverTecnicoModal" class="modal-sheet" onclick="if(event.target === this) closeModal('moverTecnicoModal')">
+  <div class="modal-sheet-content">
+    <div class="modal-handle"></div>
+    <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+      <i class="fa-solid fa-people-arrows text-indigo-400"></i> Mover Técnico
+    </h3>
+    <p class="text-xs text-slate-400 mb-4">Mueve este técnico a otra cuadrilla. Su sector se actualizará automáticamente.</p>
+    <input type="hidden" id="moverTecnicoSquadId">
+    <input type="hidden" id="moverTecnicoIdx">
+    <div class="confirm-check-item mb-3">
+      <div class="ico info"><i class="fa-solid fa-user"></i></div>
+      <div>
+        <p class="text-[10px] text-slate-400 uppercase font-bold">Técnico</p>
+        <p class="text-sm font-semibold text-slate-100" id="moverTecnicoNombre">—</p>
+      </div>
+    </div>
+    <div class="confirm-check-item mb-3">
+      <div class="ico warn"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <p class="text-[10px] text-slate-400 uppercase font-bold">Cuadrilla actual</p>
+        <p class="text-sm font-semibold text-amber-300" id="moverTecnicoActual">—</p>
+      </div>
+    </div>
+    <div>
+      <label class="form-label">Mover a cuadrilla *</label>
+      <select id="moverTecnicoDestino" required class="form-input sector-select">
+        <option value="">— Selecciona cuadrilla destino —</option>
+      </select>
+    </div>
+    <div class="flex gap-3 mt-4">
+      <button onclick="closeModal('moverTecnicoModal')" class="flex-1 py-3 rounded-xl text-sm bg-white/5 text-slate-300 font-semibold">Cancelar</button>
+      <button onclick="confirmarMoverTecnico()" class="flex-1 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-lg">
+        <i class="fa-solid fa-people-arrows mr-1"></i> Mover
+      </button>
+    </div>
+  </div>
+</div>
+
 <div id="addUserModal" class="modal-sheet" onclick="if(event.target === this) closeModal('addUserModal')"><div class="modal-sheet-content">
   <div class="modal-handle"></div>
   <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-user-plus text-emerald-400"></i> Crear Usuario</h3>
@@ -886,7 +964,8 @@ button, select, input, textarea { touch-action:manipulation; }
         <label><input type="radio" name="newUserRole" value="tecnico" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-amber-400 peer-checked:bg-amber-500/15 text-center cursor-pointer"><i class="fa-solid fa-helmet-safety text-amber-400"></i><p class="text-xs font-bold text-amber-300 mt-1">Técnico</p></div></label>
         <label><input type="radio" name="newUserRole" value="soporte" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-emerald-400 peer-checked:bg-emerald-500/15 text-center cursor-pointer"><i class="fa-solid fa-screwdriver-wrench text-emerald-400"></i><p class="text-xs font-bold text-emerald-300 mt-1">Soporte</p></div></label>
         <label><input type="radio" name="newUserRole" value="recorridos" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-violet-400 peer-checked:bg-violet-500/15 text-center cursor-pointer"><i class="fa-solid fa-route text-violet-400"></i><p class="text-xs font-bold text-violet-300 mt-1">Recorridos</p></div></label>
-        <label class="col-span-2"><input type="radio" name="newUserRole" value="admin" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-indigo-400 peer-checked:bg-indigo-500/15 text-center cursor-pointer"><i class="fa-solid fa-user-shield text-indigo-400"></i><p class="text-xs font-bold text-indigo-300 mt-1">Administrador</p></div></label>
+        <label><input type="radio" name="newUserRole" value="vendedor" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-amber-400 peer-checked:bg-amber-500/15 text-center cursor-pointer"><i class="fa-solid fa-handshake text-amber-400"></i><p class="text-xs font-bold text-amber-300 mt-1">Vendedor</p></div></label>
+        <label><input type="radio" name="newUserRole" value="admin" class="sr-only peer" onchange="onUserRoleChange('add')"><div class="p-3 rounded-xl border-2 border-white/10 bg-white/5 peer-checked:border-indigo-400 peer-checked:bg-indigo-500/15 text-center cursor-pointer"><i class="fa-solid fa-user-shield text-indigo-400"></i><p class="text-xs font-bold text-indigo-300 mt-1">Admin</p></div></label>
       </div>
     </div>
     <div id="addUserAreaField"><label class="form-label">Área / Ubicación</label><select id="newUserArea" class="form-input sector-select"></select></div>
@@ -919,7 +998,7 @@ button, select, input, textarea { touch-action:manipulation; }
     <div><label class="form-label">Teléfono</label><input type="tel" id="editUserPhone" class="form-input"></div>
     <div><label class="form-label">Rol</label>
       <select id="editUserRole" required onchange="onUserRoleChange('edit')" class="form-input sector-select">
-        <option value="viewer">👁️ Viewer</option><option value="tecnico">👷 Técnico</option><option value="recorridos">🚐 Recorridos</option><option value="soporte">🔧 Soporte</option><option value="admin">👑 Admin</option>
+        <option value="viewer">👁️ Viewer</option><option value="tecnico">👷 Técnico</option><option value="recorridos">🚐 Recorridos</option><option value="vendedor">🤝 Vendedor</option><option value="soporte">🔧 Soporte</option><option value="admin">👑 Admin</option>
       </select>
     </div>
     <div id="editUserAreaField"><label class="form-label">Área / Ubicación</label><select id="editUserArea" class="form-input sector-select"></select></div>
@@ -1048,18 +1127,20 @@ function fbLoadNotifications() { return new Promise(function(resolve) { if (!fdb
 var OFFICES = ["OFICINA CAÑAR","OFICINA BIBLIAN","OFICINA AZOGUES"];
 var SOPORTE_AREA = "SOPORTE TÉCNICO";
 var RECORRIDOS_AREA = "RECORRIDOS";
+var VENDEDOR_AREA = "VENTAS";
 var AREAS_ESPECIALES = OFFICES.concat([SOPORTE_AREA, RECORRIDOS_AREA]);
 
 /* ============ WISPHUB API ============ */
-var WISPHUB_BASE_URL = 'https://TU-SUBDOMINIO.wisphub.net';   // ← CAMBIA ESTO
-var WISPHUB_API_KEY  = 'TU_API_KEY_AQUI';                     // ← CAMBIA ESTO
+var WISPHUB_BASE_URL = 'https://TU-SUBDOMINIO.wisphub.net';
+var WISPHUB_API_KEY  = 'TU_API_KEY_AQUI';
 
 var DEFAULT_SECTORS = ["DELEG","CHUQUIPATA","AZOGUES","RICAURTE","CAÑAR","DESCANSO","BIBLIAN","SAN PEDRO","MIRAFLORES","JADAN","PAN","PAUTE"];
 var DEFAULT_ROLES = [
   { id:"admin", label:"Administrador", icon:"fa-user-shield", emoji:"👑", color:"indigo", base:true, permissions:["all"] },
-  { id:"soporte", label:"Soporte Técnico", icon:"fa-screwdriver-wrench", emoji:"🔧", color:"emerald", base:true, permissions:["squads","solicitudes","mapas","usuarios","log"] },
-  { id:"tecnico", label:"Técnico de Campo", icon:"fa-helmet-safety", emoji:"👷", color:"amber", base:true, permissions:["squads","solicitudes"] },
+  { id:"soporte", label:"Soporte Técnico", icon:"fa-screwdriver-wrench", emoji:"🔧", color:"emerald", base:true, permissions:["squads","solicitudes","mapas","usuarios","log","tickets"] },
+  { id:"tecnico", label:"Técnico de Campo", icon:"fa-helmet-safety", emoji:"👷", color:"amber", base:true, permissions:["squads","solicitudes","tickets"] },
   { id:"recorridos", label:"Recorridos", icon:"fa-route", emoji:"🚐", color:"violet", base:true, permissions:["squads","solicitudes","mapas"] },
+  { id:"vendedor", label:"Vendedor", icon:"fa-handshake", emoji:"🤝", color:"amber", base:true, permissions:["preinstalaciones","clientes"] },
   { id:"viewer", label:"Visualizador", icon:"fa-eye", emoji:"👁️", color:"cyan", base:true, permissions:["squads"] }
 ];
 var DEFAULT_SQUADS_DATA = [
@@ -1084,6 +1165,7 @@ var DEFAULT_USERS = [
   { username:"admin", password:"admin", role:"admin", label:"Administrador", fullName:"Administrador General", area:"OFICINA BIBLIAN", onShift:false, phone:"0991234567", nodosAsignados:[], sectorActual:"", companeroActual:"", confirmado:false },
   { username:"soporte", password:"soporte", role:"soporte", label:"Soporte Técnico", fullName:"Ing. Soporte", area:SOPORTE_AREA, onShift:false, phone:"0987654321", nodosAsignados:["DELEG","CHUQUIPATA"], sectorActual:"", companeroActual:"", confirmado:false },
   { username:"recorridos", password:"recorridos", role:"recorridos", label:"Recorridos", fullName:"Juan Recorridos", area:RECORRIDOS_AREA, onShift:false, phone:"0965432109", nodosAsignados:[], sectorActual:"", companeroActual:"", confirmado:false },
+  { username:"vendedor", password:"vendedor", role:"vendedor", label:"Vendedor", fullName:"Vendedor Demo", area:VENDEDOR_AREA, onShift:false, phone:"0991111111", nodosAsignados:[], sectorActual:"", companeroActual:"", confirmado:false },
   { username:"viewer", password:"viewer", role:"viewer", label:"Visualizador", fullName:"Usuario Invitado", area:"OFICINA BIBLIAN", onShift:false, phone:"0965432100", nodosAsignados:[], sectorActual:"", companeroActual:"", confirmado:false }
 ];
 DEFAULT_SQUADS_DATA.forEach(function(sq) {
@@ -1110,9 +1192,11 @@ var LS_CHECKED_STATUS = 'likenet_status_snapshot';
 var LS_SEEN_RESOLUTIONS = 'likenet_seen_resolutions';
 var LS_SEEN_NOTIF_IDS = 'likenet_seen_notif_ids';
 var LS_THEME = 'likenet_theme';
+var LS_TICKET_ASSIGN = 'likenet_ticket_assignments';
 var MAPS_DB_NAME = 'likenet_maps_db';
 var LOG_MAX_DAYS = 30;
 var squadsData = [], usersData = [], sectorsData = [], mapsMeta = [], solicitudesData = [], rolesData = [], notificationsData = [];
+var ticketAssignmentsData = [];
 var mapsDB = null, currentUser = null;
 var phoneCtx = { phone:'', name:'', role:'' };
 var revisarSolCtx = { id:'' };
@@ -1151,11 +1235,7 @@ function showAssignmentPopup(title, msg, extraHtml) {
   try { vibrate([200,100,200]); playNotificationSound(); } catch(x) {}
 }
 function closeAssignmentPopup() { var el = $('assignmentPopup'); if (el) el.classList.remove('open'); }
-
-function closeAllPopups() {
-  closeResolutionPopup();
-  closeAssignmentPopup();
-}
+function closeAllPopups() { closeResolutionPopup(); closeAssignmentPopup(); }
 
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -1314,33 +1394,16 @@ function renderNotifList() {
   mine.slice().sort(function(a,b) { return b.ts - a.ts; }).forEach(function(n) {
     var m = iconMap[n.type] || iconMap.system;
     var timeAgo = getTimeAgo(n.ts);
-    var isActionable = (n.type === 'help' && (currentUser.role === 'admin' || currentUser.role === 'soporte')) || n.type === 'help_assigned' || n.type === 'ausencia' || n.type === 'inactiva';
-    var clickTarget = '';
-    if (n.type === 'help') clickTarget = 'view-solicitudes';
-    else if (n.type === 'help_assigned' || n.type === 'ausencia' || n.type === 'inactiva') clickTarget = 'view-squads';
-    var clickAttr = isActionable ? ' onclick="handleNotifClick(\'' + esc(n.id) + '\',\'' + esc(n.solId||'') + '\',\'' + clickTarget + '\')"' : ' onclick="markNotifRead(\'' + esc(n.id) + '\')"';
+    var clickAttr = ' onclick="markNotifRead(\'' + esc(n.id) + '\')"';
     html += '<div class="notif-item ' + (!n.read ? 'unread' : '') + '"' + clickAttr + '>';
     html += '<div class="notif-icon ' + m.cls + '"><i class="fa-solid ' + m.icon + '"></i></div>';
     html += '<div class="flex-1 min-w-0">';
     html += '<p class="notif-title">' + esc(n.title) + '</p>';
     html += '<p class="notif-msg">' + esc(n.message) + '</p>';
     html += '<p class="notif-time"><i class="fa-solid fa-clock"></i> ' + timeAgo + '</p>';
-    if (isActionable) html += '<p class="notif-action-hint"><i class="fa-solid fa-arrow-pointer"></i> Toca para gestionar</p>';
     html += '</div></div>';
   });
   c.innerHTML = html;
-}
-function handleNotifClick(notifId, solId, targetView) {
-  markNotifRead(notifId);
-  closeModal('notifModal');
-  switchView(targetView);
-  if (solId && (currentUser.role === 'admin' || currentUser.role === 'soporte')) {
-    setTimeout(function() {
-      var s = null;
-      for (var i = 0; i < solicitudesData.length; i++) if (solicitudesData[i].id === solId) { s = solicitudesData[i]; break; }
-      if (s && s.estado === 'pendiente') openRevisarSol(solId);
-    }, 400);
-  }
 }
 function getTimeAgo(ts) {
   var diff = Date.now() - ts, min = Math.floor(diff / 60000);
@@ -1457,6 +1520,8 @@ function initMapsMeta() { try { var r = localStorage.getItem(LS_MAPS); mapsMeta 
 function saveMapsMeta() { try { localStorage.setItem(LS_MAPS, JSON.stringify(mapsMeta)); } catch(e) {} fbSave('mapsMeta', mapsMeta); }
 function initSolicitudes() { try { var r = localStorage.getItem(LS_SOLICITUDES); solicitudesData = r ? JSON.parse(r) : []; } catch(e) { solicitudesData = []; } }
 function saveSolicitudes() { try { localStorage.setItem(LS_SOLICITUDES, JSON.stringify(solicitudesData)); } catch(e) {} fbSave('solicitudes', solicitudesData); }
+function initTicketAssignments() { try { var r = localStorage.getItem(LS_TICKET_ASSIGN); ticketAssignmentsData = r ? JSON.parse(r) : []; } catch(e) { ticketAssignmentsData = []; } }
+function saveTicketAssignments() { try { localStorage.setItem(LS_TICKET_ASSIGN, JSON.stringify(ticketAssignmentsData)); } catch(e) {} fbSave('ticketAssignments', ticketAssignmentsData); }
 
 $('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -1474,7 +1539,7 @@ $('loginForm').addEventListener('submit', function(e) {
 function entrarApp() {
   $('loginScreen').style.display = 'none';
   $('appContainer').classList.remove('hidden');
-  document.body.classList.remove('r-admin','r-soporte','r-tecnico','r-viewer','r-recorridos');
+  document.body.classList.remove('r-admin','r-soporte','r-tecnico','r-viewer','r-recorridos','r-vendedor');
   document.body.classList.add('r-' + currentUser.role);
   updateHeaderSubtitle();
   initData(); renderSquads(); refreshAllSectorSelects(); refreshAreaSelects();
@@ -1483,7 +1548,7 @@ function entrarApp() {
   loadNotifications(); updateNotificationUI();
   if (currentUser.role === 'admin') checkStatusChanges();
   requestPushPermission();
-  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
+  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos' || currentUser.role === 'vendedor') { switchView('view-tecnico-home'); setTimeout(checkMyResolutions, 1500); }
   attachNotifListener();
   attachUsersListener();
   logHistory('Inicio de sesión', currentUser.fullName + ' · ' + getRoleLabel(currentUser.role), 'info');
@@ -1540,10 +1605,6 @@ function attachNotifListener() {
         if (isForMe && !n.read && seenIds.indexOf(n.id) < 0) {
           markNotifSeen(n.id); playNotificationSound(); showToast(n.title, 'info');
           sendPushNotification(n.title, n.message, { tag: 'likenet-' + n.id });
-          if (n.type === 'help_assigned') {
-            var extraH = '<div class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30"><p class="text-xs text-slate-200">' + esc(n.message) + '</p></div>';
-            showAssignmentPopup('🚨 Apoyo Asignado', 'Administrador ha asignado asistencia al que necesita ayuda', extraH);
-          }
         }
       });
     }
@@ -1588,15 +1649,6 @@ function toggleMyShift() {
   renderOnShiftBanner();
   vibrate(on ? [80,40,80] : 40);
   showToast(on ? '🟢 Estás en turno' : '🔴 Saliste de turno', on ? 'ok' : 'info');
-  if (on) {
-    setTimeout(function() {
-      var extraH = '<div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">' +
-        '<p class="text-sm font-bold text-white">' + esc(currentUser.fullName || currentUser.username) + '</p>' +
-        '<p class="text-[10px] text-emerald-300/80 mt-1">' + getRoleEmoji(currentUser.role) + ' ' + esc(getRoleLabel(currentUser.role)) + (currentUser.area ? ' · 📍 ' + esc(currentUser.area) : '') + '</p>' +
-      '</div>';
-      showAssignmentPopup('🟢 Ahora estás en turno', 'Tu estado ya es visible para todos', extraH);
-    }, 400);
-  }
 }
 function toggleUserShift(username) {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) return;
@@ -1623,13 +1675,9 @@ function renderOnShiftBanner() {
   var banner = $('onShiftBanner');
   if (!banner) return;
   var onShift = getOnShiftUsers();
-  if (!onShift.length) {
-    banner.classList.add('empty');
-    banner.innerHTML = '';
-    return;
-  }
+  if (!onShift.length) { banner.classList.add('empty'); banner.innerHTML = ''; return; }
   banner.classList.remove('empty');
-  var order = { tecnico: 1, recorridos: 2, soporte: 3, admin: 4, viewer: 5 };
+  var order = { tecnico: 1, recorridos: 2, soporte: 3, admin: 4, viewer: 5, vendedor: 6 };
   onShift.sort(function(a, b) { return (order[a.role] || 99) - (order[b.role] || 99); });
   var usersHTML = '';
   onShift.forEach(function(u) {
@@ -1638,44 +1686,20 @@ function renderOnShiftBanner() {
     var roleIcon = getRoleEmoji(u.role);
     var roleLabel = getRoleLabel(u.role);
     var extraInfo = '';
-    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) {
-      extraInfo = ' · ' + u.nodosAsignados.length + ' nodos';
-    } else if ((u.role === 'recorridos' || u.role === 'tecnico') && u.sectorActual) {
-      extraInfo = ' · 📍 ' + u.sectorActual;
-    }
-    var phoneBtn = phoneOk
-      ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(roleLabel) + '\',\'' + esc(u.area) + '\')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>'
-      : '';
-    usersHTML +=
-      '<div class="on-shift-user-mini" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')">' +
-        '<div class="osu-avatar">' + init + '</div>' +
-        '<div class="flex-1 min-w-0">' +
-          '<p class="osu-name">' + esc(u.fullName || u.username) + '</p>' +
-          '<p class="osu-role">' + roleIcon + ' ' + esc(roleLabel) + esc(extraInfo) + '</p>' +
-        '</div>' +
-        phoneBtn +
-      '</div>';
+    if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) extraInfo = ' · ' + u.nodosAsignados.length + ' nodos';
+    else if ((u.role === 'recorridos' || u.role === 'tecnico') && u.sectorActual) extraInfo = ' · 📍 ' + u.sectorActual;
+    var phoneBtn = phoneOk ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(u.phone) + '\',\'' + esc(u.fullName||u.username) + '\',\'' + esc(roleLabel) + '\',\'' + esc(u.area) + '\')" class="osu-phone"><i class="fa-solid fa-phone"></i></button>' : '';
+    usersHTML += '<div class="on-shift-user-mini" onclick="openShiftUserPanel(\'' + esc(u.username) + '\')"><div class="osu-avatar">' + init + '</div><div class="flex-1 min-w-0"><p class="osu-name">' + esc(u.fullName || u.username) + '</p><p class="osu-role">' + roleIcon + ' ' + esc(roleLabel) + esc(extraInfo) + '</p></div>' + phoneBtn + '</div>';
   });
-  banner.innerHTML =
-    '<div class="osb-header">' +
-      '<div class="osb-title">' +
-        '<span class="osb-icon"><i class="fa-solid fa-bolt"></i></span>' +
-        '<span>Personal en Turno</span>' +
-      '</div>' +
-      '<span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + '</span>' +
-    '</div>' +
-    '<div class="on-shift-users-grid">' + usersHTML + '</div>';
+  banner.innerHTML = '<div class="osb-header"><div class="osb-title"><span class="osb-icon"><i class="fa-solid fa-bolt"></i></span><span>Personal en Turno</span></div><span class="osb-count"><span class="dot"></span> ' + onShift.length + ' activo' + (onShift.length === 1 ? '' : 's') + '</span></div><div class="on-shift-users-grid">' + usersHTML + '</div>';
 }
 
 function openShiftUserPanel(username) {
   var u = null;
   for (var i = 0; i < usersData.length; i++) if (usersData[i].username === username) { u = usersData[i]; break; }
   if (!u) return;
-  if (hasPhone(u.phone)) {
-    openPhoneModal(u.phone, u.fullName || u.username, getRoleLabel(u.role), u.area);
-  } else {
-    showToast('@' + u.username + ' · ' + getRoleLabel(u.role), 'info');
-  }
+  if (hasPhone(u.phone)) openPhoneModal(u.phone, u.fullName || u.username, getRoleLabel(u.role), u.area);
+  else showToast('@' + u.username + ' · ' + getRoleLabel(u.role), 'info');
 }
 
 function openOnShiftModal() {
@@ -1692,7 +1716,7 @@ function openOnShiftModal() {
     var extra = '';
     if (u.role === 'soporte' && u.nodosAsignados && u.nodosAsignados.length) extra = '<div class="flex flex-wrap gap-1 mt-1">' + u.nodosAsignados.map(function(n){ return '<span class="nodo-chip">' + esc(n) + '</span>'; }).join('') + '</div>';
     if (u.role === 'recorridos' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + '</span>';
-    if (u.role === 'tecnico' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + (u.companeroActual ? ' · ' + esc(u.companeroActual) : '') + '</span>';
+    if (u.role === 'tecnico' && u.sectorActual) extra = '<span class="nodo-chip mt-1">📍 ' + esc(u.sectorActual) + '</span>';
     html += '<div class="user-card on-shift"><div class="user-avatar ' + u.role + '">' + init + '</div><div class="min-w-0 flex-1"><p class="font-bold text-slate-100 text-sm truncate">' + esc(u.fullName || u.username) + '</p><p class="text-xs text-slate-400 truncate mb-1">@' + esc(u.username) + (phoneOk ? ' · ' + esc(formatPhoneDisplay(u.phone)) : '') + '</p><div class="flex items-center gap-1.5 flex-wrap"><span class="user-role-pill ' + u.role + '">' + getRoleEmoji(u.role) + ' ' + getRoleLabel(u.role) + '</span><span class="user-role-pill" style="background:rgba(16,185,129,.25);color:#6ee7b7">🟢 En turno</span></div>' + extra + '</div>' + phoneBtn + '</div>';
   });
   c.innerHTML = html; openModal('onShiftModal');
@@ -1724,7 +1748,7 @@ function refreshAreaSelects() {
   OFFICES.forEach(function(a) { html += '<option value="' + esc(a) + '">' + esc(a) + '</option>'; });
   html += '</optgroup><optgroup label="📍 Sectores">';
   sectorsData.forEach(function(a) { html += '<option value="' + esc(a) + '">' + esc(a) + '</option>'; });
-  html += '</optgroup><optgroup label="🚐 Departamentos"><option value="' + esc(SOPORTE_AREA) + '">' + esc(SOPORTE_AREA) + '</option><option value="' + esc(RECORRIDOS_AREA) + '">' + esc(RECORRIDOS_AREA) + '</option></optgroup>';
+  html += '</optgroup><optgroup label="🚐 Departamentos"><option value="' + esc(SOPORTE_AREA) + '">' + esc(SOPORTE_AREA) + '</option><option value="' + esc(RECORRIDOS_AREA) + '">' + esc(RECORRIDOS_AREA) + '</option><option value="' + esc(VENDEDOR_AREA) + '">' + esc(VENDEDOR_AREA) + '</option></optgroup>';
   var na = $('newUserArea'); if (na) na.innerHTML = html;
   var ea = $('editUserArea'); if (ea) ea.innerHTML = html;
 }
@@ -1755,6 +1779,10 @@ function onUserRoleChange(ctx) {
 }
 
 function switchView(viewId) {
+  if (currentUser && currentUser.role === 'vendedor') {
+    var allowed = ['view-preinstalaciones', 'view-clientes'];
+    if (allowed.indexOf(viewId) < 0) { showToast('No tienes permiso para acceder a esta sección.', 'error'); return; }
+  }
   var panels = document.querySelectorAll('.view-panel'); for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
   var t = $(viewId); if (t) t.classList.add('active');
   var navs = document.querySelectorAll('.nav-item[data-view]'); for (var j = 0; j < navs.length; j++) navs[j].classList.toggle('active', navs[j].dataset.view === viewId);
@@ -1897,7 +1925,11 @@ function buildSquadCard(squad, isAdmin, presentCount, key) {
       var phoneOk = hasPhone(m.phone);
       var phoneBtn = phoneOk ? '<button onclick="openPhoneModal(\'' + esc(m.phone) + '\',\'' + esc(m.name) + '\',\'' + esc(m.role) + '\',\'' + esc(squad.name) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '<button class="phone-btn disabled"><i class="fa-solid fa-phone-slash"></i></button>';
       var statusControl = isAdmin ? '<select onchange="updateMemberStatus(' + squad.id + ', ' + idx + ', this.value)" class="glass-input rounded-lg text-xs px-3 py-2 w-full sector-select"><option value="Presente"' + (m.status === 'Presente' ? ' selected' : '') + '>🟢 Presente</option><option value="Ausente"' + (m.status === 'Ausente' ? ' selected' : '') + '>🔴 Ausente</option><option value="Permiso"' + (m.status === 'Permiso' ? ' selected' : '') + '>🟡 Permiso</option><option value="Reemplazo"' + (m.status === 'Reemplazo' ? ' selected' : '') + '>🔵 Reemplazo</option></select>' : '<span class="status-badge-pill ' + statusKey + '">' + statusIcon + ' ' + esc(m.status) + '</span>';
-      var adminBtns = isAdmin ? '<div class="flex items-center gap-1 flex-shrink-0"><button onclick="openEditModal(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-indigo-500/15 text-indigo-300 flex items-center justify-center"><i class="fa-solid fa-pen text-xs"></i></button><button onclick="removeMember(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-300 flex items-center justify-center"><i class="fa-solid fa-trash text-xs"></i></button></div>' : '';
+      var adminBtns = isAdmin ? '<div class="flex items-center gap-1 flex-shrink-0">' +
+        '<button onclick="openEditModal(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-indigo-500/15 text-indigo-300 flex items-center justify-center" title="Editar"><i class="fa-solid fa-pen text-xs"></i></button>' +
+        '<button onclick="openMoverTecnico(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-300 flex items-center justify-center" title="Mover"><i class="fa-solid fa-people-arrows text-xs"></i></button>' +
+        '<button onclick="removeMember(' + squad.id + ', ' + idx + ')" class="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-300 flex items-center justify-center" title="Eliminar"><i class="fa-solid fa-trash text-xs"></i></button>' +
+      '</div>' : '';
       var uname = m.name && m.name !== '—' ? m.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'.').replace(/[^a-z0-9.]/g,'').slice(0,20) : '';
       var userTag = (isAdmin && uname) ? '<p class="text-[9px] text-indigo-300/70 font-mono truncate mt-0.5">@' + esc(uname) + '</p>' : '';
       membersHTML += '<div class="member-card ' + statusKey + '"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2.5 min-w-0 flex-1"><div class="member-avatar ' + statusKey + '">' + (idx+1) + '</div><div class="min-w-0"><p class="text-xs font-bold text-slate-100 truncate leading-tight">' + esc(m.name) + '</p><p class="text-[10px] text-slate-400 truncate">' + esc(m.role) + '</p>' + userTag + '</div></div><div class="flex items-center gap-1 flex-shrink-0">' + phoneBtn + adminBtns + '</div></div>' + (isAdmin ? statusControl : '') + '</div>';
@@ -1912,18 +1944,55 @@ function buildSquadCard(squad, isAdmin, presentCount, key) {
 
 function renderTecnicoHome() {
   var c = $('tecnicoHomeContent'); if (!c) return;
-  var me = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { me = usersData[i]; break; }
+  var me = null; 
+  for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { me = usersData[i]; break; }
   if (!me) return;
+
   var isTecnico = currentUser.role === 'tecnico';
   var isRecorridos = currentUser.role === 'recorridos';
   var confirmed = me.confirmado && me.onShift;
   var mySquad = null, myMemberIdx = -1;
-  if (isTecnico) { for (var j = 0; j < squadsData.length; j++) { for (var k = 0; k < squadsData[j].members.length; k++) { if (squadsData[j].members[k].name === me.fullName || squadsData[j].members[k].name === me.username) { mySquad = squadsData[j]; myMemberIdx = k; break; } } if (mySquad) break; } }
-  var sectorOptions = ''; sectorsData.forEach(function(s) { sectorOptions += '<option value="' + esc(s) + '"' + (me.sectorActual === s ? ' selected' : '') + '>📍 ' + esc(s) + '</option>'; });
-  var hasCompanero = false; var companerosOptions = '<option value="">— Selecciona —</option>';
-  if (mySquad) { var others = mySquad.members.filter(function(_, idx) { return idx !== myMemberIdx; }); hasCompanero = others.length > 0; mySquad.members.forEach(function(m, i) { if (i !== myMemberIdx) companerosOptions += '<option value="' + esc(m.name) + '"' + (me.companeroActual === m.name ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }); }
+  if (isTecnico) { 
+    for (var j = 0; j < squadsData.length; j++) { 
+      for (var k = 0; k < squadsData[j].members.length; k++) { 
+        if (squadsData[j].members[k].name === me.fullName || squadsData[j].members[k].name === me.username) { 
+          mySquad = squadsData[j]; myMemberIdx = k; break; 
+        } 
+      } 
+      if (mySquad) break; 
+    } 
+  }
+
+  var myTasks = getAssignmentsForTech(currentUser.username);
+  var tareasPendientes = myTasks.filter(function(t) { return t.estado === 'pendiente'; }).length;
+  var tareasProceso = myTasks.filter(function(t) { return t.estado === 'en_proceso'; }).length;
+  var sectorActual = isTecnico ? (mySquad ? mySquad.sector : me.area) : me.sectorActual;
+  var ahora = new Date();
+  var horaStr = ahora.getHours() < 12 ? 'Buenos días' : ahora.getHours() < 19 ? 'Buenas tardes' : 'Buenas noches';
+  var fechaStr = ahora.toLocaleDateString('es-EC', { weekday:'long', day:'numeric', month:'long' });
+
   var html = '';
-  html += '<div class="quick-action-grid"><button class="quick-action help" onclick="openSolicitarAyudaModal()"><i class="fa-solid fa-tower-broadcast"></i><span>Solicitar Ayuda</span></button><button class="quick-action change" onclick="openCambiarNodoModal()"><i class="fa-solid fa-location-dot"></i><span>Cambiar Nodo</span></button></div>';
+
+  html += '<div class="glass-panel rounded-2xl p-4 mb-4">';
+  html += '<div class="flex items-center gap-3">';
+  html += '<div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><i class="fa-solid fa-hand text-white text-lg"></i></div>';
+  html += '<div class="min-w-0 flex-1">';
+  html += '<p class="text-[10px] text-indigo-300/80 font-bold uppercase tracking-wider">' + esc(fechaStr) + '</p>';
+  html += '<h2 class="text-base font-extrabold text-white leading-tight">' + esc(horaStr) + ', ' + esc((me.fullName || me.username).split(' ')[0]) + '</h2>';
+  html += '<p class="text-xs text-slate-400">' + getRoleEmoji(currentUser.role) + ' ' + getRoleLabel(currentUser.role) + (sectorActual ? ' · 📍 ' + esc(sectorActual) : '') + '</p>';
+  html += '</div></div></div>';
+
+  html += '<div class="grid grid-cols-3 gap-2 mb-4">';
+  html += '<div class="stat-card" style="padding:12px;cursor:default"><div class="stat-icon" style="background:rgba(6,182,212,.15);color:#67e8f9"><i class="fa-solid fa-ticket"></i></div><p class="stat-label">Pendientes</p><p class="stat-value text-cyan-400" style="font-size:1.3rem">' + tareasPendientes + '</p></div>';
+  html += '<div class="stat-card" style="padding:12px;cursor:default"><div class="stat-icon" style="background:rgba(245,158,11,.15);color:#fcd34d"><i class="fa-solid fa-spinner"></i></div><p class="stat-label">En proceso</p><p class="stat-value text-amber-400" style="font-size:1.3rem">' + tareasProceso + '</p></div>';
+  html += '<div class="stat-card" style="padding:12px;cursor:default"><div class="stat-icon" style="background:rgba(16,185,129,.15);color:#6ee7b7"><i class="fa-solid fa-power-off"></i></div><p class="stat-label">Turno</p><p class="stat-value ' + (confirmed ? 'text-emerald-400' : 'text-slate-500') + '" style="font-size:1.1rem">' + (confirmed ? 'Activo' : 'Inactivo') + '</p></div>';
+  html += '</div>';
+
+  html += '<div class="quick-action-grid">';
+  html += '<button class="quick-action help" onclick="openSolicitarAyudaModal()"><i class="fa-solid fa-tower-broadcast"></i><span>Solicitar Ayuda</span></button>';
+  html += '<button class="quick-action change" onclick="openCambiarNodoModal()"><i class="fa-solid fa-location-dot"></i><span>Cambiar Nodo</span></button>';
+  html += '</div>';
+
   html += '<div class="tecnico-home-card ' + (isRecorridos ? 'recorridos' : '') + ' ' + (confirmed ? 'confirmed' : '') + '">';
   html += '<div class="flex items-center gap-3 mb-4">';
   var iconGrad = isTecnico ? '#f59e0b,#d97706' : '#8b5cf6,#6d28d9';
@@ -1931,23 +2000,78 @@ function renderTecnicoHome() {
   html += '<div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg,' + iconGrad + ')"><i class="fa-solid ' + iconCls + ' text-white text-xl"></i></div>';
   html += '<div class="min-w-0 flex-1"><h2 class="text-base font-bold text-white">' + (confirmed ? '✅ Turno Confirmado' : '📋 Confirmación de Turno') + '</h2><p class="text-xs text-slate-400">' + (confirmed ? 'Verificado' : 'Confirma para iniciar') + '</p></div>';
   html += '</div>';
+  
   if (confirmed) {
     html += '<div class="space-y-2 mb-4">';
     html += '<div class="confirm-check-item"><div class="ico ok"><i class="fa-solid fa-user"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Técnico</p><p class="text-sm font-semibold text-slate-100">' + esc(me.fullName || me.username) + '</p></div></div>';
-    var sec = isTecnico ? (mySquad ? mySquad.sector : me.area) : me.sectorActual;
-    html += '<div class="confirm-check-item"><div class="ico ok"><i class="fa-solid fa-location-dot"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p><p class="text-sm font-semibold text-emerald-300">' + esc(sec) + '</p></div></div>';
+    html += '<div class="confirm-check-item"><div class="ico ok"><i class="fa-solid fa-location-dot"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p><p class="text-sm font-semibold text-emerald-300">' + esc(sectorActual) + '</p></div></div>';
+    if (isTecnico && mySquad) {
+      html += '<div class="confirm-check-item"><div class="ico info"><i class="fa-solid fa-people-group"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Cuadrilla</p><p class="text-sm font-semibold text-cyan-300">' + esc(mySquad.name) + '</p></div></div>';
+    }
     html += '</div>';
     html += '<button onclick="finalizarTurno()" class="w-full py-3 rounded-xl text-sm font-bold bg-rose-600 text-white"><i class="fa-solid fa-stop mr-1"></i> Finalizar turno</button>';
   } else {
     html += '<form id="confirmTurnoForm" onsubmit="confirmarTurno(event)" class="space-y-4">';
     html += '<div class="confirm-check-item"><div class="ico info"><i class="fa-solid fa-user"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Técnico</p><p class="text-sm font-semibold text-slate-100">' + esc(me.fullName || me.username) + '</p></div></div>';
-    if (isRecorridos) html += '<div><label class="form-label">Sector hoy *</label><select id="confirmSector" required class="form-input sector-select">' + sectorOptions + '</select></div>';
-    else { var mySec = mySquad ? mySquad.sector : 'Sin asignar'; html += '<div class="confirm-check-item"><div class="ico ' + (mySquad ? 'ok' : 'warn') + '"><i class="fa-solid fa-location-dot"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p><p class="text-sm font-semibold ' + (mySquad ? 'text-emerald-300' : 'text-amber-300') + '">' + esc(mySec) + '</p></div></div>'; }
-    if (hasCompanero) html += '<div><label class="form-label">Compañero *</label><select id="confirmCompanero" required class="form-input sector-select">' + companerosOptions + '</select></div>';
+    if (isRecorridos) {
+      var sectorOptions = '';
+      sectorsData.forEach(function(s) { sectorOptions += '<option value="' + esc(s) + '"' + (me.sectorActual === s ? ' selected' : '') + '>📍 ' + esc(s) + '</option>'; });
+      html += '<div><label class="form-label">Sector hoy *</label><select id="confirmSector" required class="form-input sector-select">' + sectorOptions + '</select></div>';
+    } else {
+      var mySec = mySquad ? mySquad.sector : 'Sin asignar';
+      html += '<div class="confirm-check-item"><div class="ico ' + (mySquad ? 'ok' : 'warn') + '"><i class="fa-solid fa-location-dot"></i></div><div><p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p><p class="text-sm font-semibold ' + (mySquad ? 'text-emerald-300' : 'text-amber-300') + '">' + esc(mySec) + '</p></div></div>';
+    }
     html += '<button type="submit" class="w-full py-3.5 rounded-xl text-sm font-bold text-white shadow-lg" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fa-solid fa-check-circle mr-1"></i> Activar turno</button>';
     html += '</form>';
   }
   html += '</div>';
+
+  html += '<div class="glass-panel rounded-2xl p-4 mb-4">';
+  html += '<div class="flex items-center justify-between mb-3">';
+  html += '<h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-cyan-400"></i> Mis tareas asignadas</h3>';
+  html += '<span class="text-[10px] font-bold text-cyan-300 bg-cyan-500/15 px-2 py-1 rounded border border-cyan-500/30">' + myTasks.length + '</span>';
+  html += '</div>';
+  
+  if (!myTasks.length) {
+    html += '<div class="empty-state" style="padding:24px"><i class="fa-solid fa-clipboard" style="font-size:2rem"></i><p style="font-size:.8rem">No tienes tareas asignadas</p></div>';
+  } else {
+    myTasks.sort(function(a,b) { return b.ts - a.ts; });
+    myTasks.forEach(function(task) {
+      var prioridadCls = task.prioridad === 'urgente' ? 'urgente' : task.prioridad === 'alta' ? 'alta' : task.prioridad === 'baja' ? 'baja' : 'normal';
+      var prioridadIcon = task.prioridad === 'urgente' ? '🔴' : task.prioridad === 'alta' ? '🟡' : task.prioridad === 'baja' ? '🟢' : '🔵';
+      var estadoBg = task.estado === 'en_proceso' ? 'rgba(245,158,11,.15)' : 'rgba(6,182,212,.15)';
+      var estadoColor = task.estado === 'en_proceso' ? '#fcd34d' : '#67e8f9';
+      var estadoLabel = task.estado === 'en_proceso' ? '🔄 En proceso' : '⏳ Pendiente';
+      
+      html += '<div class="solicitud-card pendiente mb-2">';
+      html += '<div class="flex items-start justify-between gap-2 mb-2 flex-wrap">';
+      html += '<div class="flex items-center gap-2 flex-wrap">';
+      html += '<span class="sol-type-badge" style="background:rgba(6,182,212,.18);color:#67e8f9;border-color:rgba(6,182,212,.4)">#' + esc(task.ticketId) + '</span>';
+      html += '<span class="priority-badge ' + prioridadCls + '">' + prioridadIcon + ' ' + esc(task.prioridad).toUpperCase() + '</span>';
+      html += '<span class="sol-badge" style="background:' + estadoBg + ';color:' + estadoColor + ';border:1px solid ' + estadoColor + '40">' + estadoLabel + '</span>';
+      html += '</div>';
+      html += '<span class="text-[10px] text-slate-500">' + getTimeAgo(task.ts) + '</span>';
+      html += '</div>';
+      html += '<p class="text-sm font-bold text-slate-100 mb-1">' + esc(task.ticketAsunto) + '</p>';
+      html += '<div class="p-2.5 rounded-lg bg-slate-900/50 border border-white/5 mb-2 space-y-1">';
+      html += '<p class="text-[11px] text-slate-300">👤 <strong>' + esc(task.ticketCliente) + '</strong></p>';
+      html += '<p class="text-[11px] text-slate-400">📍 ' + esc(task.ticketDireccion) + '</p>';
+      if (task.ticketTelefono && hasPhone(task.ticketTelefono)) {
+        html += '<button onclick="openPhoneModal(\'' + esc(task.ticketTelefono) + '\',\'' + esc(task.ticketCliente) + '\',\'Cliente\',\'Ticket #' + esc(task.ticketId) + '\')" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2 py-1 rounded border border-emerald-500/30 mt-1"><i class="fa-solid fa-phone mr-1"></i>' + esc(formatPhoneDisplay(task.ticketTelefono)) + '</button>';
+      }
+      html += '</div>';
+      if (task.notas) html += '<p class="text-[11px] italic text-slate-400 mb-2">📝 "' + esc(task.notas) + '"</p>';
+      html += '<div class="flex gap-2 mt-3">';
+      if (task.estado === 'pendiente') {
+        html += '<button onclick="updateAssignmentStatus(\'' + task.id + '\',\'en_proceso\')" class="flex-1 py-2 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold"><i class="fa-solid fa-play mr-1"></i> Iniciar</button>';
+      }
+      html += '<button onclick="updateAssignmentStatus(\'' + task.id + '\',\'completado\')" class="flex-1 py-2 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold"><i class="fa-solid fa-check mr-1"></i> Completar</button>';
+      html += '</div>';
+      html += '</div>';
+    });
+  }
+  html += '</div>';
+
   c.innerHTML = html;
 }
 
@@ -1956,10 +2080,17 @@ function confirmarTurno(e) {
   var me = null; for (var i = 0; i < usersData.length; i++) if (usersData[i].username === currentUser.username) { me = usersData[i]; break; }
   if (!me) return;
   var isRecorridos = currentUser.role === 'recorridos';
-  var sector = '', companero = '';
+  var sector = '';
   if (isRecorridos) { sector = $('confirmSector') ? $('confirmSector').value : ''; if (!sector) return showToast('Selecciona sector.', 'error'); }
-  else { for (var j = 0; j < squadsData.length; j++) { for (var k = 0; k < squadsData[j].members.length; k++) if (squadsData[j].members[k].name === me.fullName || squadsData[j].members[k].name === me.username) { sector = squadsData[j].sector; break; } if (sector) break; } var compSel = $('confirmCompanero'); if (compSel) { companero = compSel.value || ''; if (!companero) return showToast('Selecciona compañero.', 'error'); } }
-  me.onShift = true; me.confirmado = true; me.sectorActual = sector; me.companeroActual = companero; me.tsConfirmacion = Date.now();
+  else { 
+    for (var j = 0; j < squadsData.length; j++) { 
+      for (var k = 0; k < squadsData[j].members.length; k++) { 
+        if (squadsData[j].members[k].name === me.fullName || squadsData[j].members[k].name === me.username) { sector = squadsData[j].sector; break; } 
+      } 
+      if (sector) break; 
+    } 
+  }
+  me.onShift = true; me.confirmado = true; me.sectorActual = sector; me.companeroActual = ''; me.tsConfirmacion = Date.now();
   saveUsers(); logHistory('Turno confirmado', me.fullName + ' · ' + sector, 'ok');
   updateShiftUI(); renderSquads(); renderTecnicoHome(); renderUsersList(); renderOnShiftBanner();
   vibrate(60); showToast('✅ Turno activado', 'ok');
@@ -2288,6 +2419,7 @@ function saveNewUser(e) {
   var area = '', nodosAsignados = [];
   if (role === 'soporte') { nodosAsignados = getNodosSelected('add'); if (!nodosAsignados.length) return showToast('Selecciona 1+ nodo.', 'error'); area = SOPORTE_AREA; }
   else if (role === 'recorridos') area = RECORRIDOS_AREA;
+  else if (role === 'vendedor') area = VENDEDOR_AREA;
   else { area = $('newUserArea').value; if (!area) return showToast('Selecciona área.', 'error'); }
   usersData.push({ username:un, password:pw, role:role, label:getRoleLabel(role), fullName: fn || un, area:area, onShift:false, phone: ph ? normalizePhone(ph) : '', nodosAsignados:nodosAsignados, sectorActual:'', companeroActual:'', confirmado:false });
   saveUsers(); logHistory('Usuario creado', un + ' · ' + getRoleLabel(role), 'ok');
@@ -2333,6 +2465,7 @@ function saveUserEdit(e) {
   var area, nodosAsignados;
   if (role === 'soporte') { nodosAsignados = getNodosSelected('edit'); if (!nodosAsignados.length) return showToast('Selecciona 1+ nodo.', 'error'); area = SOPORTE_AREA; }
   else if (role === 'recorridos') { area = RECORRIDOS_AREA; nodosAsignados = []; }
+  else if (role === 'vendedor') { area = VENDEDOR_AREA; nodosAsignados = []; }
   else { area = $('editUserArea').value; nodosAsignados = []; }
   usersData[i].username = nu; usersData[i].password = pw;
   usersData[i].fullName = fn || nu; usersData[i].phone = ph ? normalizePhone(ph) : '';
@@ -2348,7 +2481,7 @@ function saveUserEdit(e) {
     currentUser.username = nu; currentUser.fullName = fn || nu; currentUser.area = area; currentUser.role = role; currentUser.label = getRoleLabel(role);
     currentUser.nodosAsignados = nodosAsignados;
     localStorage.setItem(LS_SESSION, JSON.stringify(currentUser));
-    document.body.classList.remove('r-admin','r-soporte','r-tecnico','r-viewer','r-recorridos');
+    document.body.classList.remove('r-admin','r-soporte','r-tecnico','r-viewer','r-recorridos','r-vendedor');
     document.body.classList.add('r-' + role);
     updateHeaderSubtitle();
   }
@@ -2472,6 +2605,58 @@ function removeMember(id, i) {
   var m = sq.members[i];
   showConfirm('¿Eliminar a "' + m.name + '"?', function() { sq.members.splice(i, 1); saveData(); logHistory('Técnico eliminado', m.name, 'danger'); renderSquads(); showToast(m.name + ' eliminado', 'info'); });
 }
+
+/* ============================================================
+   MOVER TÉCNICO ENTRE CUADRILAS
+   ============================================================ */
+function openMoverTecnico(squadId, memberIdx) {
+  if (currentUser.role !== 'admin') return showToast('Solo admin puede mover técnicos.', 'error');
+  var sq = null;
+  for (var i = 0; i < squadsData.length; i++) if (squadsData[i].id === squadId) { sq = squadsData[i]; break; }
+  if (!sq || !sq.members[memberIdx]) return;
+
+  var m = sq.members[memberIdx];
+  $('moverTecnicoSquadId').value = squadId;
+  $('moverTecnicoIdx').value = memberIdx;
+  $('moverTecnicoNombre').textContent = m.name;
+  $('moverTecnicoActual').textContent = sq.name + ' · 📍 ' + (sq.sector || 'Sin sector');
+
+  var opts = '<option value="">— Selecciona cuadrilla destino —</option>';
+  squadsData.forEach(function(s) {
+    if (s.id === squadId) return;
+    var libres = 6 - s.members.length;
+    if (libres > 0) opts += '<option value="' + s.id + '">' + esc(s.name) + ' · 📍 ' + esc(s.sector) + ' (' + s.members.length + '/6)</option>';
+  });
+  $('moverTecnicoDestino').innerHTML = opts;
+  openModal('moverTecnicoModal');
+}
+
+function confirmarMoverTecnico() {
+  var origenId = parseInt($('moverTecnicoSquadId').value);
+  var idx = parseInt($('moverTecnicoIdx').value);
+  var destinoId = parseInt($('moverTecnicoDestino').value);
+  if (!destinoId) return showToast('Selecciona cuadrilla destino.', 'error');
+
+  var origen = null, destino = null;
+  for (var i = 0; i < squadsData.length; i++) {
+    if (squadsData[i].id === origenId) origen = squadsData[i];
+    if (squadsData[i].id === destinoId) destino = squadsData[i];
+  }
+  if (!origen || !destino) return showToast('Cuadrilla no encontrada.', 'error');
+  if (destino.members.length >= 6) return showToast('La cuadrilla destino está llena.', 'error');
+
+  var miembro = origen.members.splice(idx, 1)[0];
+  destino.members.push(miembro);
+  saveData();
+
+  logHistory('Técnico movido', miembro.name + ' de ' + origen.name + ' → ' + destino.name, 'warn');
+  showToast('✅ ' + miembro.name + ' movido a ' + destino.name, 'ok');
+  vibrate([100, 50, 100]);
+  closeModal('moverTecnicoModal');
+  renderSquads();
+  renderInlineReport();
+}
+
 function updateSquadSector(id, ns) {
   if (currentUser.role !== 'admin') return;
   var sq = null; for (var j = 0; j < squadsData.length; j++) if (squadsData[j].id === id) { sq = squadsData[j]; break; }
@@ -2738,7 +2923,7 @@ function importUsuariosExcel(ev) {
 function executeImportUsuarios(normalized, ev) {
   var added = 0, updated = 0, errors = [];
   normalized.forEach(function(r) {
-    var validRoles = ['admin','soporte','tecnico','recorridos','viewer'];
+    var validRoles = ['admin','soporte','tecnico','recorridos','viewer','vendedor'];
     var role = validRoles.indexOf(r.role) >= 0 ? r.role : 'tecnico';
     var existing = null;
     for (var i = 0; i < usersData.length; i++) if (usersData[i].username.toLowerCase() === r.usuario) { existing = usersData[i]; break; }
@@ -2800,13 +2985,8 @@ function getSectorDeTecnico(username) {
 }
 
 function wisphubHeaders() {
-  return {
-    'Authorization': 'Bearer ' + WISPHUB_API_KEY,
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  };
+  return { 'Authorization': 'Bearer ' + WISPHUB_API_KEY, 'Accept': 'application/json', 'Content-Type': 'application/json' };
 }
-
 function wisphubConfigured() {
   return WISPHUB_API_KEY && WISPHUB_API_KEY !== 'TU_API_KEY_AQUI' && WISPHUB_BASE_URL && WISPHUB_BASE_URL.indexOf('TU-SUBDOMINIO') < 0;
 }
@@ -2818,16 +2998,13 @@ async function loadTickets() {
   if (!currentUser) return;
   var cont = $('ticketsContainer'); if (!cont) return;
   var subtitle = $('ticketsSubtitle');
-
   if (!wisphubConfigured()) {
     cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
     if (subtitle) subtitle.textContent = 'Sin configurar';
     return;
   }
-
   cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando tickets...</p></div>';
   if (subtitle) subtitle.textContent = 'Cargando...';
-
   try {
     var url = WISPHUB_BASE_URL + '/api/soporte/tickets';
     if (currentUser.role === 'tecnico') {
@@ -2856,8 +3033,7 @@ function filterTickets() {
     return est.indexOf(f) >= 0 || f.indexOf(est) >= 0;
   });
   if (q) list = list.filter(function(t) {
-    var txt = [(t.id || ''), (t.asunto || t.subject || ''), (t.cliente || t.client || t.cliente_nombre || ''),
-               (t.descripcion || t.description || ''), (t.tecnico || t.assigned_to || '')].join(' ').toLowerCase();
+    var txt = [(t.id || ''), (t.asunto || t.subject || ''), (t.cliente || t.client || t.cliente_nombre || ''), (t.descripcion || t.description || ''), (t.tecnico || t.assigned_to || '')].join(' ').toLowerCase();
     return txt.indexOf(q) >= 0;
   });
   return list;
@@ -2898,8 +3074,20 @@ function renderTickets(list) {
     var fechaFmt = fecha ? new Date(fecha).toLocaleString('es-EC', {dateStyle:'short', timeStyle:'short'}) : '—';
 
     var estadoCls = (estado.indexOf('resuelto') >= 0 || estado.indexOf('cerrado') >= 0) ? 'aprobada' : 'pendiente';
-    var estadoIcon = estado.indexOf('resuelto') >= 0 ? '✅' : estado.indexOf('cerrado') >= 0 ? '⚪' :
-                     estado.indexOf('proceso') >= 0 ? '🟡' : '🔵';
+    var estadoIcon = estado.indexOf('resuelto') >= 0 ? '✅' : estado.indexOf('cerrado') >= 0 ? '⚪' : estado.indexOf('proceso') >= 0 ? '🟡' : '🔵';
+
+    var assignment = getAssignmentForTicket(id);
+    var asignHtml = '';
+    if (currentUser.role === 'admin' || currentUser.role === 'soporte') {
+      if (assignment) {
+        asignHtml = '<div class="mt-2 p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-between gap-2">' +
+          '<p class="text-[10px] text-cyan-300"><i class="fa-solid fa-user-check mr-1"></i>Asignado a: <strong>' + esc(assignment.tecnicoNombre) + '</strong> · ' + esc(assignment.estado) + '</p>' +
+          '<button onclick="openAsignarTicket(\'' + esc(id) + '\')" class="text-[10px] font-bold text-cyan-300 bg-cyan-500/20 px-2 py-1 rounded border border-cyan-500/40"><i class="fa-solid fa-rotate"></i> Cambiar</button>' +
+        '</div>';
+      } else {
+        asignHtml = '<button onclick="openAsignarTicket(\'' + esc(id) + '\')" class="w-full mt-3 py-2.5 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-user-check"></i> Asignar a técnico</button>';
+      }
+    }
 
     html += '<div class="solicitud-card ' + estadoCls + '">' +
       '<div class="flex items-start justify-between gap-2 mb-2 flex-wrap">' +
@@ -2913,10 +3101,126 @@ function renderTickets(list) {
       '<p class="text-sm font-bold text-slate-100 mb-1">' + esc(asunto) + '</p>' +
       '<p class="text-xs text-slate-400">👤 Cliente: <strong>' + esc(cliente) + '</strong></p>' +
       '<p class="text-xs text-slate-400">🔧 Técnico: ' + esc(tecnico) + '</p>' +
+      asignHtml +
     '</div>';
   });
 
   c.innerHTML = html;
+}
+
+/* ============================================================
+   ASIGNAR TICKET A TÉCNICO
+   ============================================================ */
+function openAsignarTicket(ticketId) {
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'soporte')) {
+    return showToast('Solo admin/soporte puede asignar tickets.', 'error');
+  }
+  var t = null;
+  for (var i = 0; i < ticketsData.length; i++) {
+    if (String(ticketsData[i].id || ticketsData[i].ticket_id) === String(ticketId)) {
+      t = ticketsData[i]; break;
+    }
+  }
+  if (!t) return showToast('Ticket no encontrado.', 'error');
+
+  var asunto = t.asunto || t.subject || t.titulo || 'Sin asunto';
+  var cliente = t.cliente || t.client || t.cliente_nombre || '—';
+  var direccion = t.direccion || t.address || '—';
+
+  $('asignarTicketId').value = ticketId;
+  $('asignarTicketInfo').innerHTML = '<p class="text-[10px] text-cyan-300 uppercase font-bold mb-1">Ticket #' + esc(ticketId) + '</p>' +
+    '<p class="font-bold text-slate-100 mb-1">' + esc(asunto) + '</p>' +
+    '<p>👤 Cliente: <strong>' + esc(cliente) + '</strong></p>' +
+    '<p>📍 Dirección: ' + esc(direccion) + '</p>';
+
+  var opts = '<option value="">— Selecciona técnico —</option>';
+  usersData.forEach(function(u) {
+    if (u.role === 'tecnico' || u.role === 'recorridos') {
+      var sector = getSectorDeTecnico(u.username) || u.area || '';
+      var info = ' · 📍 ' + sector + (u.onShift ? ' · 🟢 En turno' : '');
+      opts += '<option value="' + esc(u.username) + '">' + esc(u.fullName || u.username) + info + '</option>';
+    }
+  });
+  $('asignarTicketTecnico').innerHTML = opts;
+  $('asignarTicketPrioridad').value = (t.prioridad || 'normal').toLowerCase();
+  $('asignarTicketNotas').value = '';
+  openModal('asignarTicketModal');
+}
+
+function guardarAsignacionTicket() {
+  var ticketId = $('asignarTicketId').value;
+  var tecnicoUser = $('asignarTicketTecnico').value;
+  var prioridad = $('asignarTicketPrioridad').value;
+  var notas = $('asignarTicketNotas').value.trim();
+  if (!tecnicoUser) return showToast('Selecciona un técnico.', 'error');
+
+  var t = null;
+  for (var i = 0; i < ticketsData.length; i++) {
+    if (String(ticketsData[i].id || ticketsData[i].ticket_id) === String(ticketId)) {
+      t = ticketsData[i]; break;
+    }
+  }
+  if (!t) return showToast('Ticket no encontrado.', 'error');
+
+  var asignadoA = null;
+  for (var j = 0; j < usersData.length; j++) {
+    if (usersData[j].username === tecnicoUser) { asignadoA = usersData[j]; break; }
+  }
+
+  var assignment = {
+    id: 'ta_' + Date.now(),
+    ticketId: ticketId,
+    ticketAsunto: t.asunto || t.subject || 'Sin asunto',
+    ticketCliente: t.cliente || t.client || t.cliente_nombre || '—',
+    ticketDireccion: t.direccion || t.address || '—',
+    ticketTelefono: t.telefono || t.cliente_telefono || '',
+    tecnicoUser: tecnicoUser,
+    tecnicoNombre: asignadoA ? (asignadoA.fullName || asignadoA.username) : tecnicoUser,
+    sector: getSectorDeTecnico(tecnicoUser) || '—',
+    prioridad: prioridad,
+    notas: notas,
+    asignadoPor: currentUser.username,
+    asignadoPorNombre: currentUser.fullName || currentUser.username,
+    estado: 'pendiente',
+    ts: Date.now()
+  };
+
+  ticketAssignmentsData.push(assignment);
+  saveTicketAssignments();
+  logHistory('Ticket asignado', 'Ticket #' + ticketId + ' → ' + assignment.tecnicoNombre + ' (' + prioridad + ')', 'ok');
+  pushNotification('system', '🎫 Ticket asignado', 'Se te asignó el ticket #' + ticketId + ': ' + assignment.ticketAsunto + ' (' + assignment.ticketCliente + ')', prioridad, [tecnicoUser]);
+
+  closeModal('asignarTicketModal');
+  showToast('✅ Ticket asignado a ' + assignment.tecnicoNombre, 'ok');
+  vibrate([100, 50, 100]);
+  renderTickets(ticketsData);
+  if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') renderTecnicoHome();
+}
+
+function updateAssignmentStatus(assignId, newStatus) {
+  for (var i = 0; i < ticketAssignmentsData.length; i++) {
+    if (ticketAssignmentsData[i].id === assignId) {
+      ticketAssignmentsData[i].estado = newStatus;
+      ticketAssignmentsData[i].updatedTs = Date.now();
+      if (newStatus === 'completado') ticketAssignmentsData[i].completadoTs = Date.now();
+      break;
+    }
+  }
+  saveTicketAssignments();
+  logHistory('Estado de asignación', 'Ticket → ' + newStatus, 'info');
+  showToast('Estado actualizado: ' + newStatus, 'ok');
+  renderTecnicoHome();
+  if (currentUser.role === 'admin' || currentUser.role === 'soporte') renderTickets(ticketsData);
+}
+
+function getAssignmentsForTech(username) {
+  return ticketAssignmentsData.filter(function(a) { return a.tecnicoUser === username && a.estado !== 'completado'; });
+}
+function getAssignmentForTicket(ticketId) {
+  for (var i = ticketAssignmentsData.length - 1; i >= 0; i--) {
+    if (String(ticketAssignmentsData[i].ticketId) === String(ticketId) && ticketAssignmentsData[i].estado !== 'completado') return ticketAssignmentsData[i];
+  }
+  return null;
 }
 
 /* ============================================================
@@ -2926,16 +3230,13 @@ async function loadClientes() {
   if (!currentUser) return;
   var cont = $('clientesContainer'); if (!cont) return;
   var subtitle = $('clientesSubtitle');
-
   if (!wisphubConfigured()) {
     cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
     if (subtitle) subtitle.textContent = 'Sin configurar';
     return;
   }
-
   cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando clientes...</p></div>';
   if (subtitle) subtitle.textContent = 'Cargando...';
-
   try {
     var url = WISPHUB_BASE_URL + '/api/clientes';
     if (currentUser.role === 'tecnico') {
@@ -2950,7 +3251,7 @@ async function loadClientes() {
     logHistory('Clientes cargados', clientesData.length + ' registros', 'info');
   } catch (e) {
     console.error('Error clientes:', e);
-    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica URL/API Key y endpoint.</p></div>';
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p></div>';
     if (subtitle) subtitle.textContent = 'Error';
   }
 }
@@ -2959,9 +3260,7 @@ function filterClientes() {
   var q = ($('searchClientes') ? $('searchClientes').value : '').trim().toLowerCase();
   if (!q) return clientesData;
   return clientesData.filter(function(c) {
-    var txt = [(c.nombre || c.name || ''), (c.usuario || c.username || ''),
-               (c.email || ''), (c.telefono || c.phone || ''),
-               (c.plan || c.plan_name || c.servicio || '')].join(' ').toLowerCase();
+    var txt = [(c.nombre || c.name || ''), (c.usuario || c.username || ''), (c.email || ''), (c.telefono || c.phone || ''), (c.plan || c.plan_name || c.servicio || '')].join(' ').toLowerCase();
     return txt.indexOf(q) >= 0;
   });
 }
@@ -2997,21 +3296,32 @@ function renderClientes(list) {
     var saldo = cl.saldo !== undefined ? cl.saldo : (cl.adeudo !== undefined ? cl.adeudo : null);
     var initial = nombre.charAt(0).toUpperCase();
 
-    var estadoCls = estado.indexOf('activo') >= 0 ? 'viewer' :
-                    estado.indexOf('suspend') >= 0 ? 'tecnico' : 'viewer';
-
-    var phoneBtn = hasPhone(telefono)
-      ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Cliente\',\'' + esc(plan) + '\')" class="row-action-btn call"><i class="fa-solid fa-phone"></i></button>'
-      : '';
+    var estadoCls = estado.indexOf('activo') >= 0 ? 'viewer' : estado.indexOf('suspend') >= 0 ? 'tecnico' : 'viewer';
+    var phoneBtn = hasPhone(telefono) ? '<button onclick="event.stopPropagation();openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Cliente\',\'' + esc(plan) + '\')" class="row-action-btn call"><i class="fa-solid fa-phone"></i></button>' : '';
 
     var saldoHtml = '';
     if (saldo !== null && saldo !== undefined) {
       var saldoNum = parseFloat(saldo);
       if (!isNaN(saldoNum)) {
         var saldoCls = saldoNum > 0 ? 'text-rose-400' : 'text-emerald-400';
-        saldoHtml = '<span class="text-[10px] font-bold ' + saldoCls + '">' +
-                    (saldoNum > 0 ? '⚠️ Debe: $' + saldoNum.toFixed(2) : '✅ Al día') + '</span>';
+        saldoHtml = '<span class="text-[10px] font-bold ' + saldoCls + '">' + (saldoNum > 0 ? '⚠️ Debe: $' + saldoNum.toFixed(2) : '✅ Al día') + '</span>';
       }
+    }
+
+    // Vista simplificada para vendedor
+    if (currentUser.role === 'vendedor') {
+      html += '<div class="user-card">' +
+        '<div class="user-avatar tecnico">' + initial + '</div>' +
+        '<div class="min-w-0 flex-1">' +
+          '<p class="font-bold text-slate-100 text-sm truncate">' + esc(nombre) + '</p>' +
+          '<p class="text-xs text-slate-400 truncate mb-1.5">@' + esc(usuario) + '</p>' +
+          '<div class="flex items-center gap-2 flex-wrap">' +
+            (saldo !== null ? '<span class="text-xs font-bold ' + (saldo > 0 ? 'text-rose-400' : 'text-emerald-400') + '">' + (saldo > 0 ? '⚠️ Debe: $' + parseFloat(saldo).toFixed(2) : '✅ Al día') + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+        (saldo > 0 ? '<span class="text-[10px] font-bold text-rose-300 bg-rose-500/15 px-2 py-1 rounded border border-rose-500/30">PENDIENTE</span>' : '') +
+      '</div>';
+      return;
     }
 
     html += '<div class="user-card">' +
@@ -3021,12 +3331,10 @@ function renderClientes(list) {
           '<p class="font-bold text-slate-100 text-sm truncate">' + esc(nombre) + '</p>' +
           (saldoHtml ? saldoHtml : '') +
         '</div>' +
-        '<p class="text-xs text-slate-400 truncate mb-1.5">@' + esc(usuario) +
-          (hasPhone(telefono) ? ' · ' + esc(formatPhoneDisplay(telefono)) : '') + '</p>' +
+        '<p class="text-xs text-slate-400 truncate mb-1.5">@' + esc(usuario) + (hasPhone(telefono) ? ' · ' + esc(formatPhoneDisplay(telefono)) : '') + '</p>' +
         '<div class="flex items-center gap-1.5 flex-wrap">' +
           '<span class="user-role-pill viewer">' + esc(plan) + '</span>' +
-          '<span class="user-role-pill ' + (estado.indexOf('activo') >= 0 ? 'soporte' : 'tecnico') + '">' +
-            esc(estado) + '</span>' +
+          '<span class="user-role-pill ' + (estado.indexOf('activo') >= 0 ? 'soporte' : 'tecnico') + '">' + esc(estado) + '</span>' +
         '</div>' +
       '</div>' +
       '<div class="flex flex-col gap-1.5 flex-shrink-0">' + phoneBtn + '</div>' +
@@ -3043,16 +3351,13 @@ async function loadPreinstalaciones() {
   if (!currentUser) return;
   var cont = $('preinstalacionesContainer'); if (!cont) return;
   var sub = $('preinstalacionesSubtitle');
-
   if (!wisphubConfigured()) {
     cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-key" style="color:#fbbf24"></i><p>Debes configurar tu <strong>API Key</strong> y <strong>URL base</strong> de Wisphub en el código.</p></div>';
     if (sub) sub.textContent = 'Sin configurar';
     return;
   }
-
   cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Cargando preinstalaciones...</p></div>';
   if (sub) sub.textContent = 'Cargando...';
-
   try {
     var url = WISPHUB_BASE_URL + '/api/clientes/?estado_instalacion=8';
     if (currentUser.role === 'tecnico') {
@@ -3067,7 +3372,7 @@ async function loadPreinstalaciones() {
     logHistory('Preinstalaciones cargadas', preinstalacionesData.length + ' registros', 'info');
   } catch (e) {
     console.error('Error preinstalaciones:', e);
-    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p><p style="font-size:.7rem;margin-top:8px;color:#64748b">Verifica URL/API Key y endpoint.</p></div>';
+    cont.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-exclamation" style="color:#f87171"></i><p>Error: ' + esc(e.message) + '</p></div>';
     if (sub) sub.textContent = 'Error';
   }
 }
@@ -3076,19 +3381,8 @@ function filterPreinstalaciones() {
   var q = ($('searchPreinstalaciones') ? $('searchPreinstalaciones').value : '').trim().toLowerCase();
   var f = $('filterPreinstalacionEstado') ? $('filterPreinstalacionEstado').value : 'ALL';
   var list = preinstalacionesData.slice();
-  if (f !== 'ALL') {
-    list = list.filter(function(p) {
-      var est = (p.estado_instalacion || p.estado || '').toString().toLowerCase();
-      return est.indexOf(f) >= 0 || f === est;
-    });
-  }
-  if (q) {
-    list = list.filter(function(p) {
-      var txt = [(p.nombre || ''), (p.apellido || ''), (p.telefono || ''), (p.celular || ''),
-                 (p.direccion || ''), (p.servicio || '')].join(' ').toLowerCase();
-      return txt.indexOf(q) >= 0;
-    });
-  }
+  if (f !== 'ALL') list = list.filter(function(p) { var est = (p.estado_instalacion || p.estado || '').toString().toLowerCase(); return est.indexOf(f) >= 0 || f === est; });
+  if (q) list = list.filter(function(p) { var txt = [(p.nombre || ''), (p.apellido || ''), (p.telefono || ''), (p.celular || ''), (p.direccion || ''), (p.servicio || '')].join(' ').toLowerCase(); return txt.indexOf(q) >= 0; });
   return list;
 }
 
@@ -3123,14 +3417,9 @@ function renderPreinstalaciones(list) {
     var direccion = p.direccion || p.coordenadas || '—';
     var servicio = p.servicio || (p.plan_internet && p.plan_internet.nombre) || '—';
     var estado = (p.estado_instalacion || p.estado || 'nueva').toString().toLowerCase();
-
     var estadoCls = (estado.indexOf('terminada') >= 0 || estado === '4') ? 'aprobada' : 'pendiente';
-    var estadoIcon = (estado.indexOf('terminada') >= 0 || estado === '4') ? '✅' :
-                     (estado.indexOf('progreso') >= 0 || estado === '2') ? '🔄' : '🆕';
-
-    var phoneBtn = hasPhone(telefono)
-      ? '<button onclick="openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Preinstalación\',\'' + esc(servicio) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>'
-      : '';
+    var estadoIcon = (estado.indexOf('terminada') >= 0 || estado === '4') ? '✅' : (estado.indexOf('progreso') >= 0 || estado === '2') ? '🔄' : '🆕';
+    var phoneBtn = hasPhone(telefono) ? '<button onclick="openPhoneModal(\'' + esc(telefono) + '\',\'' + esc(nombre) + '\',\'Preinstalación\',\'' + esc(servicio) + '\')" class="phone-btn"><i class="fa-solid fa-phone"></i></button>' : '';
 
     html += '<div class="solicitud-card ' + estadoCls + '">' +
       '<div class="flex items-start justify-between gap-2 mb-2 flex-wrap">' +
@@ -3160,9 +3449,7 @@ function setupModalBackdropClose() {
   document.querySelectorAll('.modal-sheet').forEach(function(sheet) {
     if (sheet.dataset.tapClose === '1') return;
     sheet.dataset.tapClose = '1';
-    sheet.addEventListener('click', function(e) {
-      if (e.target === sheet) closeModal(sheet.id);
-    });
+    sheet.addEventListener('click', function(e) { if (e.target === sheet) closeModal(sheet.id); });
   });
 }
 function autoInjectCloseButtons() {
@@ -3185,7 +3472,7 @@ function showConfirm(text, cb) { $('confirmText').textContent = text; openModal(
 $('confirmOk').addEventListener('click', function() { closeModal('confirmModal'); if (confirmCallback) confirmCallback(); confirmCallback = null; });
 $('confirmCancel').addEventListener('click', function() { closeModal('confirmModal'); confirmCallback = null; });
 
-/* ============ DOMContentLoaded (SESIÓN PERSISTENTE) ============ */
+/* ============ DOMContentLoaded ============ */
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 Inicio');
   loadTheme();
@@ -3196,7 +3483,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('load', function() { setTimeout(hideSplash, 800); });
   setTimeout(hideSplash, 2500);
 
-  try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); loadNotifications(); } catch(e) { console.error(e); }
+  try { initRoles(); initUsers(); initSectors(); initMapsMeta(); initSolicitudes(); initTicketAssignments(); loadNotifications(); } catch(e) { console.error(e); }
   initMapsDB().catch(function(){});
   setupModalBackdropClose();
   setTimeout(autoInjectCloseButtons, 700);
@@ -3210,51 +3497,20 @@ document.addEventListener('DOMContentLoaded', function() {
       var u = null;
       for (var i = 0; i < usersData.length; i++) if (usersData[i].username === sess.username) { u = usersData[i]; break; }
       if (!u && sess.username && sess.role) {
-        u = {
-          username: sess.username, role: sess.role, label: sess.label || sess.role,
-          fullName: sess.fullName || sess.username, area: sess.area || 'OFICINA BIBLIAN',
-          nodosAsignados: Array.isArray(sess.nodosAsignados) ? sess.nodosAsignados : [],
-          sectorActual: sess.sectorActual || '', companeroActual: sess.companeroActual || '',
-          onShift: true, confirmado: true
-        };
+        u = { username: sess.username, role: sess.role, label: sess.label || sess.role, fullName: sess.fullName || sess.username, area: sess.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(sess.nodosAsignados) ? sess.nodosAsignados : [], sectorActual: sess.sectorActual || '', companeroActual: sess.companeroActual || '', onShift: true, confirmado: true };
       }
       if (u) {
-        currentUser = {
-          username: u.username, role: u.role,
-          label: u.label || getRoleLabel(u.role),
-          fullName: u.fullName || u.username,
-          area: u.area || 'OFICINA BIBLIAN',
-          nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [],
-          sectorActual: u.sectorActual || '',
-          companeroActual: u.companeroActual || ''
-        };
-        try {
-          entrarApp();
-          restored = true;
-          console.log('✅ Sesión restaurada:', currentUser.username);
-        } catch(err) {
-          console.error('❌ Error entrarApp:', err);
-          try { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('appContainer').classList.remove('hidden'); } catch(e2){}
-          restored = true;
-        }
-      } else {
-        console.warn('⚠️ Sesión con datos inválidos, limpiando');
-        try { localStorage.removeItem(LS_SESSION); } catch(e) {}
-      }
-    } catch(e) {
-      console.error('❌ Error parseando sesión:', e);
-      try { localStorage.removeItem(LS_SESSION); } catch(e2) {}
-    }
+        currentUser = { username: u.username, role: u.role, label: u.label || getRoleLabel(u.role), fullName: u.fullName || u.username, area: u.area || 'OFICINA BIBLIAN', nodosAsignados: Array.isArray(u.nodosAsignados) ? u.nodosAsignados.slice() : [], sectorActual: u.sectorActual || '', companeroActual: u.companeroActual || '' };
+        try { entrarApp(); restored = true; console.log('✅ Sesión restaurada:', currentUser.username); } catch(err) { console.error('❌ Error entrarApp:', err); try { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('appContainer').classList.remove('hidden'); } catch(e2){} restored = true; }
+      } else { console.warn('⚠️ Sesión inválida, limpiando'); try { localStorage.removeItem(LS_SESSION); } catch(e) {} }
+    } catch(e) { console.error('❌ Error parseando sesión:', e); try { localStorage.removeItem(LS_SESSION); } catch(e2) {} }
   }
 
-  if (!restored) {
-    var lg2 = document.getElementById('loginScreen');
-    if (lg2) lg2.style.display = 'flex';
-  }
+  if (!restored) { var lg2 = document.getElementById('loginScreen'); if (lg2) lg2.style.display = 'flex'; }
   clearTimeout(safety);
   hideSplash();
 
-  Promise.all([fbLoad('users'), fbLoad('sectors'), fbLoad('squads'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta'), fbLoadNotifications(), fbLoadHistory()]).then(function(res) {
+  Promise.all([fbLoad('users'), fbLoad('sectors'), fbLoad('squads'), fbLoad('roles'), fbLoad('solicitudes'), fbLoad('mapsMeta'), fbLoadNotifications(), fbLoadHistory(), fbLoad('ticketAssignments')]).then(function(res) {
     if (Array.isArray(res[0]) && res[0].length) { usersData = res[0]; try { localStorage.setItem(LS_USERS, JSON.stringify(res[0])); } catch(e){} }
     if (Array.isArray(res[1]) && res[1].length) { sectorsData = res[1]; try { localStorage.setItem(LS_SECTORS, JSON.stringify(res[1])); } catch(e){} }
     if (Array.isArray(res[2]) && res[2].length) { squadsData = res[2]; try { localStorage.setItem(LS_KEY, JSON.stringify(res[2])); } catch(e){} }
@@ -3263,18 +3519,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (Array.isArray(res[5])) { mapsMeta = res[5]; try { localStorage.setItem(LS_MAPS, JSON.stringify(res[5])); } catch(e){} }
     if (Array.isArray(res[6])) { notificationsData = res[6].filter(function(n) { return n && !n._empty && n.id; }); try { localStorage.setItem(LS_NOTIF, JSON.stringify(notificationsData)); } catch(e){} }
     if (Array.isArray(res[7]) && res[7].length) { var cut = Date.now() - LOG_MAX_DAYS * 24 * 60 * 60 * 1000; try { localStorage.setItem(LS_HISTORY, JSON.stringify(res[7].filter(function(h) { return h.ts >= cut; }).sort(function(a,b) { return a.ts - b.ts; }))); } catch(e){} }
+    if (Array.isArray(res[8]) && res[8].length) { ticketAssignmentsData = res[8]; try { localStorage.setItem(LS_TICKET_ASSIGN, JSON.stringify(res[8])); } catch(e){} }
     setCloudStatus(true);
     if (currentUser) {
       try {
-        renderSquads();
-        renderUsersList();
-        renderSolicitudes(true);
-        renderSectorsList();
-        renderMaps();
-        renderInlineReport();
-        updateNotificationUI();
-        updateShiftUI();
-        if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos') {
+        renderSquads(); renderUsersList(); renderSolicitudes(true); renderSectorsList();
+        renderMaps(); renderInlineReport(); updateNotificationUI(); updateShiftUI();
+        if (currentUser.role === 'tecnico' || currentUser.role === 'recorridos' || currentUser.role === 'vendedor') {
           renderTecnicoHome();
           setTimeout(checkMyResolutions, 1500);
         }
